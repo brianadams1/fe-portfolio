@@ -1,6 +1,6 @@
 <template>
-    <div class="font-bold text-red-500">
-        ini index
+    <div class="bg-sky-200 min-h-screen">
+        <button class="btn btn-primary">button</button>
     </div>
 </template>
 
