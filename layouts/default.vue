@@ -10,28 +10,28 @@
         <div
           class="icons rounded-full border-2 border-neutral p-5 flex flex-col gap-6 text-center"
         >
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Home">
+          <NuxtLink to="/" class="tooltip tooltip-left cursor-pointer" data-tip="Home">
             <LucideHome :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Profile">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#profile'}" class="tooltip tooltip-left cursor-pointer" data-tip="Profile">
             <LucideUserRound :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Projects">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#projects'}" class="tooltip tooltip-left cursor-pointer" data-tip="Projects">
             <LucideFolder :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="About">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#about'}" class="tooltip tooltip-left cursor-pointer" data-tip="About">
             <LucideBarChartHorizontal
               :size="18"
               class="text-white hover:text-accent"
             />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Skills">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#skills'}" class="tooltip tooltip-left cursor-pointer" data-tip="Skills">
             <LucideWaypoints :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Portfolio">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#portfolio'}" class="tooltip tooltip-left cursor-pointer" data-tip="Portfolio">
             <LucideScrollText :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#testimonial'}"
             class="tooltip tooltip-left cursor-pointer"
             data-tip="Testimonial"
           >
@@ -39,16 +39,16 @@
               :size="18"
               class="text-white hover:text-accent"
             />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Contact">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#contact'}" class="tooltip tooltip-left cursor-pointer" data-tip="Contact">
             <LucideSend :size="18" class="text-white hover:text-accent" />
-          </div>
-          <div class="tooltip tooltip-left cursor-pointer" data-tip="Resume">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#resume'}" class="tooltip tooltip-left cursor-pointer" data-tip="Resume">
             <LucideLayoutPanelLeft
               :size="18"
               class="text-white hover:text-accent"
             />
-          </div>
+          </NuxtLink>
         </div>
       </div>
       <!-- SIDE MENU TOGGLE BUTTON -->
@@ -78,77 +78,82 @@
         <ul class="menu">
           <!-- Sidebar content here -->
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" to="/">
               <LucideHome :size="18" class="text-accent" />
               Home
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#profile'}">
               <LucideUserRound :size="18" class="text-accent" />
               Profile
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#projects'}">
               <LucideFolder :size="18" class="text-accent" />
               Projects
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#about'}">
               <LucideBarChartHorizontal :size="18" class="text-accent" />
 
               About
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#skills'}">
               <LucideWaypoints :size="18" class="text-accent" />
 
               Skills
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#portfolio'}">
               <LucideScrollText :size="18" class="text-accent" />
 
               Portfolio
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#testimonial'}">
               <LucideMessageSquareHeart :size="18" class="text-accent" />
               Testimonial
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#contact'}">
               <LucideSend :size="18" class="text-accent" />
 
               Contact
-            </a></li
+            </NuxtLink></li
           >
           <li
-            ><a class="flex gap items-start hover:text-accent" href="#">
+            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#resume'}">
               <LucideLayoutPanelLeft :size="18" class="text-accent" />
               Resume
-            </a></li
+            </NuxtLink></li
           >
         </ul>
         <div class="px-4 text-2xl py-2"> Social </div>
         <div class="menu flex-row gap-4">
-          <a href="#">
+          <NuxtLink :to="{path: '/', hash: '#'}">
             <LucideInstagram :size="16" class="text-accent" />
-          </a>
-          <a href="#">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#'}">
             <LucideTwitter :size="16" class="text-accent" />
-          </a>
-          <a href="#">
+          </NuxtLink>
+          <NuxtLink :to="{path: '/', hash: '#'}">
             <LucideGlobe-2 :size="16" class="text-accent" />
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style>
+html{
+scroll-behavior: smooth;
+}
+</style>
