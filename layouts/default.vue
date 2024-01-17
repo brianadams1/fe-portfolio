@@ -65,7 +65,7 @@
   </div>
   <!-- MOBILE MENU DRAWER -->
   <div class="drawer drawer-end" data-theme="sunset">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <input v-model="toggleDrawer" id="my-drawer-4" type="checkbox" class="drawer-toggle" />
 
     <div class="drawer-side overflow-hidden">
       <label
@@ -78,59 +78,59 @@
         <ul class="menu">
           <!-- Sidebar content here -->
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" to="/">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" to="/">
               <LucideHome :size="18" class="text-accent" />
               Home
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#profile'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#profile'}">
               <LucideUserRound :size="18" class="text-accent" />
               Profile
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#projects'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#projects'}">
               <LucideFolder :size="18" class="text-accent" />
               Projects
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#about'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#about'}">
               <LucideBarChartHorizontal :size="18" class="text-accent" />
 
               About
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#skills'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#skills'}">
               <LucideWaypoints :size="18" class="text-accent" />
 
               Skills
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#portfolio'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#portfolio'}">
               <LucideScrollText :size="18" class="text-accent" />
 
               Portfolio
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#testimonial'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#testimonial'}">
               <LucideMessageSquareHeart :size="18" class="text-accent" />
               Testimonial
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#contact'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#contact'}">
               <LucideSend :size="18" class="text-accent" />
 
               Contact
             </NuxtLink></li
           >
           <li
-            ><NuxtLink class="flex gap items-start hover:text-accent" :to="{path: '/', hash: '#resume'}">
+            ><NuxtLink class="flex gap items-start hover:text-accent" @click="toggleDrawer = !toggleDrawer" :to="{path: '/', hash: '#resume'}">
               <LucideLayoutPanelLeft :size="18" class="text-accent" />
               Resume
             </NuxtLink></li
@@ -157,3 +157,8 @@ html{
 scroll-behavior: smooth;
 }
 </style>
+<script setup>
+// reactive boolean
+// toggle for open/close drawer
+const toggleDrawer = ref(false)
+</script>
