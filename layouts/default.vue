@@ -26,7 +26,7 @@
       </div>
       <!-- SIDE MENU TOGGLE BUTTON -->
     </div>
-    <div class="drawer-content fixed right-8 md:hidden">
+    <div class="drawer-content fixed right-8 md:hidden z-10">
       <!-- Page content here -->
       <label
         for="my-drawer-4"
@@ -152,15 +152,15 @@
         </ul>
         <div class="px-4 text-2xl py-2"> Social </div>
         <div class="menu flex-row gap-4">
-          <NuxtLink :to="{ path: '/', hash: '#' }">
+          <a href="https://instagram.com" target="_blank">
             <LucideInstagram :size="16" class="text-accent" />
-          </NuxtLink>
-          <NuxtLink :to="{ path: '/', hash: '#' }">
+          </a>
+          <a href="https://twitter.com" target="_blank">
             <LucideTwitter :size="16" class="text-accent" />
-          </NuxtLink>
-          <NuxtLink :to="{ path: '/', hash: '#' }">
+          </a>
+          <a href="https://google.com" target="_blank">
             <LucideGlobe-2 :size="16" class="text-accent" />
-          </NuxtLink>
+          </a>
         </div>
       </div>
     </div>
@@ -232,4 +232,5 @@ const menus = [
     icon: resolveComponent("LucideLayoutPanelLeft"),
   },
 ];
+
 </script>
