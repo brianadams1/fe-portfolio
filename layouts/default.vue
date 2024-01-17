@@ -55,9 +55,9 @@
         <div class="px-4 text-2xl">Menu</div>
         <ul class="menu">
           <!-- Sidebar content here -->
-          <li v-for="menu in menus"
+          <li v-for="menu in menus" class="my-2"
             ><NuxtLink
-              class="flex gap items-start hover:text-accent"
+              class="flex gap-2 items-start hover:text-accent"
               @click="toggleDrawer = !toggleDrawer"
               :to="{ path: menu.path, hash: menu.hash }"
             >
@@ -65,90 +65,6 @@
               {{ menu.title }}
             </NuxtLink></li
           >
-          <!-- <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#profile' }"
-            >
-              <LucideUserRound :size="18" class="text-accent" />
-              Profile
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#projects' }"
-            >
-              <LucideFolder :size="18" class="text-accent" />
-              Projects
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#about' }"
-            >
-              <LucideBarChartHorizontal :size="18" class="text-accent" />
-
-              About
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#skills' }"
-            >
-              <LucideWaypoints :size="18" class="text-accent" />
-
-              Skills
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#portfolio' }"
-            >
-              <LucideScrollText :size="18" class="text-accent" />
-
-              Portfolio
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#testimonial' }"
-            >
-              <LucideMessageSquareHeart :size="18" class="text-accent" />
-              Testimonial
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#contact' }"
-            >
-              <LucideSend :size="18" class="text-accent" />
-
-              Contact
-            </NuxtLink></li
-          >
-          <li
-            ><NuxtLink
-              class="flex gap items-start hover:text-accent"
-              @click="toggleDrawer = !toggleDrawer"
-              :to="{ path: '/', hash: '#resume' }"
-            >
-              <LucideLayoutPanelLeft :size="18" class="text-accent" />
-              Resume
-            </NuxtLink></li
-          > -->
         </ul>
         <div class="px-4 text-2xl py-2"> Social </div>
         <div class="menu flex-row gap-4">
@@ -232,5 +148,4 @@ const menus = [
     icon: resolveComponent("LucideLayoutPanelLeft"),
   },
 ];
-
 </script>
