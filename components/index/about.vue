@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen py-12" id="about">
     <div
-      class="rounded-2xl border border-neutral w-fit px-4 py-1 flex gap-2 items-center"
+      class="rounded-2xl border border-neutral text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase"
     >
       <LucideBarChartHorizontal :size="16" />
 
