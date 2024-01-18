@@ -9,7 +9,7 @@
 
     <!-- SECTIONS -->
     <div
-      class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:pr-20 xl:px-40 bg-red-400"
+      class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:pr-20 xl:px-40"
     >
       <IndexHome />
       <IndexProfile />
