@@ -1,0 +1,22 @@
+<template>
+  <div class="min-h-screen py-12" id="blog">
+    <div
+      class="rounded-2xl border border-neutral text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase"
+    >
+      <LucideSend :size="16" />
+
+      Blog
+    </div>
+    <div class="flex flex-col gap-6 mt-10">
+      <!-- blog list -->
+      <div class="grid grid-cols-10 gap-3" v-for="n in 4" :key="n">
+        <!-- image -->
+        <div class="aspect-video bg-neutral col-span-3 rounded-lg"></div>
+        <div class="col-span-7">
+          <div class="text-2xl font-semibold">Judul Blog</div>
+          <div class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum voluptates ipsam ducimus, perspiciatis nisi necessitatibus soluta esse? Excepturi, nisi laborum.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
