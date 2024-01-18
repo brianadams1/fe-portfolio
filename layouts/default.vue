@@ -95,57 +95,45 @@ const toggleDrawer = ref(false);
 const menus = [
   {
     path: "/",
-    hash: "",
+    hash: "#home",
     title: "Home",
     icon: resolveComponent("LucideHome"),
   },
   {
     path: "/",
-    hash: "#profile",
-    title: "Profile",
+    hash: "#about",
+    title: "About",
     icon: resolveComponent("LucideUserRound"),
   },
   {
     path: "/",
-    hash: "#projects",
-    title: "Projects",
-    icon: resolveComponent("LucideFolder"),
-  },
-  {
-    path: "/",
-    hash: "#about",
-    title: "About",
-    icon: resolveComponent("LucideBarChartHorizontal"),
-  },
-  {
-    path: "/",
-    hash: "#skills",
-    title: "Skills",
-    icon: resolveComponent("LucideWaypoints"),
-  },
-  {
-    path: "/",
-    hash: "#portfolio",
-    title: "Porfolio",
-    icon: resolveComponent("LucideScrollText"),
-  },
-  {
-    path: "/",
-    hash: "#testimonial",
-    title: "Testimonial",
-    icon: resolveComponent("LucideMessageSquareHeart"),
-  },
-  {
-    path: "/",
-    hash: "#contact",
-    title: "Contact",
-    icon: resolveComponent("LucideSend"),
+    hash: "#blog",
+    title: "Blog",
+    icon: resolveComponent("LucideNewspaper"),
   },
   {
     path: "/",
     hash: "#resume",
     title: "Resume",
+    icon: resolveComponent("LucideBriefcase"),
+  },
+  {
+    path: "/",
+    hash: "#education",
+    title: "Education",
+    icon: resolveComponent("LucideGraduation-Cap"),
+  },
+  {
+    path: "/",
+    hash: "#project",
+    title: "Project",
     icon: resolveComponent("LucideLayoutPanelLeft"),
+  },
+  {
+    path: "/",
+    hash: "#skill",
+    title: "Skill",
+    icon: resolveComponent("LucideWrench"),
   },
 ];
 </script>
