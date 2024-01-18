@@ -1,7 +1,7 @@
 <template>
-  <div class="flex min-h-screen text-default" data-theme="sunset">
+  <div class="flex min-h-screen text-default" data-theme="business">
     <!-- MAIN CONTENT -->
-    <div class="min-h-screen grow grid grid-cols-10">
+    <div class="min-h-screen grow">
       <slot></slot>
     </div>
     <!-- SIDE MENU -->
