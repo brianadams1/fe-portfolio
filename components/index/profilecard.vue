@@ -5,7 +5,7 @@
     <div class="flex w-full p-12 rounded-[35px] flex-col gap-6 border">
       <!-- title -->
       <div class="flex justify-between items-end mb-2">
-        <div class="text-3xl font-medium">Drake</div>
+        <div class="text-4xl font-medium">Drake</div>
         <div class="text-right text-base font-medium"
           >Framer Design <br />
           & Developer
