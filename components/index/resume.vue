@@ -9,7 +9,7 @@
     </div>
     <div class="flex flex-col gap-6 mt-10">
       <p class="text-5xl font-light"
-        >Education & <span class="text-info">Experience</span></p
+        ><span class="text-info">Experience</span></p
       >
       <div class="flex gap-12" v-for="n in 2">
         <div class="flex flex-col items-center">
@@ -17,7 +17,6 @@
           <div class="w-px grow bg-neutral"></div>
         </div>
         <div class="mb-5">
-
           <div class="text-white/50 mb-5">2020 - Present</div>
           <div class="flex flex-col gap-6 mb-10">
             <div class="flex flex-col gap-3">
