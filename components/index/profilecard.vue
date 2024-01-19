@@ -37,7 +37,7 @@
           v-for="s in socials"
           class="rounded-full p-4 md:py-2 md:px-3 border border-white/25"
         >
-          <NuxtLink :to="{ path: s.path }">
+          <NuxtLink :to="s.path" target="_blank">
             <component :is="s.icon" class="text-default md:w-4" />
           </NuxtLink>
         </div>
@@ -55,19 +55,19 @@
 <script setup>
 const socials = [
   {
-    path: "https://instagram.com",
+    path: "https://www.instagram.com",
     icon: resolveComponent("LucideInstagram"),
   },
   {
-    path: "https://instagram.com",
+    path: "https://www.twitter.com",
     icon: resolveComponent("LucideTwitter"),
   },
   {
-    path: "https://instagram.com",
+    path: "https://www.google.com",
     icon: resolveComponent("LucideGlobe-2"),
   },
   {
-    path: "https://instagram.com",
+    path: "https://www.github.com",
     icon: resolveComponent("LucideGithub"),
   },
 ];
