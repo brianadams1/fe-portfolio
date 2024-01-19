@@ -11,20 +11,25 @@
       <p class="text-5xl font-light"
         ><span class="text-info">Experience</span></p
       >
-      <div class="flex gap-12" v-for="n in 2">
+      <div class="flex gap-12 group" v-for="n in 2">
         <div class="flex flex-col items-center">
-          <LucideCircle :size="12" class="fill-neutral" />
+          <LucideCircle
+            :size="12"
+            class="fill-neutral stroke-non group-hover:fill-accent"
+          />
           <div class="w-px grow bg-neutral"></div>
         </div>
         <div class="mb-5">
-          <div class="text-white/50 mb-5">2020 - Present</div>
+          <div class="group-hover:text-accent text-white/50 mb-5"
+            >2020 - Present</div
+          >
           <div class="flex flex-col gap-6 mb-10">
             <div class="flex flex-col gap-3">
-              <div class="text-2xl">Framer Desinger & Developer</div>
+              <div class="text-4xl">Framer Desinger & Developer</div>
               <div class="text-sm text-white/50">Brunodee Agency</div>
             </div>
             <div class="flex flex-col gap-3">
-              <div class="text-2xl">Front-End WordPress Developer</div>
+              <div class="text-4xl">Front-End WordPress Developer</div>
               <div class="text-sm text-white/50">Envato Market</div>
             </div>
           </div>

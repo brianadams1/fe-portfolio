@@ -1,17 +1,41 @@
 <template>
   <div class="min-h-screen py-12" id="education">
     <div
-      class="rounded-2xl border border-neutral text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase"
+      class="rounded-2xl border text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase border-neutral"
     >
-      <LucideGraduationCap :size="16" />
+      <LucideBarChartHorizontal :size="12" />
 
-      Education
+      Resume
     </div>
-    <p
-      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-      necessitatibus facere praesentium modi ratione cupiditate optio ea
-      accusamus, nobis voluptates? Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Explicabo, placeat!</p
-    >
+    <div class="flex flex-col gap-6 mt-10">
+      <p class="text-5xl font-light"
+        ><span class="text-info">Education</span></p
+      >
+      <div class="flex gap-12 group" v-for="n in 2">
+        <div class="flex flex-col items-center">
+          <LucideCircle
+            :size="12"
+            class="fill-neutral stroke-non group-hover:fill-accent"
+          />
+          <div class="w-px grow bg-neutral"></div>
+        </div>
+        <div class="mb-5">
+          <div class="group-hover:text-accent text-white/50 mb-5"
+            >2020 - Present</div
+          >
+          <div class="flex flex-col gap-6 mb-10">
+            <div class="flex flex-col gap-3">
+              <div class="text-4xl">Framer Desinger & Developer</div>
+              <div class="text-sm text-white/50">Brunodee Agency</div>
+            </div>
+            <div class="flex flex-col gap-3">
+              <div class="text-4xl">Front-End WordPress Developer</div>
+              <div class="text-sm text-white/50">Envato Market</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script setup></script>
