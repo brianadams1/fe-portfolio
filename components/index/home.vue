@@ -6,10 +6,13 @@
       <LucideHome :size="12" />
       introduce
     </div>
-    <p class="lg:text-6xl xl:text-7xl font-light mt-20 leading-tight">
+    <p class="lg:text-6xl xl:text-7xl mt-20 leading-tight">
       Say Hi from <span class="text-info">Drake</span>, Webflow Designer and
       Developer
     </p>
-    <p class="mt-10 text-white/25">I design and code beautifully simple things and i love what i do. Just simple like that!</p>
+    <p class="mt-10 text-white/25"
+      >I design and code beautifully simple things and i love what i do. Just
+      simple like that!</p
+    >
   </div>
 </template>

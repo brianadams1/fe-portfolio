@@ -5,7 +5,7 @@
     >
       <LucideBarChartHorizontal :size="12" />
 
-      Resume
+      Education
     </div>
     <div class="flex flex-col gap-6 mt-10">
       <p class="text-5xl font-light"

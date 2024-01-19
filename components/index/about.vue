@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen py-12" id="about">
+  <div class="min-h-screen py-12 flex flex-col" id="about">
     <div
       class="rounded-2xl border border-neutral text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase"
     >
@@ -7,11 +7,11 @@
 
       About
     </div>
-    <div class="flex flex-col gap-6 mt-10">
-      <p class="text-5xl font-semibold"
-        >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente,
-        vitae.</p
-      >
+    <div class="flex flex-col gap-12 mt-10 grow">
+      <p class="lg:text-6xl xl:text-7xl leading-tight">
+        Say Hi from <span class="text-info">Drake</span>, Webflow Designer and
+        Developer
+      </p>
       <p class="font-light"
         >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam illo
         fuga natus ab ut similique neque veritatis harum, saepe fugit eius qui
@@ -20,6 +20,22 @@
         impedit inventore, ratione mollitia exercitationem possimus quos quam
         hic!</p
       >
+      <div class="flex gap-20 grow items-end pb-10">
+        <div>
+          <div class="text-accent text-4xl font-semibold">10+</div>
+          <div class="uppercase"
+            >years of <br />
+            experience</div
+          >
+        </div>
+        <div>
+          <div class="text-accent text-4xl font-semibold">10+</div>
+          <div class="uppercase"
+            >projects <br />
+            completed</div
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
