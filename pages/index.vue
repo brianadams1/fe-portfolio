@@ -14,7 +14,7 @@
       <IndexHome />
       <IndexAbout />
       <IndexBlog />
-      <IndexResume />
+      <IndexExperience />
       <IndexEducation/>
       <IndexProject />
       <IndexSkill />
