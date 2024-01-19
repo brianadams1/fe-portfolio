@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen py-12" id="resume">
+  <div class="min-h-screen py-12" id="experience">
     <div
       class="rounded-2xl border text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase border-neutral"
     >
       <LucideBarChartHorizontal :size="12" />
 
-      Resume
+      Experience
     </div>
     <div class="flex flex-col gap-6 mt-10">
       <p class="text-5xl font-light"
