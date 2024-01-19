@@ -8,20 +8,25 @@
     </div>
     <div class="mt-10">
       <p class="text-4xl font-semibold mb-6">
-        Every great <span class="text-info">Projects</span> begin with skills to <span class="text-accent">Learn</span>
+        Every great <span class="text-secondary">Projects</span> begin with skills to
+        <span class="text-accent">Learn</span>
       </p>
       <div v-for="m in 4" class="mb-10">
         <div class="font-semibold uppercase text-secondary mb-2"
           >SKILL CATEGORY</div
         >
         <div class="flex gap-6 flex-wrap">
-          <div v-for="n in 10">
+          <div v-for="n in 10" class="group">
             <div
-              class="aspect-square bg-neutral w-16 rounded-md flex items-center justify-center"
+              class="aspect-square bg-neutral w-16 rounded-md flex items-center justify-center group-hover:scale-110 duration-300"
             >
               <LucideWrench :size="28" />
             </div>
-            <div class="text-center"> Skill {{ n }} </div>
+            <div
+              class="text-center group-hover:text-accent text-sm text-nowrap"
+            >
+              Skill {{ n }}
+            </div>
           </div>
         </div>
       </div>
