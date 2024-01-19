@@ -32,17 +32,19 @@
         >
       </div>
       <!-- social -->
-      <div class="flex md:gap-1 lg:gap-2 mx-auto pb-2 gap-4 text-white/50">
+      <div
+        class="flex flex-wrap md:gap-1 lg:gap-2 mx-auto pb-2 gap-2 text-white/50"
+      >
         <div
           v-for="s in socials"
           class="rounded-full p-4 md:py-2 md:px-3 border border-white/25"
         >
           <NuxtLink :to="s.path" target="_blank">
-            <component :is="s.icon" class="text-default md:w-4" />
+            <component :is="s.icon" class="text-default md:w-4 w-5" />
           </NuxtLink>
         </div>
       </div>
-      <!-- button -->
+      <!-- hire me button -->
       <button
         class="btn bg-green-200 flex items-center justify-center gap-3 rounded-full text-neutral"
       >

@@ -15,7 +15,7 @@
       <IndexAbout />
       <IndexBlog />
       <IndexExperience />
-      <IndexEducation/>
+      <IndexEducation />
       <IndexProject />
       <IndexSkill />
     </div>

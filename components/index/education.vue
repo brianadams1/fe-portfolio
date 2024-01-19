@@ -25,11 +25,15 @@
           >
           <div class="flex flex-col gap-6 mb-10">
             <div class="flex flex-col gap-3">
-              <div class="text-4xl">Framer Desinger & Developer</div>
+              <div class="text-xl lg:text-4xl md:text-2xl"
+                >Framer Desinger & Developer</div
+              >
               <div class="text-sm text-white/50">Brunodee Agency</div>
             </div>
             <div class="flex flex-col gap-3">
-              <div class="text-4xl">Front-End WordPress Developer</div>
+              <div class="text-xl lg:text-4xl md:text-2xl"
+                >Front-End WordPress Developer</div
+              >
               <div class="text-sm text-white/50">Envato Market</div>
             </div>
           </div>

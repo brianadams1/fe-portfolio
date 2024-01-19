@@ -24,12 +24,12 @@
           </NuxtLink>
         </div>
       </div>
-      <!-- SIDE MENU TOGGLE BUTTON -->
     </div>
+    <!-- SIDE MENU TOGGLE BUTTON -->
     <div class="drawer-content fixed right-8 md:hidden z-10">
       <!-- Page content here -->
       <label
-        for="my-drawer-4"
+        @click="toggleDrawer = !toggleDrawer"
         class="drawer-button btn border-neutral btn-circle mt-10 btn-outline"
       >
         <LucideMenu :size="22" class="" />
@@ -40,21 +40,20 @@
   <div class="drawer drawer-end" data-theme="sunset">
     <input
       v-model="toggleDrawer"
-      id="my-drawer-4"
+      @click="toggleDrawer = !toggleDrawer"
       type="checkbox"
       class="drawer-toggle"
     />
 
     <div class="drawer-side overflow-hidden">
       <label
-        for="my-drawer-4"
+        @click="toggleDrawer = !toggleDrawer"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
       <div class="menu p-14 w-80 min-h-full bg-base-200 text-base-content">
         <div class="px-4 text-2xl">Menu</div>
         <ul class="menu">
-          <!-- Sidebar content here -->
           <li v-for="menu in menus" class="my-2"
             ><NuxtLink
               class="flex gap-2 items-start hover:text-accent"
