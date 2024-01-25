@@ -21,6 +21,9 @@
     </div>
   </div>
 </template>
-<!-- <script setup></script>
+<script setup>
+console.log("Load Dataa================")
+await useFetch("http://localhost:5000/portfolio");
+</script>
 
-<style scoped></style> -->
+<style scoped></style>
