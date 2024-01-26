@@ -7,9 +7,9 @@
     >
       <!-- title -->
       <div class="flex justify-between items-end mb-2">
-        <div class="xl:text-3xl md:text-xl text-xl lg:text-2xl font-medium"
-          >{{ profile.firstName }} {{ profile.lastName }}</div
-        >
+        <div class="xl:text-3xl md:text-xl text-xl lg:text-2xl font-medium">{{
+          fullName
+        }}</div>
         <div class="text-right text-sm xl:text-base font-medium"
           >{{ profile.job }}
         </div>
@@ -17,7 +17,7 @@
       <!-- picture -->
       <div
         v-if="profile.avatar"
-        class="flex justify-center items-center aspect-square bg-neutral-200 rounded-2xl w-[60%]  md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto overflow-hidden"
+        class="flex justify-center items-center aspect-square bg-neutral-200 rounded-2xl w-[60%] md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto overflow-hidden"
       >
         <img
           :src="apiUri + profile.avatar"
@@ -33,8 +33,8 @@
       </div>
       <!-- info -->
       <div class="text-center mt-5">
-        <div class="sm:text-xl text-sm xl:text-lg text-white">
-          <p class="mb-2 text-wrap">{{ profile.email }}</p>
+        <div class="sm:text-md text-sm xl:text-lg text-white">
+          <p class="mb-2 text-ellipsis overflow-hidden">{{ profile.email }}</p>
           <p>{{ profile.city }}, {{ profile.country }}</p>
         </div>
         <p class="mt-8 text-sm text-white/50"
@@ -125,6 +125,11 @@
 const props = defineProps({
   profile: Object,
 });
+
+const fullName = computed(() => {
+  return `${props.profile.firstName} ${props.profile.lastName}`;
+});
+
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 </script>
