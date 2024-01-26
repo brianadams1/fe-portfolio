@@ -27,9 +27,9 @@
       </div>
       <div
         v-else
-        class="flex justify-center items-center aspect-square bg-neutral-200 rounded-2xl w-full md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto"
+        class=" aspect-square bg-neutral-200 rounded-2xl w-full md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto"
       >
-        <LucideUserRound :size="20" />
+        
       </div>
       <!-- info -->
       <div class="text-center mt-5">
