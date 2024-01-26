@@ -10,15 +10,10 @@
     <div class="flex flex-col gap-12 mt-10 grow">
       <p class="md:max-lg:text-5xl text-6xl xl:text-7xl leading-tight">
         Say Hi from <span class="text-info">{{ profile.firstName }}</span
-        >, Webflow Designer and Developer
+        >,<br> {{profile.job}}
       </p>
       <p class="font-light text-white/25"
-        >Since beginning my journey as a freelance designer nearly 8 years ago,
-        I've done remote work for agencies, consulted for startups, and
-        collaborated with talented people to create digital products for both
-        business and consumer use. I'm quietly confident, naturally curious, and
-        perpetually working on improving my chopsone design problem at a
-        time.</p
+        >{{profile.bio}}</p
       >
       <div class="flex gap-20 grow items-end pb-10">
         <div>
