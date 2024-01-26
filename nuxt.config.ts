@@ -11,6 +11,12 @@ export default defineNuxtConfig({
   modules:[
 
     'nuxt-lucide-icons'
-  ]
+  ],
+  runtimeConfig: {
+    apiUri: '', // can be overridden by NUXT_API_URI environment variable
+    public: {
+      apiUri: '', // can be overridden by NUXT_PUBLIC_API_URI environment variable
+    }
+  },
   
 })
