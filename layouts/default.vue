@@ -5,8 +5,8 @@
       <slot></slot>
     </div>
     <!-- SIDE MENU -->
-    <DefaultlayoutSidemenu/>
-   
+    <DefaultlayoutSidemenu :menus="menus" />
+
     <!-- SIDE MENU TOGGLE BUTTON -->
     <div class="drawer-content fixed right-8 md:hidden z-10">
       <!-- Page content here -->
@@ -19,7 +19,7 @@
     </div>
   </div>
   <!-- MOBILE MENU DRAWER -->
- <DefaultlayoutMenudrawer :toggleDrawer="toggleDrawer" :menus="menus"/>
+  <DefaultlayoutMenudrawer :toggleDrawer="toggleDrawer" :menus="menus" />
 </template>
 <style>
 html {
@@ -32,12 +32,6 @@ html {
 const toggleDrawer = ref(false);
 
 const menus = [
-  {
-    path: "/",
-    hash: "#home",
-    title: "Home",
-    icon: resolveComponent("LucideHome"),
-  },
   {
     path: "/",
     hash: "#about",
