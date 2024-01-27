@@ -21,7 +21,7 @@
               class="font-semibold text-lg text-secondary uppercase group-hover:text-accent"
               >{{ p.title }}</div
             >
-            <div class="text-sm">{{ p.startDate }}</div>
+            <div class="text-sm">{{ p.shortenDateTime }}</div>
           </div>
           <!-- IMAGE -->
           <!-- TODO create photos -->
