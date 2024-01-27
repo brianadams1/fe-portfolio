@@ -22,7 +22,8 @@
         <div class="mb-10">
           <!-- TODO readable date Nov 2022 - Dec 2023 -->
           <div class="group-hover:text-accent text-white/50"
-            >{{ e.startDate }} - {{ e.endDate ? e.endDate : "Present" }}</div
+            >{{ e.shortenStartDateTime }} -
+            {{ e.shortenEndDateTime ? e.shortenEndDateTime : "Present" }}</div
           >
           <div class="flex flex-col gap-6 mb-10">
             <div class="flex flex-col gap-3">
@@ -41,7 +42,7 @@
   </div>
 </template>
 <script setup>
-defineProps({
+const exp = defineProps({
   experience: Array,
 });
 </script>
