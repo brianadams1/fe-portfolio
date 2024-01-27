@@ -35,12 +35,7 @@
                 <span v-if="e.degree"> : {{ e.degree }} </span>
               </div>
             </div>
-            <!-- <div class="flex flex-col gap-3">
-              <div class="text-xl lg:text-4xl md:text-2xl"
-                >Front-End WordPress Developer</div
-              >
-              <div class="text-sm text-white/50">Envato Market</div>
-            </div> -->
+            
           </div>
         </div>
       </div>
