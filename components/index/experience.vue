@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen py-12" id="experience">
     <div
-      class="rounded-2xl border text-xs w-fit px-4 py-2 flex gap-2 items-center uppercase border-neutral"
+      class="rounded-2xl border text-xs w-fit px-8 py-2 flex gap-2 items-center uppercase border-neutral"
     >
       <LucideBarChartHorizontal :size="12" />
 
@@ -11,7 +11,7 @@
       <p class="text-5xl font-light"
         ><span class="text-info">Experience</span></p
       >
-      <div class="flex gap-12 group" v-for="n in 2">
+      <div class="flex gap-12 group" v-for="e in experience">
         <div class="flex flex-col items-center">
           <LucideCircle
             :size="12"
@@ -19,22 +19,20 @@
           />
           <div class="w-px grow bg-neutral"></div>
         </div>
-        <div class="mb-5">
-          <div class="group-hover:text-accent text-white/50 mb-5"
-            >2020 - Present</div
+        <div class="mb-10">
+          <!-- TODO readable date Nov 2022 - Dec 2023 -->
+          <div class="group-hover:text-accent text-white/50"
+            >{{ e.startDate }} - {{ e.endDate ? e.endDate : "Present" }}</div
           >
           <div class="flex flex-col gap-6 mb-10">
             <div class="flex flex-col gap-3">
-              <div class="text-xl lg:text-4xl md:text-2xl"
-                >Framer Desinger & Developer</div
-              >
-              <div class="text-sm text-white/50">Brunodee Agency</div>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div class="text-xl lg:text-4xl md:text-2xl"
-                >Front-End WordPress Developer</div
-              >
-              <div class="text-sm text-white/50">Envato Market</div>
+              <div class="text-xl lg:text-4xl md:text-3xl mt-3">
+                {{ e.title }}
+              </div>
+              <div class="text-sm text-semibold text-white/50">
+                {{ e.company }}, {{ e.location }}
+              </div>
+              <div class="font-light mt-4">{{ e.description }}</div>
             </div>
           </div>
         </div>
@@ -42,4 +40,8 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+defineProps({
+  experience: Array,
+});
+</script>
