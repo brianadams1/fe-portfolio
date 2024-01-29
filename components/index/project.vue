@@ -11,17 +11,19 @@
       <!-- LIST PROJECT -->
       <div class="grid grid-cols-2 gap-6 mt-8 cursor-pointer">
         <!-- PROJECT ITEM -->
-        <!-- TODO create readable date -->
+
         <div
           class="col-span-2 md:col-span-1 group hover:bg-secondary p-2 rounded-md"
           v-for="p in projects"
         >
-          <div class="flex justify-between items-end mb-2">
+          <div class="flex flex-col mb-2">
             <div
               class="font-semibold text-lg text-secondary uppercase group-hover:text-accent"
               >{{ p.title }}</div
             >
-            <div class="text-sm">{{ p.shortenDateTime }}</div>
+            <div class="text-sm"
+              >{{ p.shortenDateTime }} - {{ p.readEndDateTime }}</div
+            >
           </div>
           <!-- IMAGE -->
           <!-- TODO create photos -->

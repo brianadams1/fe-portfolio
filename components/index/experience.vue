@@ -20,7 +20,7 @@
           <div class="w-px grow bg-neutral"></div>
         </div>
         <div class="mb-10">
-          <!-- TODO readable date Nov 2022 - Dec 2023 -->
+
           <div class="group-hover:text-accent text-white/50"
             >{{ e.shortenStartDateTime }} - {{ e.shortenEndDateTime }}</div
           >

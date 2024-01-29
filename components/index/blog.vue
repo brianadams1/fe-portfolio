@@ -26,8 +26,6 @@
           <div class="grow line-clamp-1 lg:line-clamp-2 xl:line-clamp-3">{{
             blog.content
           }}</div>
-
-          <!-- TODO generate readable date -->
           <div class="text-xs flex-none text-white/50">{{
             blog.shortenDateTime
           }}</div>
