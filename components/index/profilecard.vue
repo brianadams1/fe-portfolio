@@ -21,7 +21,7 @@
       >
         <img
           :src="apiUri + profile.avatar"
-          alt=""
+          :alt="profile.firstName"
           class="object-cover min-h-full min-w-full"
         />
       </div>

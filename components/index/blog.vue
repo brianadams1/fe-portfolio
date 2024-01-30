@@ -13,10 +13,17 @@
         class="grid grid-cols-10 gap-3 group cursor-pointer hover:bg-secondary rounded-xl p-4"
         v-for="blog in blogs"
       >
-        <!-- TODO image -->
         <div
-          class="aspect-video bg-neutral col-span-4 xl:col-span-3 rounded-lg group-hover:scale-110"
-        ></div>
+          class="col-span-4 xl:col-span-3 rounded-lg group-hover:scale-110 duration-300 overflow-hidden aspect-video"
+        >
+          <div v-if="!blog.photos.length" class="aspect-video bg-neutral"></div>
+          <img
+            v-else
+            :src="api + blog.photos[0].path"
+            :alt="blog.title"
+            class="object-cover"
+          />
+        </div>
         <div class="col-span-6 xl:col-span-7 flex flex-col">
           <!-- title -->
           <div
@@ -37,4 +44,6 @@
 
 <script setup>
 defineProps({ blogs: Array });
+const config = useRuntimeConfig();
+const api = config.public.apiUri;
 </script>
