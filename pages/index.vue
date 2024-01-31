@@ -22,15 +22,15 @@
   </div>
 </template>
 <script setup>
-const data = await $fetch("http://localhost:5000/portfolio");
-const profile = data.data.profile;
-const experience = data.data.experience;
-const projects = data.data.projects;
-
-const skills = data.data.skills;
-
-const educations = data.data.educations;
-const blogs = data.data.blogs;
+// CSR(CLIENT SIDE RENDERING) FETCH
+// changed to SSR
+const { data } = await $fetch("/api/portfolio");
+const profile = data.profile;
+const experience = data.experience;
+const projects = data.projects;
+const skills = data.skills;
+const educations = data.educations;
+const blogs = data.blogs;
 </script>
 
 <style scoped></style>
