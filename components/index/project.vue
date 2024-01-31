@@ -16,6 +16,7 @@
           class="col-span-2 md:col-span-1 group hover:bg-secondary p-2 rounded-md"
           v-for="p in projects"
         >
+          <!-- TITLE -->
           <div class="flex flex-col mb-2">
             <div
               class="font-semibold text-lg text-secondary uppercase group-hover:text-accent truncate"
@@ -26,32 +27,41 @@
             >
           </div>
           <!-- IMAGE -->
-          <div class="rounded-xl aspect-video overflow-hidden group-hover:scale-105 duration-300">
+          <div
+            class="rounded-xl aspect-video overflow-hidden group-hover:scale-105 duration-300"
+          >
             <!-- DRAW PHOTOS -->
-            <img v-if="p.photos.length" :src="api + p.photos[0].path" :alt="p.title">
+            <img
+              v-if="p.photos.length"
+              :src="api + p.photos[0].path"
+              :alt="p.title"
+            />
             <!-- SHOW BLANK BOX -->
-            <div v-else
+            <div
+              v-else
               class="aspect-video bg-neutral rounded-xl group-hover:scale-105 duration-300"
             ></div>
           </div>
           <!-- SKILL -->
           <!-- TODO make skill relationship -->
-          <!-- <div class="flex gap-2 flex-nowrap overflow-x-auto mt-2 pb-2">
+          <div class="flex gap-2 flex-nowrap overflow-x-auto mt-2 pb-2">
             <div
-              v-for="s in skills.skill"
+              v-if="p.skills.length"
+              v-for="s in p.skills"
               class="border-neutral border rounded-xl px-3 mt-2 text-nowrap"
-              >Skill {{ s.skill.title }}</div
-            > -->
-          <!-- </div> -->
+              >{{ s.title }}</div
+            >
+            <div v-else class="pt-2 mx-auto">No Skill Used</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-defineProps({
+const props = defineProps({
   projects: Array,
-})
-const config = useRuntimeConfig()
-const api = config.public.apiUri
+});
+const config = useRuntimeConfig();
+const api = config.public.apiUri;
 </script>
