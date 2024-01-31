@@ -18,7 +18,7 @@
         >
           <div class="flex flex-col mb-2">
             <div
-              class="font-semibold text-lg text-secondary uppercase group-hover:text-accent"
+              class="font-semibold text-lg text-secondary uppercase group-hover:text-accent truncate"
               >{{ p.title }}</div
             >
             <div class="text-sm"
@@ -26,19 +26,23 @@
             >
           </div>
           <!-- IMAGE -->
-          <!-- TODO create photos -->
-          <div
-            class="aspect-video bg-neutral rounded-xl group-hover:scale-105 duration-300"
-          ></div>
+          <div class="rounded-xl aspect-video overflow-hidden group-hover:scale-105 duration-300">
+            <!-- DRAW PHOTOS -->
+            <img v-if="p.photos.length" :src="api + p.photos[0].path" :alt="p.title">
+            <!-- SHOW BLANK BOX -->
+            <div v-else
+              class="aspect-video bg-neutral rounded-xl group-hover:scale-105 duration-300"
+            ></div>
+          </div>
           <!-- SKILL -->
           <!-- TODO make skill relationship -->
-          <div class="flex gap-2 flex-nowrap overflow-x-auto mt-2 pb-2">
+          <!-- <div class="flex gap-2 flex-nowrap overflow-x-auto mt-2 pb-2">
             <div
               v-for="s in skills.skill"
               class="border-neutral border rounded-xl px-3 mt-2 text-nowrap"
               >Skill {{ s.skill.title }}</div
-            >
-          </div>
+            > -->
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -47,6 +51,7 @@
 <script setup>
 defineProps({
   projects: Array,
-  skills: Object,
-});
+})
+const config = useRuntimeConfig()
+const api = config.public.apiUri
 </script>
