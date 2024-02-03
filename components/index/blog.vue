@@ -9,7 +9,7 @@
     </div>
     <div class="flex flex-col gap-6 mt-10">
       <!-- blog list -->
-      <div
+      <NuxtLink :to="'/blog' + blog.id"
         class="grid grid-cols-10 gap-3 group cursor-pointer hover:bg-secondary rounded-xl p-4"
         v-for="blog in blogs"
       >
@@ -37,7 +37,7 @@
             blog.shortenDateTime
           }}</div>
         </div>
-      </div>
+      </NuxtLink>
     </div>
   </div>
 </template>

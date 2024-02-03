@@ -1,6 +1,15 @@
 export default defineEventHandler(async (event) => {
   // HANDLE SSR
-  return await $fetch("http://localhost:5000/portfolio");
+
+  const config = useRuntimeConfig()
+  const apiUri = config.apiUri
+try {
+  const response = await $fetch(apiUri + '/portfolio')
+  return response
+} catch (error) {
+  throw error
+}
+
  
   ;
 });

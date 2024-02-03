@@ -11,7 +11,6 @@
     <div
       class="col-span-10 md:col-span-5 lg:col-span-6 xl:col-span-7 p-6 lg:pr-20 xl:px-40"
     >
-      <!-- <IndexHome :profile="profile" /> -->
       <IndexAbout :profile="profile" />
       <IndexBlog :blogs="blogs" />
       <IndexExperience :experience="experience" />
@@ -24,13 +23,17 @@
 <script setup>
 // CSR(CLIENT SIDE RENDERING) FETCH
 // changed to SSR
-const { data } = await $fetch("/api/portfolio");
-const profile = data.profile;
-const experience = data.experience;
-const projects = data.projects;
-const skills = data.skills;
-const educations = data.educations;
-const blogs = data.blogs;
+
+const getPortfolio = async () => {
+  try {
+    return await $fetch("/api/portfolio")
+  } catch (error) {
+    throw createError(error)
+  }
+}
+
+const {profile, projects, skills, educations, blogs } = await $fetch("/api/portfolio");
+
 </script>
 
 <style scoped></style>
