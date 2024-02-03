@@ -1,17 +1,17 @@
 <template>
   <div class="w-[90%] mx-auto">
     <div
-      class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
+      class="flex justify-between items-end my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
-      <div class="text-4xl font-bold">FULLNAME</div>
-      <div>BLOG</div>
+      <NuxtLink to="/" class="text-4xl font-bold">Homepage</NuxtLink>
+      <div>PROJECT</div>
     </div>
 
-    <template v-if="blogs">
+    <template v-if="projects">
       <!-- pagination -->
       <div class="flex max-md:flex-col justify-between items-end">
         <div class="max-md:w-full text-4xl font-semibold my-6"
-          >My latest <span class="text-accent">Blogs</span>.</div
+          >My latest <span class="text-accent">projects</span>.</div
         >
         <div class="join">
           <button
@@ -30,31 +30,15 @@
         </div>
       </div>
       <!-- Loop data -->
-      <div class="grid grid-cols-3 gap-8">
-        <NuxtLink
-          :to="'/blog' + blog.id"
-          v-for="blog in blogs.data"
-          class="w-full group"
-        >
-          <div class="text-accent text-xl font-bold">{{ blog.title }}</div>
-          <div class="text-sm font-light">{{ blog.shortenDateTime }}</div>
-          <div class="group-hover:scale-105 duration-300 mt-1">
-            <!-- image data -->
-            <img
-              v-if="blog.photos.length"
-              :src="apiUri + blog.photos[0].path"
-              alt=""
-              class="w-full aspect-video rounded-xl"
-            />
-            <!-- image dummy -->
-            <div v-else class="w-full aspect-video bg-neutral rounded-xl">
-            </div>
-            <div class="line-clamp-2 font-light">{{ blog.content }}</div>
-          </div>
-        </NuxtLink>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <template v-for="project in projects.data">
+          <ProjectThumbnail
+            :project="project"
+            class="w-full"
+          ></ProjectThumbnail>
+        </template>
       </div>
       <div class="w-full justify-center flex my-7">
-
         <div class="join">
           <button
             class="join-item btn"
@@ -79,14 +63,14 @@
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 
-// take blogs data from nuxt server
-const blogs = ref(null);
+// take projects data from nuxt server
+const projects = ref(null);
 const maxPage = ref(1);
 const page = ref(1);
 
 const fetchData = async () => {
-  blogs.value = await $fetch("/api/blog?page=" + page.value);
-  maxPage.value = blogs.value.maxPage;
+  projects.value = await $fetch("/api/project?page=" + page.value);
+  maxPage.value = projects.value.maxPage;
 };
 
 // register hook

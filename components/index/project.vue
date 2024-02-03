@@ -12,7 +12,7 @@
       <div class="grid grid-cols-2 gap-6 mt-8 cursor-pointer">
         <!-- PROJECT ITEM -->
 
-        <div
+        <NuxtLink :to="'/projects/' + p.id"
           class="col-span-2 md:col-span-1 group hover:bg-secondary p-2 rounded-md"
           v-for="p in projects"
         >
@@ -43,7 +43,7 @@
             ></div>
           </div>
           <!-- SKILL -->
-          <!-- TODO make skill relationship -->
+          <!-- make skill relationship -->
           <div class="flex gap-2 flex-nowrap overflow-x-auto mt-2 pb-2">
             <div
               v-if="p.skills.length"
@@ -53,7 +53,8 @@
             >
             <div v-else class="pt-2 mx-auto">No Skill Used</div>
           </div>
-        </div>
+        </NuxtLink>
+        <NuxtLink to="/projects" class="col-span-2 btn btn-accent w-min truncate mx-auto">See all projects</NuxtLink>
       </div>
     </div>
   </div>
