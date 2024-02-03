@@ -9,7 +9,7 @@
     </div>
     <div class="flex flex-col gap-6 mt-10">
       <!-- blog list -->
-      <NuxtLink :to="'/blog' + blog.id"
+      <NuxtLink :to="'/blogs/' + blog.id"
         class="grid grid-cols-10 gap-3 group cursor-pointer hover:bg-secondary rounded-xl p-4"
         v-for="blog in blogs"
       >
@@ -38,7 +38,11 @@
           }}</div>
         </div>
       </NuxtLink>
+      <NuxtLink to="/blogs" class="btn btn-accent w-min truncate mx-auto">
+        See all blogs
+      </NuxtLink>
     </div>
+
   </div>
 </template>
 

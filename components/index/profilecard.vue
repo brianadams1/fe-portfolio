@@ -27,9 +27,8 @@
       </div>
       <div
         v-else
-        class=" aspect-square bg-neutral-200 rounded-2xl w-full md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto"
+        class="aspect-square bg-neutral-200 rounded-2xl w-full md:w-[90%] xl:w-[80%] max-w-[350px] justify-items-center mx-auto"
       >
-        
       </div>
       <!-- info -->
       <div class="text-center mt-5">
@@ -38,8 +37,7 @@
           <p>{{ profile.city }}, {{ profile.country }}</p>
         </div>
         <p class="mt-8 text-sm text-white/50"
-          >&copy; 2022 {{ profile.firstName }}{{ profile.lastName }} All Rights
-          Reserved</p
+          >&copy; 2022 {{ fullName }} All Rights Reserved</p
         >
       </div>
       <!-- social -->
@@ -125,11 +123,11 @@
 const props = defineProps({
   profile: Object,
 });
-
 const fullName = computed(() => {
   return `${props.profile.firstName} ${props.profile.lastName}`;
 });
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
+// const year = new Date().
 </script>

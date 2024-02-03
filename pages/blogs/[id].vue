@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div class="px-16">
+    <!-- HEADER -->
+    <div class="fkex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3">
+      <div class="text-4xl font-bold">FULLNAME</div>
+      <div>BLOG</div>
+    </div>
     <div class="my-4">{{ blog.title }}</div>
     <div class="my-4">{{ blog.content }}</div>
     <div>
@@ -24,5 +29,5 @@ const route = useRoute();
 const blogID = route.params.id;
 const config = useRuntimeConfig();
 const api = config.public.apiUri;
-const blog = await $fetch(`/api/blogs/${blogID}`);
+const blog = await $fetch(`/api/blog/${blogID}`); // ambil dari nuxt server (/server/api)
 </script>

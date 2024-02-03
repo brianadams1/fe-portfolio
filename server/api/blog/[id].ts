@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   // return data ke halaman / page
   try {
-    return await $fetch(`${apiUri}/blogs/${id}`);
+    return await $fetch(`${apiUri}/blog/${id}`);
   } catch (error) {
     throw error;
   }

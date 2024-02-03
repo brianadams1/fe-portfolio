@@ -32,7 +32,7 @@ const getPortfolio = async () => {
   }
 }
 
-const {profile, projects, skills, educations, blogs } = await $fetch("/api/portfolio");
+const {profile, projects, skills,experience, educations, blogs } = await getPortfolio();
 
 </script>
 
