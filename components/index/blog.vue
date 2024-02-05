@@ -12,7 +12,7 @@
       <!-- LIST BLOG -->
       <div class="grid grid-cols-2 gap-6 mt-8 cursor-pointer">
         <NuxtLink
-          :to="'/blogs/' + blog.id"
+          :to="'/blog/' + blog.id"
           class="col-span-2 md:col-span-1 group hover:bg-secondary p-2 rounded-md"
           v-for="blog in blogs"
         >
@@ -45,14 +45,13 @@
           </div>
         </NuxtLink>
         <NuxtLink
-          to="/blogs"
+          to="/blog"
           class="col-span-2 btn btn-accent w-min truncate mx-auto"
         >
           See all blogs
         </NuxtLink>
       </div>
     </div>
-
   </div>
 </template>
 

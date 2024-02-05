@@ -3,7 +3,7 @@
     <div
       class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
     >
-      <div class="text-4xl font-bold">FULLNAME</div>
+      <div class="text-4xl font-bold">{{ fullname }}</div>
       <div>BLOG</div>
     </div>
 
@@ -32,7 +32,7 @@
       <!-- Loop data -->
       <div class="grid grid-cols-3 gap-8">
         <NuxtLink
-          :to="'/blog' + blog.id"
+          :to="'/blog/' + blog.id"
           v-for="blog in blogs.data"
           class="w-full group"
         >
@@ -54,7 +54,6 @@
         </NuxtLink>
       </div>
       <div class="w-full justify-center flex my-7">
-
         <div class="join">
           <button
             class="join-item btn"
@@ -76,6 +75,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ["profile"],
+});
+
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 
@@ -97,5 +100,12 @@ onBeforeMount(async () => {
 // watch effect
 watchEffect(async () => {
   await fetchData();
+});
+
+// fetch profile
+const useProfile = useState("profile");
+const profile = useProfile.value;
+const fullname = computed(() => {
+  return `${profile.firstName} ${profile.lastName}`;
 });
 </script>

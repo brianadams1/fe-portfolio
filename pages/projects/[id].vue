@@ -86,6 +86,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware:['profile']
+})
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
@@ -97,7 +100,12 @@ const project = await $fetch(`/api/project/${projectID}`); // ambil dari nuxt se
 const status = computed(() => {
   return project.status.replaceAll("_", " ").toLowerCase();
 });
-console.log(project.skills);
+// fetch profile
+const useProfile = useState("profile");
+const profile = useProfile.value
+const fullname = computed(() => {
+  return `${profile.firstName} ${profile.lastName}`;
+});
 </script>
 <style scoped>
 .test {
