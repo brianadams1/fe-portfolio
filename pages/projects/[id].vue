@@ -7,55 +7,66 @@
       <NuxtLink to="/" class="text-4xl font-bold">Homepage</NuxtLink>
       <NuxtLink to="/projects/">Back</NuxtLink>
     </div>
-
-    <!-- IMAGE CAROUSEL -->
-    <div v-if="project.photos.length">
-      <Carousel :items-to-show="1">
-        <Slide v-for="slide in project.photos.length" :key="slide">
-          <img
-            v-for="photo in project.photos"
-            :src="api + photo.path"
-            class="w-full h-full"
-            alt=""
-          />
-        </Slide>
-
-        <template #addons>
-          <Navigation />
-          <Pagination />
-        </template>
-      </Carousel>
+    <!-- project title -->
+    <div class="text-4xl font-semibold my-4 text-accent">
+      {{ project.title }}
     </div>
-    <div v-else class="aspect-video bg-netural"></div>
+    <!-- content -->
+    <div class="grid grid-cols-10 gap-6">
+      <!-- LEFT SIDE -->
+      <div class="col-span-full md:col-span-7">
+        <!-- CAROUSEL -->
+        <div v-if="project.photos.length">
+          <Carousel :items-to-show="1.5" :wrapAround="true" :autoplay="5000">
+            <Slide v-for="slide in project.photos.length" :key="slide">
+              <img
+                v-for="photo in project.photos"
+                :src="api + photo.path"
+                class=" h-full"
+                :alt="project.title"
+              />
+            </Slide>
 
-    <!-- TITLE -->
-    <div class="border-b border-b-neutral">
-      <div class="text-4xl font-semibold my-4 text-accent">
-        {{ project.title }}
+            <template #addons>
+              <Navigation />
+              <Pagination />
+            </template>
+          </Carousel>
+        </div>
+        <div v-else class="aspect-video bg-netural"></div>
+        <!-- DESCRIPTION -->
+        <!-- SHOWN ABOVE MEDIUM BREAKPOINT -->
+        <div class="my-4 text-justify max-md:hidden">{{
+          project.description
+        }}</div>
       </div>
-      <div class="flex justify-between">
-        <div class="font-light text-sm">
+
+      <!-- RIGHT SIDE -->
+      <div class="col-span-full md:col-span-3">
+        <!-- DATE DETAIL -->
+        <div class="font-light text-sm"
+          ><span class="font-semibold"> Date : </span>
           {{ project.readDateTime }} - {{ project.readEndDateTime }}
         </div>
+        <!-- STATUS DETAIL -->
         <div class=""
-          >Project status : <span class="capitalize">{{ status }}</span>
+          ><span class="font-semibold"> Project status : </span
+          ><span class="capitalize">{{ status }}</span>
         </div>
+        <!-- COMPANY DETAIL -->
+        <div v-if="project.company">
+          <span class="font-semibold">Company : </span>{{ project.company }}
+        </div>
+        <!-- URL DETAIL -->
+        <div v-if="project.url">
+          <span class="font-semibold">URL : </span>
+          <a :href="project.url" target="__blank">
+            {{ project.url }}
+          </a>
+        </div>
+        <!-- SHOWN UNDER MEDIUM BREAKPOINT -->
+        <div class="my-4 text-justify md:hidden">{{ project.description }}</div>
       </div>
-    </div>
-
-    <!-- TODO draw skill -->
-    <!-- DESCRIPTION -->
-    <div class="mt-2">
-      <div v-if="project.company">
-        <span class="font-semibold">Company : </span>{{ project.company }}
-      </div>
-      <div v-if="project.url">
-        <span class="font-semibold">URL : </span>
-        <a :href="project.url" target="__blank">
-          {{ project.url }}
-        </a>
-      </div>
-      <div class="my-4 text-justify">{{ project.description }}</div>
     </div>
   </div>
 </template>
