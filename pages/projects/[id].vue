@@ -65,17 +65,19 @@
           </a>
         </div>
         <!-- SKILL DETAIL -->
-        <div class="font-semibold mt-4">TECHNOLOGIES : </div>
-        <div class="flex gap-4">
-          <div
-            v-for="skill in project.skills"
-            class="badge badge-accent badge-lg badge-outline text-nowrap px-4"
-          >
-            <div v-html="skill.svg" class="w-5 mr-2 bg-neutral-100 rounded">
+        <template v-if="project.skills.length">
+          <div class="font-semibold mt-4">TECHNOLOGIES : </div>
+          <div class="flex gap-4">
+            <div
+              v-for="skill in project.skills"
+              class="badge badge-accent badge-lg badge-outline text-nowrap px-4"
+            >
+              <div v-html="skill.svg" class="w-5 mr-2 bg-neutral-100 rounded">
+              </div>
+              {{ skill.title }}
             </div>
-            {{ skill.title }}
           </div>
-        </div>
+        </template>
         <!-- SHOWN UNDER MEDIUM BREAKPOINT -->
         <div class="my-4 text-justify md:hidden">{{ project.description }}</div>
       </div>
