@@ -1,11 +1,7 @@
 <template>
   <div class="w-[90%] mx-auto">
-    <div
-      class="flex justify-between items-end my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
-    >
-      <NuxtLink to="/" class="text-4xl font-bold">{{ fullname }}</NuxtLink>
-      <div>PROJECT</div>
-    </div>
+    <IndexHeader :title="'Projects'" :url="'/project'"/>
+
 
     <template v-if="projects">
       <!-- pagination -->
@@ -84,12 +80,5 @@ onBeforeMount(async () => {
 // watch effect
 watchEffect(async () => {
   await fetchData();
-});
-
-// fetch profile
-const useProfile = useState("profile");
-const profile = useProfile.value
-const fullname = computed(() => {
-  return `${profile.firstName} ${profile.lastName}`;
 });
 </script>
