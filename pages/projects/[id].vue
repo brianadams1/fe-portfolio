@@ -22,7 +22,7 @@
               <img
                 v-for="photo in project.photos"
                 :src="api + photo.path"
-                class=" h-full"
+                class="h-full"
                 :alt="project.title"
               />
             </Slide>
@@ -64,6 +64,18 @@
             {{ project.url }}
           </a>
         </div>
+        <!-- SKILL DETAIL -->
+        <div class="font-semibold mt-4">TECHNOLOGIES : </div>
+        <div class="flex gap-4">
+          <div
+            v-for="skill in project.skills"
+            class="badge badge-accent badge-lg badge-outline text-nowrap px-4"
+          >
+            <div v-html="skill.svg" class="w-5 mr-2 bg-neutral-100 rounded">
+            </div>
+            {{ skill.title }}
+          </div>
+        </div>
         <!-- SHOWN UNDER MEDIUM BREAKPOINT -->
         <div class="my-4 text-justify md:hidden">{{ project.description }}</div>
       </div>
@@ -83,6 +95,7 @@ const project = await $fetch(`/api/project/${projectID}`); // ambil dari nuxt se
 const status = computed(() => {
   return project.status.replaceAll("_", " ").toLowerCase();
 });
+console.log(project.skills);
 </script>
 <style scoped>
 .test {
