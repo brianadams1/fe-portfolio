@@ -2,7 +2,7 @@
   <div
     class="flex justify-between my-4 border-b border-b-neutral pt-6 max-md:pt-20 pb-3"
   >
-    <div class="text-4xl font-bold">{{ fullname }}</div>
+    <NuxtLink to="/" class="text-4xl font-bold">{{ fullname }}</NuxtLink>
     <NuxtLink :to="url" class="text-xl font-bold">{{ title }}</NuxtLink>
   </div>
 </template>
