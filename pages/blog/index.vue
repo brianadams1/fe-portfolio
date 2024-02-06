@@ -75,8 +75,20 @@ definePageMeta({
   middleware: ["profile"],
 });
 
+// SEO and META
+const {value: useProfile} = useState('profile')
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`
 const config = useRuntimeConfig();
-const apiUri = config.public.apiUri;
+  const apiUri = config.public.apiUri;
+useSeoMeta({
+  title: fullname + " Portfolio",
+  description: useProfile.bio,
+  ogTitle: fullname + " Portfolio",
+  ogDescription: useProfile.bio,
+  ogImage: apiUri + useProfile.avatar,
+  twitterCard: 'summary_large_image'
+})
+// END SEO and META
 
 // take blogs data from nuxt server
 const blogs = ref(null);

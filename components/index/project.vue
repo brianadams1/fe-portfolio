@@ -12,7 +12,8 @@
       <div class="grid grid-cols-2 gap-6 mt-8 cursor-pointer">
         <!-- PROJECT ITEM -->
 
-        <NuxtLink :to="'/projects/' + p.id"
+        <NuxtLink
+          :to="'/project/' + p.id"
           class="col-span-2 md:col-span-1 group hover:bg-secondary p-2 rounded-md"
           v-for="p in projects"
         >
@@ -54,7 +55,11 @@
             <div v-else class="pt-2 mx-auto">No Skill Used</div>
           </div>
         </NuxtLink>
-        <NuxtLink to="/projects" class="col-span-2 btn btn-accent w-min truncate mx-auto">See all projects</NuxtLink>
+        <NuxtLink
+          to="/project  "
+          class="col-span-2 btn btn-accent w-min truncate mx-auto"
+          >See all projects</NuxtLink
+        >
       </div>
     </div>
   </div>
