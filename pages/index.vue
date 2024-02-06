@@ -21,8 +21,20 @@
   </div>
 </template>
 <script setup>
-// CSR(CLIENT SIDE RENDERING) FETCH
-// changed to SSR
+definePageMeta({
+  middleware: ['profile']
+})
+
+// SEO and META
+const {value: useProfile} = useState('profile')
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`
+
+
+useSeoMeta({
+  title: fullname + " Portfolio",
+  description: useProfile.bio
+})
+// END SEO and META
 
 const getPortfolio = async () => {
   try {
