@@ -1,7 +1,7 @@
 <template>
   <div class="px-16">
     <!-- HEADER -->
-    <IndexHeader :title="'Projects'" :url="'/project'"/>
+    <IndexHeader :title="'Projects'" :url="'/project'" />
 
     <!-- project title -->
     <div class="text-4xl font-semibold my-4 text-accent">
@@ -17,7 +17,7 @@
             <Slide v-for="slide in project.photos.length" :key="slide">
               <img
                 v-for="photo in project.photos"
-                :src="api + photo.path"
+                :src="apiUri + photo.path"
                 class="h-full"
                 :alt="project.title"
               />
@@ -83,20 +83,33 @@
 
 <script setup>
 definePageMeta({
-  middleware:['profile']
-})
+  middleware: ["profile"],
+});
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 
 const route = useRoute();
 const projectID = route.params.id;
-const config = useRuntimeConfig();
-const api = config.public.apiUri;
 const project = await $fetch(`/api/project/${projectID}`); // ambil dari nuxt server (/server/api)
 const status = computed(() => {
   return project.status.replaceAll("_", " ").toLowerCase();
 });
+// SEO and META
+const { value: useProfile } = useState("profile");
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`;
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
 
+const firstPhoto = project.photos.length ? apiUri + project.photos[0].path : "";
+useSeoMeta({
+  title: project.title + " - " + fullname + " Project",
+  description: project.content,
+  ogTitle: project.title,
+  ogDescription: project.content,
+  ogImage: firstPhoto,
+  twitterCard: "summary_large_image",
+});
+// END SEO and META
 </script>
 <style scoped>
 .test {

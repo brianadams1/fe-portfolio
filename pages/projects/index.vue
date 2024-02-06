@@ -1,7 +1,6 @@
 <template>
   <div class="w-[90%] mx-auto">
-    <IndexHeader :title="'Projects'" :url="'/project'"/>
-
+    <IndexHeader :title="'Projects'" :url="'/project'" />
 
     <template v-if="projects">
       <!-- pagination -->
@@ -57,11 +56,23 @@
 
 <script setup>
 definePageMeta({
-  middleware:['profile']
-})
+  middleware: ["profile"],
+});
+// SEO and META
+const { value: useProfile } = useState("profile");
+const fullname = `${useProfile.firstName} ${useProfile.lastName}`;
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 
+useSeoMeta({
+  title: fullname + " Portfolio",
+  description: useProfile.bio,
+  ogTitle: fullname + " Portfolio",
+  ogDescription: useProfile.bio,
+  ogImage: apiUri + useProfile.avatar,
+  twitterCard: "summary_large_image",
+});
+// END SEO and META
 // take projects data from nuxt server
 const projects = ref(null);
 const maxPage = ref(1);
