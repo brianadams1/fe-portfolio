@@ -50,7 +50,6 @@ definePageMeta({
 
 const { value: useProfile } = useState("profile");
 const fullname = `${useProfile.firstName} ${useProfile.lastName}`;
-console.log(useProfile)
 
 const formData = ref({
   email: "",
@@ -65,9 +64,10 @@ const doLogin = async () => {
   await $fetch(apiUri + "/login", {
     method: "POST",
     body: data,
-    headers: { 'Content-Type' : 'application/json'}
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
   });
   // REDIRECT TO HOME
-  navigateTo('/')
+  navigateTo("/");
 };
 </script>
