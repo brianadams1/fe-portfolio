@@ -16,7 +16,8 @@
         <div class="w-full font-archy t">
           <label for="" class="text-xl md:text-2xl">Email</label>
           <input
-            type="text"
+            v-model="formData.email"
+            type="email"
             placeholder="Email"
             class="input w-full bg-rose-200"
           />
@@ -25,12 +26,14 @@
         <div class="w-full font-archy t">
           <label for="" class="ext-xl md:text-2xl">Password</label>
           <input
+            v-model="formData.password"
             type="password"
             placeholder="Password"
             class="input w-full bg-rose-200"
           />
         </div>
         <button
+          @click="doLogin"
           class="font-baloo btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-rose-200 px-10 md:px-20"
         >
           Login Now
@@ -47,4 +50,24 @@ definePageMeta({
 
 const { value: useProfile } = useState("profile");
 const fullname = `${useProfile.firstName} ${useProfile.lastName}`;
+console.log(useProfile)
+
+const formData = ref({
+  email: "",
+  password: "",
+});
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
+const doLogin = async () => {
+  // convert data to json
+  const data = JSON.stringify(formData.value);
+
+  await $fetch(apiUri + "/login", {
+    method: "POST",
+    body: data,
+    headers: { 'Content-Type' : 'application/json'}
+  });
+  // REDIRECT TO HOME
+  navigateTo('/')
+};
 </script>
