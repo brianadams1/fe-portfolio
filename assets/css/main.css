@@ -1,25 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .carousel {
-    display: block;
+  display: block;
 }
 
 .carouselviewport {
-    border-radius: 0.25rem;
+  border-radius: 0.25rem;
 }
 
 @media (min-width: 768px) {
-
-    .carouselviewport {
-        border-radius: 0.5rem;
-    }
+  .carouselviewport {
+    border-radius: 0.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
-    .carousel__viewport {
-
-        border-radius: 1rem;
-    }
+  .carousel__viewport {
+    border-radius: 1rem;
+  }
 }

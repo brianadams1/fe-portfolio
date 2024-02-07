@@ -9,10 +9,15 @@ export default {
     "./error.vue",
   ],
   theme: {
+    fontFamily: {
+      bunge: ["Bungee Shade", "Helvetica", "Arial", "sans-serif"],
+      archy: ["Architects Daughter", "Helvetica", "Arial", "sans-serif"],
+      baloo: ["Baloo Bhai", "Helvetica", "Arial", "sans-serif"],
+    },
     extend: {
       spacing: {
-        'inherit' : 'inherit'
-      }
+        inherit: "inherit",
+      },
     },
   },
   daisyui: {
