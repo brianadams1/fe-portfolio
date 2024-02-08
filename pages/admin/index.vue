@@ -82,8 +82,12 @@
                 <div class="lg:w-full h-full lg:z-[1]">
                     <!-- NAVIGATION -->
                     <ul class="menu bg-primary p-4 w-[250px] min-h-full text-white">
-                        <li><a>Sidebar Item 1</a></li>
-                        <li><a>Sidebar Item 2</a></li>
+                        <li><a>Profile</a></li>
+                        <li><a>Projects</a></li>
+                        <li><a>Blogs</a></li>
+                        <li><a>Skills</a></li>
+                        <li><a>Educations</a></li>
+                        <li><a>Experiences</a></li>
                     </ul>
                 </div>
             </div>
