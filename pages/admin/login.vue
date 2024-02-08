@@ -55,6 +55,7 @@ const formData = ref({
   email: "",
   password: "",
 });
+
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const doLogin = async () => {
@@ -67,6 +68,7 @@ const doLogin = async () => {
     headers: { "Content-Type": "application/json" },
     credentials: "include",
   });
+  
   // REDIRECT TO HOME
   navigateTo("/");
 };
