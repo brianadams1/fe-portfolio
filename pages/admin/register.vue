@@ -1,6 +1,7 @@
 <template>
-  <div> Nih admin nih wkwk </div>
+  <div> Halaman register </div>
 </template>
+
 <script setup>
 definePageMeta({
   layout: "admin",
