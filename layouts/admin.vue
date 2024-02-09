@@ -1,14 +1,14 @@
 <template>
   <!-- TODO change bg color based on theme -->
   <div
-    data-theme="light"
-    class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden bg-indigo-400"
+    data-theme="fantasy"
+    class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden"
   >
     <!-- MOBILE HEADER -->
-    <div class="lg:hidden h-[70px] relative border-b border-white/20 px-3">
+    <div class="lg:hidden h-[70px] relative border-b border-black/20 px-3">
       <div class="h-full flex justify-between items-center">
         <a href="" class="flex-none flex gap-4 items-center">
-          <SvgMonas class="w-20" />
+          <SvgMonas class="w-8" />
         </a>
 
         <label for="menu-toggle" class="btn btn-ghost">
@@ -19,19 +19,19 @@
 
     <!-- MAIN HEADER -->
     <div
-      class="h-[70px] relative border-b border-white/20 px-3 lg:px-8 md:py-0 mb-12"
+      class="h-[70px] relative border-b border-black/20 px-3 lg:px-8 md:py-0 mb-12"
     >
-      <div class="h-full flex items-center lg:divide-x divide-white/20">
+      <div class="h-full flex items-center lg:divide-x divide-black/20">
         <!-- sisi kiri -->
         <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
-          <SvgMonas class="h-8" />
+          <SvgMonas class="w-8" />
           <div>Brian Adams</div>
         </a>
 
         <!-- sisi kanan -->
         <div class="grow flex justify-between items-center lg:pl-4">
           <!-- breadcrumb -->
-          <div class="text-sm breadcrumbs">
+          <div class="text-sm breadcrumbs flex-wrap">
             <ul>
               <li><a>Home</a></li>
               <li><a>Documents</a></li>
@@ -51,13 +51,13 @@
               </div>
             </div>
             <div
-              class="dropdown-content z-[1] menu bg-base-100 shadow rounded w-52"
+              class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52"
             >
               <div class="p-2 border-b">
-                <div class="font-semibold">Uda Putera</div>
+                <div class="font-semibold">Brian Adams </div>
                 <div class="text-xs">Administrator</div>
               </div>
-              <ul tabindex="0" class="p-2">
+              <ul tabindex="0" class="mt-2">
                 <li>
                   <a> <LucideUser :size="16" /> User </a>
                 </li>
@@ -75,67 +75,69 @@
     </div>
 
     <!-- CONTENT -->
-    <div class="w-full min-h-screen px-3 lg:px-8">
+    <div class="w-full px-3 lg:px-8 pb-8">
       <div class="wrapper drawer lg:drawer-open rounded-2xl lg:rounded-3xl">
         <input id="menu-toggle" type="checkbox" class="drawer-toggle" />
         <!-- MAIN CONTENT -->
         <div
-          class="lg:z-[1] drawer-content bg-primary max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl"
+          class="lg:z-[1] z-0 drawer-content bg-neutral max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl"
         >
           <div
-            class="w-full min-h-[70vh] lg:min-h-full bg-base-200 rounded-2xl lg:rounded-3xl p-3 lg:p-8"
+            class="w-full min-h-[75vh] lg:min-h-[80vh] bg-base-200 rounded-2xl lg:rounded-3xl p-3 lg:p-8"
           >
-            <slot />
+            <slot></slot>
           </div>
         </div>
         <div
-          class="drawer-side !inline-table lg:bg-primary rounded-l-2xl lg:rounded-l-3xl"
+          class="drawer-side lg:!inline-table lg:bg-neutral rounded-l-none lg:rounded-l-3xl h-full overflow-hidden"
         >
           <label
             for="menu-toggle"
             aria-label="close sidebar"
             class="drawer-overlay"
           ></label>
-          <div class="lg:w-full h-full lg:z-[1]">
+          <div class="lg:w-full lg:h-full lg:z-[1]">
             <!-- NAVIGATION -->
-            <ul class="menu bg-primary text-white w-56 rounded-box">
+            <ul
+              class="menu bg-neutral text-white w-56 lg:rounded-box min-h-screen lg:min-h-full"
+            >
               <li class="font-light my-2 px-2">Main Menu</li>
               <li>
                 <NuxtLink to="/admin">
-                  <LucideApple :size="20" />
+                  <LucideCoffee :size="20" />
                   Home
                 </NuxtLink>
               </li>
               <li>
                 <details open>
                   <summary>
-                    <LucideAnvil :size="20" />
+                    <LucideBeaker :size="20" />
 
                     Authentication
                   </summary>
                   <ul>
                     <li>
                       <NuxtLink to="/admin/login">
-                        <LucideAnchor :size="20" />
+                        <LucideCupSoda :size="20" />
                         Login
                       </NuxtLink>
                     </li>
                     <li>
                       <NuxtLink to="/admin/register">
-                        <LucideUserRoundMinus :size="20" />
+                        <LucideWine :size="20" />
                         Register
                       </NuxtLink>
                     </li>
                     <li>
                       <details>
                         <summary>
-                          <LucideAperture :size="20" />
+                          <LucideMilk :size="20" />
                           Parent
                         </summary>
                         <ul>
                           <li>
                             <a>
-                              <LucideAlarmSmoke :size="20" />
+                              <LucideBeer :size="20" />
                               Submenu 1
                             </a>
                           </li>
@@ -153,7 +155,7 @@
               </li>
               <li>
                 <a>
-                  <LucideGamepad :size="20" />
+                  <LucideMartini :size="20" />
                   Item 3
                 </a>
               </li>
@@ -171,7 +173,35 @@ definePageMeta({
 });
 </script>
 
-<style>
+<style scoped>
+body > div > div[data-theme] {
+  background-image: url("./bg-main.svg");
+}
+@media (min-width: 1024px) {
+  .menu a.router-link-exact-active::after {
+    content: "";
+    width: 20px;
+    height: 80px;
+    margin-right: -47px;
+    -webkit-animation: 0.3s active-side-menu-chevron-animation ease-in-out
+      0.33333s;
+    animation: 0.3s active-side-menu-chevron-animation ease-in-out 0.33333s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='80' viewBox='0 0 20 122.1'%3E%3Cpath data-name='Union 1' d='M16.038 122H16v-2.213a95.805 95.805 0 00-2.886-20.735 94.894 94.894 0 00-7.783-20.434A39.039 39.039 0 010 61.051a39.035 39.035 0 015.331-17.567 94.9 94.9 0 007.783-20.435A95.746 95.746 0 0016 2.314V0h4v122h-3.961v.1l-.001-.1z' fill='%23e8e8e8'/%3E%3C/svg%3E");
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+  }
+}
 .wrapper::before {
   content: "";
   width: 95%;
@@ -189,7 +219,7 @@ definePageMeta({
   margin-right: auto;
   margin-top: -1rem;
   height: 100px;
-  background-color: rgb(255 255 255 / 0.1);
+  background-color: rgb(255 255 255 / 0.2);
   z-index: 0;
 }
 
@@ -205,8 +235,7 @@ definePageMeta({
 }
 
 .menu a:focus {
-color:#fff
-
+  color: #fff;
 }
 
 .menu a.router-link-exact-active::before,
@@ -223,29 +252,6 @@ color:#fff
   border-style: solid;
   border-color: rgb(0 0 0 / 0.1);
   background-color: rgb(255 255 255 / 0.08);
-}
-.menu a.router-link-exact-active::after {
-  content: "";
-  width: 20px;
-  height: 80px;
-  margin-right: -47px;
-  -webkit-animation: 0.3s active-side-menu-chevron-animation ease-in-out
-    0.33333s;
-  animation: 0.3s active-side-menu-chevron-animation ease-in-out 0.33333s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='80' viewBox='0 0 20 122.1'%3E%3Cpath data-name='Union 1' d='M16.038 122H16v-2.213a95.805 95.805 0 00-2.886-20.735 94.894 94.894 0 00-7.783-20.434A39.039 39.039 0 010 61.051a39.035 39.035 0 015.331-17.567 94.9 94.9 0 007.783-20.435A95.746 95.746 0 0016 2.314V0h4v122h-3.961v.1l-.001-.1z' fill='%23f1f5f8'/%3E%3C/svg%3E");
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  margin-top: auto;
-  margin-bottom: auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 1;
 }
 
 @keyframes intro-wrapper-animation {
