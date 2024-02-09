@@ -168,9 +168,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: false,
-});
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
