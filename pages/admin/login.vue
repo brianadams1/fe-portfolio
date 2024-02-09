@@ -69,7 +69,7 @@ const doLogin = async () => {
     credentials: "include",
   });
   
-  // REDIRECT TO HOME
-  navigateTo("/");
+  // REDIRECT TO ADMIN HOMEPAGE
+  navigateTo("/admin");
 };
 </script>

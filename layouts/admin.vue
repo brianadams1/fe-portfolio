@@ -62,10 +62,10 @@
                   <a> <LucideUser :size="16" /> User </a>
                 </li>
                 <li>
-                  <a>
+                  <btn @click="logout">
                     <LucideLogOut :size="16" />
                     Logout
-                  </a>
+                  </btn>
                 </li>
               </ul>
             </div>
@@ -171,6 +171,19 @@
 definePageMeta({
   layout: false,
 });
+
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
+const logout = async () => {
+  await $fetch(apiUri + "/logout", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+
+  // REDIRECT TO LOGIN PAGE
+  navigateTo("/admin/login");
+};
 </script>
 
 <style scoped>
