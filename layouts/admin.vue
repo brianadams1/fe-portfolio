@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO change bg color based on theme -->
   <div
     data-theme="fantasy"
     class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden"
@@ -98,68 +97,7 @@
           ></label>
           <div class="lg:w-full lg:h-full lg:z-[1]">
             <!-- NAVIGATION -->
-            <ul
-              class="menu bg-neutral text-white w-56 lg:rounded-box min-h-screen lg:min-h-full"
-            >
-              <li class="font-light my-2 px-2">Main Menu</li>
-              <li>
-                <NuxtLink to="/admin">
-                  <LucideCoffee :size="20" />
-                  Home
-                </NuxtLink>
-              </li>
-              <li>
-                <details open>
-                  <summary>
-                    <LucideBeaker :size="20" />
-
-                    Authentication
-                  </summary>
-                  <ul>
-                    <li>
-                      <NuxtLink to="/admin/login">
-                        <LucideCupSoda :size="20" />
-                        Login
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <NuxtLink to="/admin/register">
-                        <LucideWine :size="20" />
-                        Register
-                      </NuxtLink>
-                    </li>
-                    <li>
-                      <details>
-                        <summary>
-                          <LucideMilk :size="20" />
-                          Parent
-                        </summary>
-                        <ul>
-                          <li>
-                            <a>
-                              <LucideBeer :size="20" />
-                              Submenu 1
-                            </a>
-                          </li>
-                          <li>
-                            <a>
-                              <LucideZap :size="20" />
-                              Submenu 2
-                            </a>
-                          </li>
-                        </ul>
-                      </details>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <a>
-                  <LucideMartini :size="20" />
-                  Item 3
-                </a>
-              </li>
-            </ul>
+            <AdminLayoutNavigation/>
           </div>
         </div>
       </div>
@@ -168,7 +106,6 @@
 </template>
 
 <script setup>
-
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const logout = async () => {

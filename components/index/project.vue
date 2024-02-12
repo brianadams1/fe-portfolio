@@ -56,7 +56,7 @@
           </div>
         </NuxtLink>
         <NuxtLink
-          to="/project  "
+          to="/project"
           class="col-span-2 btn btn-accent w-min truncate mx-auto"
           >See all projects</NuxtLink
         >
