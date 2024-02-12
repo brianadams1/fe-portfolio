@@ -30,13 +30,13 @@
         <!-- sisi kanan -->
         <div class="grow flex justify-between items-center lg:pl-4">
           <!-- breadcrumb -->
-          <div class="text-sm breadcrumbs flex-wrap">
+          <!-- <div class="text-sm breadcrumbs flex-wrap">
             <ul>
               <li><a>Home</a></li>
               <li><a>Documents</a></li>
               <li>Add Document</li>
             </ul>
-          </div>
+          </div> -->
 
           <!-- avatar / account -->
           <div class="dropdown dropdown-end">

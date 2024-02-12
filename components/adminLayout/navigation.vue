@@ -17,58 +17,63 @@ const menus = [
     icon: resolveComponent("LucideLayoutDashboard"),
   },
   {
-    title: "Dashboard 2",
-    to: "/admin",
+    title: "Profile",
+    to: "/admin/profile",
+    icon: resolveComponent("LucideLayoutDashboard"),
+  },
+  {
+    title: "Project",
+    to: "/admin/project",
     icon: resolveComponent("LucideLayoutDashboard"),
   },
 
-  {
-    title: "Menu 1",
-    icon: resolveComponent("LucideLayoutDashboard"),
-    children: [
-      {
-        title: "Login",
-        to: "/admin/login",
-        icon: resolveComponent("LucideLayoutDashboard"),
-      },
-      {
-        title: "Register",
-        to: "/admin/register",
-        icon: resolveComponent("LucideLayoutDashboard"),
-      },
-      {
-        title: "Register",
-        icon: resolveComponent("LucideLayoutDashboard"),
-        children: [
-          {
-            title: "Dashboard",
-            to: "/admin",
-            icon: resolveComponent("LucideLayoutDashboard"),
-          },
-          {
-            title: "Dashboard 2",
-            to: "/admin",
-            icon: resolveComponent("LucideLayoutDashboard"),
-          },
-          {
-            title: "Dashboard",
-            icon: resolveComponent("LucideLayoutDashboard"),
-            children: [
-              {
-                title: "Dashboard",
-                to: "/admin",
-                icon: resolveComponent("LucideLayoutDashboard"),
-              },
-              {
-                title: "Dashboard 2",
-                to: "/admin",
-                icon: resolveComponent("LucideLayoutDashboard"),
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+//   {
+//     title: "Project",
+//     icon: resolveComponent("LucideLayoutDashboard"),
+//     children: [
+//       {
+//         title: "Login",
+//         to: "/admin/login",
+//         icon: resolveComponent("LucideLayoutDashboard"),
+//       },
+//       {
+//         title: "Register",
+//         to: "/admin/register",
+//         icon: resolveComponent("LucideLayoutDashboard"),
+//       },
+//       {
+//         title: "Register",
+//         icon: resolveComponent("LucideLayoutDashboard"),
+//         children: [
+//           {
+//             title: "Dashboard",
+//             to: "/admin",
+//             icon: resolveComponent("LucideLayoutDashboard"),
+//           },
+//           {
+//             title: "Dashboard 2",
+//             to: "/admin",
+//             icon: resolveComponent("LucideLayoutDashboard"),
+//           },
+//           {
+//             title: "Dashboard",
+//             icon: resolveComponent("LucideLayoutDashboard"),
+//             children: [
+//               {
+//                 title: "Dashboard",
+//                 to: "/admin",
+//                 icon: resolveComponent("LucideLayoutDashboard"),
+//               },
+//               {
+//                 title: "Dashboard 2",
+//                 to: "/admin",
+//                 icon: resolveComponent("LucideLayoutDashboard"),
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
 ];
 </script>

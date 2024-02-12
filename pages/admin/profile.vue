@@ -1,5 +1,5 @@
 <template>
-  <div> Halaman register </div>
+  <div> Halaman profile</div>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <div> Nih admin nih wkwk </div>
+  <div> Nih Dashboard </div>
 </template>
 <script setup>
 definePageMeta({

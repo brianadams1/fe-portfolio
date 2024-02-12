@@ -5,5 +5,7 @@ ini halaman project
 </template>
 
 <script setup>
-
+definePageMeta({
+  layout: "admin",
+});
 </script>
