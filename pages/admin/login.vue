@@ -9,12 +9,12 @@
       <div
         class="max-lg:row-span-6 bg-rose-100 flex flex-col gap-5 lg:gap-12 md:gap-8 items-center justify-center px-10 md:px-28 lg:px-20 xl:px-32"
       >
-        <div class="xl:text-5xl lg:text-4xl md:text-6xl text-4xl font-bunge">{{
-          fullname
-        }}</div>
+        <div class="xl:text-5xl lg:text-4xl md:text-6xl text-4xl font-bunge">
+          {{ fullname }}
+        </div>
         <!-- input email -->
-        <div class="w-full font-archy t">
-          <label for="" class="text-xl md:text-2xl">Email</label>
+        <div class="w-full font-archy">
+          <label for="" class="text-xl md:text-2xl"> Email </label>
           <input
             v-model="formData.email"
             type="email"
@@ -23,8 +23,8 @@
           />
         </div>
         <!-- input password -->
-        <div class="w-full font-archy t">
-          <label for="" class="ext-xl md:text-2xl">Password</label>
+        <div class="w-full font-archy">
+          <label for="" class="ext-xl md:text-2xl"> Password </label>
           <input
             v-model="formData.password"
             type="password"
@@ -33,7 +33,7 @@
           />
         </div>
         <button
-          @click="doLogin"
+          @click="AuthStore.login(formData)"
           class="font-baloo btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-rose-200 px-10 md:px-20"
         >
           Login Now
@@ -58,18 +58,7 @@ const formData = ref({
 
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-const doLogin = async () => {
-  // convert data to json
-  const data = JSON.stringify(formData.value);
 
-  await $fetch(apiUri + "/login", {
-    method: "POST",
-    body: data,
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
-  
-  // REDIRECT TO ADMIN HOMEPAGE
-  navigateTo("/admin");
-};
+// auth state
+const AuthStore = useAuthStore();
 </script>
