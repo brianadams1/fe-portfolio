@@ -24,7 +24,7 @@
         <!-- sisi kiri -->
         <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
           <SvgMonas class="w-8" />
-          <div>{{ AuthStore.user.name }}</div>
+          <div>Brian Adams</div>
         </a>
 
         <!-- sisi kanan -->
@@ -53,7 +53,7 @@
               class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52"
             >
               <div class="p-2 border-b">
-                <div class="font-semibold">{{AuthStore.user.name}}</div>
+                <div class="font-semibold">Brian Adams</div>
                 <div class="text-xs">Administrator</div>
               </div>
               <ul tabindex="0" class="mt-2">

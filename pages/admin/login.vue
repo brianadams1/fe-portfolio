@@ -7,13 +7,15 @@
         <SvgProgrammer class="w-[120%]" />
       </div>
       <div
-        class="max-lg:row-span-6 bg-rose-100 flex flex-col gap-5 lg:gap-12 md:gap-8 items-center justify-center px-10 md:px-28 lg:px-20 xl:px-32"
+        class="font-poppins max-lg:row-span-6 bg-rose-100 flex flex-col gap-5 lg:gap-12 md:gap-8 items-center justify-center px-10 md:px-28 lg:px-20 xl:px-32"
       >
-        <div class="xl:text-5xl lg:text-4xl md:text-6xl text-4xl font-bunge">
-          {{ fullname }}
+        <div class="xl:text-5xl lg:text-4xl md:text-6xl text-4xl">
+          <div class="border-b-2 p-4 border-slate-500">
+            {{ fullname }}
+          </div>
         </div>
         <!-- input email -->
-        <div class="w-full font-archy">
+        <div class="w-full">
           <label for="" class="text-xl md:text-2xl"> Email </label>
           <input
             v-model="formData.email"
@@ -23,7 +25,7 @@
           />
         </div>
         <!-- input password -->
-        <div class="w-full font-archy">
+        <div class="w-full">
           <label for="" class="ext-xl md:text-2xl"> Password </label>
           <input
             v-model="formData.password"
@@ -34,7 +36,7 @@
         </div>
         <button
           @click="AuthStore.login(formData)"
-          class="font-baloo btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-rose-200 px-10 md:px-20"
+          class="btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-rose-200 px-10 md:px-20"
         >
           Login Now
         </button>
@@ -45,7 +47,7 @@
 <script setup>
 definePageMeta({
   layout: false,
-  middleware: ["profile"],
+  middleware: ["profile", "auth"],
 });
 
 const { value: useProfile } = useState("profile");

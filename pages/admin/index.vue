@@ -9,13 +9,16 @@
       - counter
     </button>
   </div>
-  <div> Name: {{ AuthStore.user.name }} </div>
-  <div> Email: {{ AuthStore.user.email }} </div>
+  <!-- <template v-if="AuthStore.user"> -->
+    <div> Name: {{ AuthStore.user.name }} </div>
+    <div> Email: {{ AuthStore.user.email }} </div>
+  <!-- </template> -->
 </template>
 <script setup>
 // import {useCounterStore} from '../../stores/counterStore'
 definePageMeta({
   layout: "admin",
+  middleware: ["auth"],
 });
 
 const Counter = useCounterStore();
