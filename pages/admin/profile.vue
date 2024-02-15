@@ -8,6 +8,7 @@
 // import {useCounterStore} from '../../stores/counterStore'
 definePageMeta({
   layout: "admin",
+  middleware: ['auth']
 });
 
 const Counter = useCounterStore();
