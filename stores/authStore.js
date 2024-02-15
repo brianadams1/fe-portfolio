@@ -5,18 +5,9 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async getUser() {
       // get api uri
-      const config = useRuntimeConfig();
-      const apiUri = config.public.apiUri;
-      try {
-        const user = await $fetch(apiUri + "/user", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
-        this.user = user;
-      } catch (error) {
-        console.log(error);
-      }
+      const Api = useApiStore();
+      const user = await Api.get("/user");
+      this.user = user;
     },
     async login(formData) {
       // get api uri
