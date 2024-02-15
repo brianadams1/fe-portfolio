@@ -1,7 +1,7 @@
 <template>
   <div> ini halaman project </div>
   <div>Counter : {{ Counter.count }}</div>
-  <button class="btn btn-accent" @click="Counter.add10">add 10</button>
+  <button class="btn btn-accent" @click="Counter.add10"> add 10 </button>
 </template>
 
 <script setup>

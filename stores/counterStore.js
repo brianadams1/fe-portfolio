@@ -13,7 +13,8 @@ export const useCounterStore = defineStore("counter", {
       this.count--;
     },
     add10() {
-        this.count+10
-    }
+      this.count += 10;
+    },
   },
 });
+ 

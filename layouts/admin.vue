@@ -61,10 +61,10 @@
                   <a> <LucideUser :size="16" /> User </a>
                 </li>
                 <li>
-                  <btn @click="logout">
+                  <button @click="logout">
                     <LucideLogOut :size="16" />
                     Logout
-                  </btn>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -97,7 +97,7 @@
           ></label>
           <div class="lg:w-full lg:h-full lg:z-[1]">
             <!-- NAVIGATION -->
-            <AdminLayoutNavigation/>
+            <AdminLayoutNavigation />
           </div>
         </div>
       </div>
@@ -146,12 +146,10 @@ body > div > div[data-theme] {
   z-index: 0;
 }
 
-
 @keyframes intro-wrapper-animation {
   100% {
     opacity: 1;
     transform: translateX(0px);
   }
 }
-
 </style>

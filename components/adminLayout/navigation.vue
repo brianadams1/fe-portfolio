@@ -19,12 +19,12 @@ const menus = [
   {
     title: "Profile",
     to: "/admin/profile",
-    icon: resolveComponent("LucideLayoutDashboard"),
+    icon: resolveComponent("LucideCircleUserRound"),
   },
   {
     title: "Project",
     to: "/admin/project",
-    icon: resolveComponent("LucideLayoutDashboard"),
+    icon: resolveComponent("LucideFolderKanban"),
   },
 
   //   {
