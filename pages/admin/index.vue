@@ -1,12 +1,16 @@
 <template>
   <div> Nih Dashboard </div>
   <div>Counter : {{ Counter.count }}</div>
-  <button class="btn btn-primary" @click="Counter.increment">
-    Add counter
-  </button>
-  <button class="btn btn-primary" @click="Counter.decrement">
-    - counter
-  </button>
+  <div class="flex gap-5">
+    <button class="btn btn-primary" @click="Counter.increment">
+      Add counter
+    </button>
+    <button class="btn btn-primary" @click="Counter.decrement">
+      - counter
+    </button>
+  </div>
+  <div> Name: {{ AuthStore.user.name }} </div>
+  <div> Email: {{ AuthStore.user.email }} </div>
 </template>
 <script setup>
 // import {useCounterStore} from '../../stores/counterStore'
@@ -15,5 +19,5 @@ definePageMeta({
 });
 
 const Counter = useCounterStore();
-
+const AuthStore = useAuthStore();
 </script>
