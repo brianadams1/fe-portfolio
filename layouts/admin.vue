@@ -28,7 +28,7 @@
         </a>
 
         <!-- sisi kanan -->
-        <div class="grow flex justify-between items-center lg:pl-4">
+        <div class="grow flex justify-end items-center lg:pl-4">
           <!-- breadcrumb -->
           <!-- <div class="text-sm breadcrumbs flex-wrap">
             <ul>
@@ -61,7 +61,7 @@
                   <a> <LucideUser :size="16" /> User </a>
                 </li>
                 <li>
-                  <button @click="logout">
+                  <button @click="AuthStore.logout">
                     <LucideLogOut :size="16" />
                     Logout
                   </button>
@@ -108,16 +108,17 @@
 <script setup>
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-const logout = async () => {
-  await $fetch(apiUri + "/logout", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
+// const logout = async () => {
+//   await $fetch(apiUri + "/logout", {
+//     method: "DELETE",
+//     headers: { "Content-Type": "application/json" },
+//     credentials: "include",
+//   });
 
-  // REDIRECT TO LOGIN PAGE
-  navigateTo("/admin/login");
-};
+//   // REDIRECT TO LOGIN PAGE
+//   navigateTo("/admin/login");
+// };
+const AuthStore = useAuthStore();
 </script>
 
 <style scoped>
