@@ -9,12 +9,17 @@ export const useAuthStore = defineStore("auth", {
       this.user = await Api.get("/user");
     },
     async login(data) {
-      const Api = useApiStore();
-
-      this.user = await Api.post("/login", data);
-
-      // REDIRECT TO ADMIN HOMEPAGE
-      navigateTo("/admin");
+      try {
+        
+        const Api = useApiStore();
+  
+        this.user = await Api.post("/login", data);
+  
+        // REDIRECT TO ADMIN HOMEPAGE
+        navigateTo("/admin");
+      } catch (error) {
+        throw error
+      }
     },
     async logout() {
       const Api = useApiStore();

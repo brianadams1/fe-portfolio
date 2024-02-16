@@ -34,26 +34,14 @@ export const useApiStore = defineStore("api", {
         });
         return userData
       } catch (error) {
-        console.log(error)
-      }
+throw error      }
 
     },
     //put
     //patch
     //delete
     async delete(path) {
-      // const config = useRuntimeConfig();
-      // const apiUri = config.public.apiUri;
-      // try {
-      //   const data = await $fetch(apiUri + path, {
-      //     method: "GET",
-      //     headers: { "Content-Type": "application/json" },
-      //     credentials: "include",
-      //   });
-      //   return data
-      // } catch (error) {
-      //   console.log(error);
-      // }
+
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;

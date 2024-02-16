@@ -7,10 +7,10 @@
         <SvgProgrammer class="w-[120%]" />
       </div>
       <div
-        class="font-poppins max-lg:row-span-6 bg-rose-100 flex flex-col gap-5 lg:gap-12 md:gap-8 items-center justify-center px-10 md:px-28 lg:px-20 xl:px-32"
+        class="font-poppins max-lg:row-span-6 bg-slate-700 text-white flex flex-col gap-5 lg:gap-12 md:gap-8 items-center justify-center px-10 md:px-28 lg:px-20 xl:px-32"
       >
         <div class="xl:text-5xl lg:text-4xl md:text-6xl text-4xl">
-          <div class="border-b-2 p-4 border-slate-500">
+          <div class="border-b-2 p-4 border-slate-200">
             {{ fullname }}
           </div>
         </div>
@@ -21,30 +21,47 @@
             v-model="formData.email"
             type="email"
             placeholder="Email"
-            class="input w-full bg-rose-200"
+            class="input w-full bg-sky-100"
           />
+          <div
+            class="text-error text-sm text-right mr-2"
+            v-if="errorMessage.email"
+          >
+            {{ errorMessage.email }}
+          </div>
         </div>
         <!-- input password -->
         <div class="w-full">
-          <label for="" class="ext-xl md:text-2xl"> Password </label>
+          <label for="" class="text-xl md:text-2xl"> Password </label>
           <input
             v-model="formData.password"
             type="password"
             placeholder="Password"
-            class="input w-full bg-rose-200"
+            class="input w-full bg-sky-100"
           />
+          <div
+            class="text-error text-sm text-right mr-2"
+            v-if="errorMessage.password"
+          >
+            {{ errorMessage.password }}
+          </div>
         </div>
         <button
-          @click="AuthStore.login(formData)"
-          class="btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-rose-200 px-10 md:px-20"
+          @click="handleLogin"
+          class="btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-slate-600 px-10 md:px-20 text-white hover:text-black"
         >
           Login Now
         </button>
+        <div class="text-error text-sm text-right mr-2">
+          {{ fetchError }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import Joi from "joi";
+
 definePageMeta({
   layout: false,
   middleware: ["profile", "auth"],
@@ -63,4 +80,33 @@ const apiUri = config.public.apiUri;
 
 // auth state
 const AuthStore = useAuthStore();
+const errorMessage = ref({});
+const fetchError = "";
+const handleLogin = async () => {
+  // reset error message
+  errorMessage.value = {};
+
+  try {
+    // docopy from backend
+    const loginValidation = Joi.object({
+      email: Joi.string()
+        .email({ tlds: { allow: false } })
+        .required()
+        .label("Email"),
+      password: Joi.string().min(6).max(100).required().label("Password"),
+    });
+
+    // throw jika error
+    const data = Validate(loginValidation, formData.value);
+
+    // fetch login
+    await AuthStore.login(data);
+  } catch (error) {
+    if (error instanceof Joi.ValidationError) {
+      errorMessage.value = joierror(error);
+    } else {
+      fetchError.value = error.data.message;
+    }
+  }
+};
 </script>
