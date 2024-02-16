@@ -19,7 +19,7 @@ export const useApiStore = defineStore("api", {
       }
     },
     //post
-    async post(path, data){
+    async post(path, data) {
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
@@ -32,16 +32,15 @@ export const useApiStore = defineStore("api", {
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
-        return userData
+        return userData;
       } catch (error) {
-throw error      }
-
+        throw error;
+      }
     },
     //put
     //patch
     //delete
     async delete(path) {
-
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
@@ -52,9 +51,9 @@ throw error      }
           credentials: "include",
         });
 
-        return data
+        return data;
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
   },

@@ -21,7 +21,7 @@
             v-model="formData.email"
             type="email"
             placeholder="Email"
-            class="input w-full bg-sky-100"
+            class="input w-full bg-sky-100 text-black"
           />
           <div
             class="text-error text-sm text-right mr-2"
@@ -37,7 +37,7 @@
             v-model="formData.password"
             type="password"
             placeholder="Password"
-            class="input w-full bg-sky-100"
+            class="input w-full bg-sky-100 text-black"
           />
           <div
             class="text-error text-sm text-right mr-2"
@@ -75,16 +75,14 @@ const formData = ref({
   password: "",
 });
 
-const config = useRuntimeConfig();
-const apiUri = config.public.apiUri;
-
 // auth state
 const AuthStore = useAuthStore();
 const errorMessage = ref({});
-const fetchError = "";
+const fetchError = ref("");
 const handleLogin = async () => {
   // reset error message
   errorMessage.value = {};
+  fetchError.value = "";
 
   try {
     // docopy from backend
