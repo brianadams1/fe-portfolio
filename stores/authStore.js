@@ -6,8 +6,7 @@ export const useAuthStore = defineStore("auth", {
     async getUser() {
       // get api uri
       const Api = useApiStore();
-      const user = await Api.get("/user");
-      this.user = user;
+      this.user = await Api.get("/user"); 
     },
     async login(formData) {
       // get api uri

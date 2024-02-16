@@ -7,7 +7,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (!AuthStore.user) {
       await AuthStore.getUser(); // if token exist
-      if (!AuthStore.user) return navigateTo("/admin/login"); // TODO clear cookies
+      if (!AuthStore.user) {
+        token.value = "";// clear cookies to prevent infinite looping
+        return navigateTo("/admin/login"); 
+      }
     }
   } else {
     // to login page
