@@ -1,6 +1,6 @@
 <template>
   <div
-    data-theme="fantasy"
+    data-theme="dim"
     class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden"
   >
     <!-- MOBILE HEADER -->
@@ -53,8 +53,8 @@
               class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52"
             >
               <div class="p-2 border-b">
-                <div class="font-semibold">Brian Adams</div>
-                <div class="text-xs">Administrator</div>
+                <div class="font-semibold">{{AuthStore.user.name}}</div>
+                <div class="text-xs">{{AuthStore.user.email}}</div>
               </div>
               <ul tabindex="0" class="mt-2">
                 <li>
@@ -106,10 +106,8 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
-const apiUri = config.public.apiUri;
-
 const AuthStore = useAuthStore();
+
 </script>
 
 <style scoped>
