@@ -24,6 +24,7 @@
           type="email"
           class="input input-bordered w-full max-w-xs"
           autocomplete="off"
+          disabled
         />
         <div
           class="text-error text-right text-sm pr-2 pt-2"
@@ -62,14 +63,46 @@
           {{ errors.confirm_password }}
         </div>
       </label>
+      <div class="text-error text-sm pt-5">{{ fetchError }}</div>
       <div class="">
-        <button class="btn btn-neutral mt-5" @click="handleUpdate">Update</button>
+        <label class="btn btn-neutral" for="confirm"> Save </label>
       </div>
+    </div>
+    <!-- The button to open modal -->
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="confirm" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <form method="dialog">
+          <label
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            for="confirm"
+            >✕</label
+          >
+        </form>
+        <h3 class="font-bold text-lg">Well...</h3>
+        <p class="py-4">You sure to save these changes?</p>
+        <div class="modal-action">
+          <!-- <div v-if="isLoading">
+            <SvgCat :size="30" class="animate-pulse"
+          /></div> -->
+          <label for="confirm" class="btn btn-error">Cancel</label>
+          <label for="confirm" class="btn btn-primary" @click="handleUpdate"
+            >Save</label
+          >
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <label for="confirm"> </label>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup>
+import Joi from "joi";
+
 definePageMeta({
   layout: "admin",
   middleware: ["auth"],
@@ -83,11 +116,28 @@ const formData = ref({
   password: "",
   confirm_password: "",
 });
-const handleUpdate = () => {
-  // modal confirm
-
-  // validate
-
-  // fetch data update
-}
+// auth state
+const errorMessage = ref({});
+const fetchError = ref("");
+// const isLoading = ref(false);
+const handleUpdate = async () => {
+  // isLoading.value = true;
+  try {
+    // fetch login
+    await AuthStore.updateUser(formData.value);
+    formData.value.password = "";
+    formData.value.confirm_password = "";
+  } catch (error) {
+    if (error instanceof Joi.ValidationError) {
+      errorMessage.value = joierror(error);
+      formData.value.password = "";
+      formData.value.confirm_password = "";
+    } else {
+      fetchError.value = error.message;
+      formData.value.password = "";
+      formData.value.confirm_password = "";
+    }
+    // isLoading.value = false;
+  }
+};
 </script>

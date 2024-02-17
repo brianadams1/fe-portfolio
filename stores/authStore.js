@@ -28,12 +28,13 @@ export const useAuthStore = defineStore("auth", {
       // REDIRECT TO LOGIN PAGE
       navigateTo("/admin/login");
     },
-    async update(data) {
-      const Api = useApiStore();
+    async updateUser(data) {
       try {
-        await Api.put("/user", data);
+        const Api = useApiStore();
+        data = Validate(userValidation, data)
+        this.user = await Api.put("/user", data)
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },

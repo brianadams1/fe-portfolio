@@ -24,7 +24,7 @@
         <!-- sisi kiri -->
         <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
           <SvgMonas class="w-8" />
-          <div>Brian Adams</div>
+          <div class="font-archy text-2xl">{{ AuthStore.user.name }}</div>
         </a>
 
         <!-- sisi kanan -->
@@ -53,12 +53,14 @@
               class="dropdown-content z-[2] menu bg-base-100 shadow rounded w-52"
             >
               <div class="p-2 border-b">
-                <div class="font-semibold">{{AuthStore.user.name}}</div>
-                <div class="text-xs">{{AuthStore.user.email}}</div>
+                <div class="font-semibold">{{ AuthStore.user.name }}</div>
+                <div class="text-xs">{{ AuthStore.user.email }}</div>
               </div>
               <ul tabindex="0" class="mt-2">
                 <li>
-                  <NuxtLink to="/admin/user"> <LucideUser :size="16" /> User Setting</NuxtLink>
+                  <NuxtLink to="/admin/user">
+                    <LucideUser :size="16" /> User Setting</NuxtLink
+                  >
                 </li>
                 <li>
                   <button @click="AuthStore.logout">
@@ -107,7 +109,6 @@
 
 <script setup>
 const AuthStore = useAuthStore();
-
 </script>
 
 <style scoped>
