@@ -28,5 +28,13 @@ export const useAuthStore = defineStore("auth", {
       // REDIRECT TO LOGIN PAGE
       navigateTo("/admin/login");
     },
+    async update(data) {
+      const Api = useApiStore();
+      try {
+        await Api.put("/user", data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 });
