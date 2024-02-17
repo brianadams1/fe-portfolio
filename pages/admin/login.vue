@@ -46,12 +46,19 @@
             {{ errorMessage.password }}
           </div>
         </div>
-        <button
-          @click="handleLogin"
-          class="btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-slate-600 px-10 md:px-20 text-white hover:text-black"
-        >
-          Login Now
-        </button>
+        <div class="flex gap-3">
+          <button
+            @click="handleLogin"
+            class="btn border-0 text-xl md:text-2xl md:py-2 text-nowrap h-min bg-slate-600 px-10 md:px-20 text-white hover:text-black"
+          >
+            <SvgCat
+              :size="30"
+              class="animate-bounce h-5 w-5 mr-3 fill-slate-200"
+              v-if="isLoading"
+            />
+            Login Now
+          </button>
+        </div>
         <div class="text-error text-sm text-right mr-2">
           {{ fetchError }}
         </div>
@@ -79,32 +86,22 @@ const formData = ref({
 const AuthStore = useAuthStore();
 const errorMessage = ref({});
 const fetchError = ref("");
+const isLoading = ref(false);
 const handleLogin = async () => {
   // reset error message
   errorMessage.value = {};
   fetchError.value = "";
-
+  isLoading.value = true;
   try {
-    // docopy from backend
-    const loginValidation = Joi.object({
-      email: Joi.string()
-        .email({ tlds: { allow: false } })
-        .required()
-        .label("Email"),
-      password: Joi.string().min(6).max(100).required().label("Password"),
-    });
-
-    // throw jika error
-    const data = Validate(loginValidation, formData.value);
-
     // fetch login
-    await AuthStore.login(data);
+    await AuthStore.login(formData.value);
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
       errorMessage.value = joierror(error);
     } else {
       fetchError.value = error.data.message;
     }
+    isLoading.value = false;
   }
 };
 </script>

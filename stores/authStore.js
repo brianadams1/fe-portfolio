@@ -10,15 +10,15 @@ export const useAuthStore = defineStore("auth", {
     },
     async login(data) {
       try {
-        
         const Api = useApiStore();
-  
+        data = Validate(loginValidation, data);
+
         this.user = await Api.post("/login", data);
-  
+
         // REDIRECT TO ADMIN HOMEPAGE
         navigateTo("/admin");
       } catch (error) {
-        throw error
+        throw error;
       }
     },
     async logout() {
