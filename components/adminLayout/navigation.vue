@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="menu bg-neutral text-white w-56 lg:rounded-box min-h-screen lg:min-h-full"
+    class="side-menu menu bg-neutral text-white w-56 lg:rounded-box min-h-screen lg:min-h-full"
   >
     <li class="font-light my-2 px-2">Main Menu</li>
     <template v-for="menu in menus">
@@ -79,7 +79,7 @@ const menus = [
 </script>
 <style>
 @media (min-width: 1024px) {
-  .menu a.router-link-exact-active::after {
+  .side-menu.menu a.router-link-exact-active::after {
     content: "";
     width: 20px;
     height: 80px;
@@ -91,7 +91,7 @@ const menus = [
     animation-fill-mode: forwards;
     -webkit-animation-delay: 0.2s;
     animation-delay: 0.2s;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='80' viewBox='0 0 20 122.1'%3E%3Cpath data-name='Union 1' d='M16.038 122H16v-2.213a95.805 95.805 0 00-2.886-20.735 94.894 94.894 0 00-7.783-20.434A39.039 39.039 0 010 61.051a39.035 39.035 0 015.331-17.567 94.9 94.9 0 007.783-20.435A95.746 95.746 0 0016 2.314V0h4v122h-3.961v.1l-.001-.1z' fill='%23e8e8e8'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='80' viewBox='0 0 20 122.1'%3E%3Cpath data-name='Union 1' d='M16.038 122H16v-2.213a95.805 95.805 0 00-2.886-20.735 94.894 94.894 0 00-7.783-20.434A39.039 39.039 0 010 61.051a39.035 39.035 0 015.331-17.567 94.9 94.9 0 007.783-20.435A95.746 95.746 0 0016 2.314V0h4v122h-3.961v.1l-.001-.1z' fill='%23242933'/%3E%3C/svg%3E");
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -103,8 +103,8 @@ const menus = [
     opacity: 0;
   }
 }
-.menu a,
-.menu summary {
+.side-menu.menu a,
+.side-menu.menu summary {
   position: relative;
   margin-bottom: 0.25rem;
   display: flex;
@@ -114,12 +114,12 @@ const menus = [
   padding-left: 1.25rem;
 }
 
-.menu a:focus {
+.side-menu.menu a:focus {
   color: #fff;
 }
 
-.menu a.router-link-exact-active::before,
-.menu details[open] > summary::before {
+.side-menu.menu a.router-link-exact-active::before,
+.side-menu.menu details[open] > summary::before {
   content: "";
   position: absolute;
   top: 0px;
