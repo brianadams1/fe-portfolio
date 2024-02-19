@@ -34,6 +34,21 @@
         </div>
       </label>
       <label class="form-control w-full max-w-xs">
+        <div class="label label-text pb-0">Old Password </div>
+        <input
+          v-model="formData.old_password"
+          type="password"
+          class="input input-bordered w-full max-w-xs"
+          autocomplete="off"
+        />
+        <div
+          class="text-error text-right text-sm pr-2 pt-2"
+          v-if="errors.old_password"
+        >
+          {{ errors.old_password }}
+        </div>
+      </label>
+      <label class="form-control w-full max-w-xs">
         <div class="label label-text pb-0"> Password </div>
         <input
           v-model="formData.password"
@@ -51,21 +66,21 @@
       <label class="form-control w-full max-w-xs">
         <div class="label label-text pb-0"> Confirm Password </div>
         <input
-          v-model="formData.confirm_password"
+          v-model="formData.password_confirm"
           type="password"
           class="input input-bordered w-full max-w-xs"
           autocomplete="off"
         />
         <div
           class="text-error text-right text-sm pr-2 pt-2"
-          v-if="errors.confirm_password"
+          v-if="errors.password_confirm"
         >
-          {{ errors.confirm_password }}
+          {{ errors.password_confirm }}
         </div>
       </label>
-      <div class="text-error text-sm pt-5">{{ fetchError }}</div>
-      <div class="">
+      <div class="flex items-center gap-5">
         <label class="btn btn-neutral" for="confirm"> Save </label>
+        <div class="text-error text-sm pt-5 text-center">{{ fetchError }}</div>
       </div>
     </div>
     <!-- The button to open modal -->
@@ -110,34 +125,29 @@ definePageMeta({
 const AuthStore = useAuthStore();
 
 const errors = ref({});
+const fetchError = ref("");
 const formData = ref({
   name: AuthStore.user.name,
   email: AuthStore.user.email,
+  old_password: "",
   password: "",
-  confirm_password: "",
+  password_confirm: "",
 });
 // auth state
-const errorMessage = ref({});
-const fetchError = ref("");
-// const isLoading = ref(false);
 const handleUpdate = async () => {
-  // isLoading.value = true;
+  errors.value = {};
+  fetchError.value = "";
   try {
     // fetch login
-    await AuthStore.updateUser(formData.value);
-    formData.value.password = "";
-    formData.value.confirm_password = "";
+    await AuthStore.update(formData.value);
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
-      errorMessage.value = joierror(error);
-      formData.value.password = "";
-      formData.value.confirm_password = "";
+      errors.value = joierror(error);
     } else {
-      fetchError.value = error.message;
-      formData.value.password = "";
-      formData.value.confirm_password = "";
+      console.log("error for fetch");
+      console.log(error);
+      fetchError.value = error.data.message;
     }
-    // isLoading.value = false;
   }
 };
 </script>

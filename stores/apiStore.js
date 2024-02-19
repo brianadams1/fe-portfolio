@@ -102,6 +102,7 @@ export const useApiStore = defineStore("api", {
         //  throw to login
         return navigateTo("/admin/login");
       }
+      if (error.status == 400) throw error;
       // except 401
       throw createError({
         statusCode: error.status || 500, // default code 500
