@@ -16,11 +16,11 @@ const loginValidation = Joi.object({
 const updateUserValidation = Joi.object({
   name: isString100.required().label("Name"),
   email: isEmail.label("Email"),
-  old_password: isPassword.label("Current password"),
-  password: isPassword.label("Password"),
+  old_password: isPassword.label("Old password"),
+  password: isPassword.label("New Password"),
   password_confirm: isPassword
     .valid(Joi.ref("password"))
-    .label("Password Confirm")
+    .label("Confirm New Password")
     .options({ messages: { "any.only": "{{#label}} not match" } }),
 });
 

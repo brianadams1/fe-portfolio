@@ -49,7 +49,7 @@
         </div>
       </label>
       <label class="form-control w-full max-w-xs">
-        <div class="label label-text pb-0"> Password </div>
+        <div class="label label-text pb-0"> New Password </div>
         <input
           v-model="formData.password"
           type="password"
@@ -64,7 +64,7 @@
         </div>
       </label>
       <label class="form-control w-full max-w-xs">
-        <div class="label label-text pb-0"> Confirm Password </div>
+        <div class="label label-text pb-0"> Confirm New Password </div>
         <input
           v-model="formData.password_confirm"
           type="password"
@@ -83,6 +83,7 @@
         <div class="text-error text-sm pt-5 text-center">{{ fetchError }}</div>
       </div>
     </div>
+
     <!-- The button to open modal -->
 
     <!-- Put this part before </body> tag -->
@@ -101,7 +102,7 @@
         <div class="modal-action">
           <!-- <div v-if="isLoading">
             <SvgCat :size="30" class="animate-pulse"
-          /></div> -->
+            /></div> -->
           <label for="confirm" class="btn btn-error">Cancel</label>
           <label for="confirm" class="btn btn-primary" @click="handleUpdate"
             >Save</label
@@ -110,6 +111,35 @@
       </div>
       <form method="dialog" class="modal-backdrop">
         <label for="confirm"> </label>
+      </form>
+    </div>
+
+    <!-- MODAL SUCCESS -->
+    <!-- Put this part before </body> tag -->
+    <input
+      v-model="success"
+      type="checkbox"
+      id="success"
+      class="modal-toggle"
+    />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <form method="dialog">
+          <label
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            for="success"
+            >✕</label
+          >
+        </form>
+        <h3 class="font-bold text-lg">Success</h3>
+        <h3 class="font-semibold">Changes Saved</h3>
+
+        <div class="modal-action">
+          <label for="success" class="btn">Close</label>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <label for="success"> </label>
       </form>
     </div>
   </div>
@@ -126,6 +156,7 @@ const AuthStore = useAuthStore();
 
 const errors = ref({});
 const fetchError = ref("");
+const success = ref(false);
 const formData = ref({
   name: AuthStore.user.name,
   email: AuthStore.user.email,
@@ -140,6 +171,7 @@ const handleUpdate = async () => {
   try {
     // fetch login
     await AuthStore.update(formData.value);
+    success.value = true;
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
       errors.value = joierror(error);
