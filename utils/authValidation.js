@@ -2,9 +2,8 @@ import Joi from "joi";
 
 const isEmail = Joi.string()
   .email({ tlds: { allow: false } })
-  .required()
   .max(100);
-const isPassword = Joi.string().trim().min(6).max(100).required();
+const isPassword = Joi.string().trim().min(6).max(100);
 
 const isString100 = Joi.string().trim().min(3).max(100);
 
@@ -14,7 +13,7 @@ const loginValidation = Joi.object({
 });
 
 const updateUserValidation = Joi.object({
-  name: isString100.required().label("Name"),
+  name: isString100.label("Name"),
   email: isEmail.label("Email"),
   old_password: isPassword.label("Old password"),
   password: isPassword.label("New Password"),
