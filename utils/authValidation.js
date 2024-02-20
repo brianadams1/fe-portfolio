@@ -13,7 +13,7 @@ const loginValidation = Joi.object({
 });
 
 const updateUserValidation = Joi.object({
-  name: isString100.label("Name"),
+  name: isString100.label("Name").replace(/\W+/g, " "),
   email: isEmail.label("Email"),
   old_password: isPassword.label("Old password"),
   password: isPassword.label("New Password"),
