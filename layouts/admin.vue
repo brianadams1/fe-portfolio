@@ -24,7 +24,9 @@
         <!-- sisi kiri -->
         <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
           <SvgMonas class="w-8" />
-          <div class="font-archy text-2xl">{{ AuthStore.user.name }}</div>
+          <div class="font-archy text-2xl capitalize">{{
+            AuthStore.user.name
+          }}</div>
         </a>
 
         <!-- sisi kanan -->

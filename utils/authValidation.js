@@ -5,7 +5,7 @@ const isEmail = Joi.string()
   .max(100);
 const isPassword = Joi.string().trim().min(6).max(100);
 
-const isString100 = Joi.string().trim().min(3).max(100);
+const isString100 = Joi.string().min(6).max(25).trim();
 
 const loginValidation = Joi.object({
   email: isEmail.label("Email"),

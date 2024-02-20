@@ -85,13 +85,14 @@ const handleUpdate = async () => {
     // fetch login
     await AuthStore.update(formData.value);
     success.value = true;
+    confirm.value = false;
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
       errors.value = joierror(error);
+      confirm.value = false;
     } else {
-      console.log("error for fetch");
-      console.log(error);
       fetchError.value = error.data.message;
+      confirm.value = false;
     }
   }
 };

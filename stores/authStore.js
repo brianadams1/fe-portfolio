@@ -30,7 +30,9 @@ export const useAuthStore = defineStore("auth", {
     },
     async update(data) {
       const Api = useApiStore();
+
       data = Validate(updateUserValidation, data);
+      // data.name = data.name.replace("/[W_]+/g", " ");
       this.user = await Api.put("/user", data);
     },
   },
