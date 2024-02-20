@@ -1,4 +1,3 @@
-import type { AdminModalConfirm } from '#build/components';
 <template>
   <div class="flex flex-col gap-4">
     <label class="form-control w-full max-w-xs">
@@ -58,20 +57,20 @@ const formData = ref({
 });
 // auth state
 const handleUpdate = async () => {
-  console.log("masuk handle update");
   errors.value = {};
   fetchError.value = "";
   try {
     // fetch login
     await AuthStore.update(formData.value);
     success.value = true;
+    confirm.value = false;
   } catch (error) {
-    console.log(error);
     if (error instanceof Joi.ValidationError) {
       errors.value = joierror(error);
+      confirm.value = false;
     } else {
-      console.log("error for fetch");
       fetchError.value = error.data.message;
+      confirm.value = false;
     }
   }
 };
