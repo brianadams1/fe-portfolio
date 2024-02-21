@@ -22,6 +22,21 @@ const menus = [
     icon: resolveComponent("LucideCircleUserRound"),
   },
   {
+    title: "Blog",
+    to: "/admin/blog",
+    icon: resolveComponent("LucideNewspaper"),
+  },
+  {
+    title: "Experience",
+    to: "/admin/experience",
+    icon: resolveComponent("LucideBriefcase"),
+  },
+  {
+    title: "Education",
+    to: "/admin/education",
+    icon: resolveComponent("LucideGraduation-Cap"),
+  },
+  {
     title: "Project",
     to: "/admin/project",
     icon: resolveComponent("LucideFolderKanban"),

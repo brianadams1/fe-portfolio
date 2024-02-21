@@ -110,6 +110,7 @@
 </template>
 
 <script setup>
+import "v-calendar/style.css";
 const AuthStore = useAuthStore();
 </script>
 
