@@ -24,9 +24,9 @@
         <!-- sisi kiri -->
         <a href="" class="max-lg:hidden flex-none flex gap-4 items-center pr-4">
           <SvgMonas class="w-8" />
-          <div class="font-archy text-2xl capitalize">{{
-            AuthStore.user.name
-          }}</div>
+          <div class="font-archy text-2xl capitalize">
+            {{ AuthStore.user.name }}
+          </div>
         </a>
 
         <!-- sisi kanan -->
@@ -45,9 +45,14 @@
             <div
               tabindex="0"
               role="button"
-              class="btn w-10 h-10 min-h-10 btn-circle"
+              class="btn w-10 h-10 min-h-10 btn-circle overflow-hidden"
             >
-              <div class="flex justify-center items-center">
+              <img
+                v-if="ProfileStore.avatar"
+                :src="apiUri + ProfileStore.avatar"
+                :alt="ProfileStore.profile.firstName"
+              />
+              <div v-else class="flex justify-center items-center">
                 <LucideUser :size="24" class="text-primary" />
               </div>
             </div>
@@ -112,6 +117,13 @@
 <script setup>
 import "v-calendar/style.css";
 const AuthStore = useAuthStore();
+
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
+const ProfileStore = useProfileStore();
+onBeforeMount(async () => {
+  if (!ProfileStore.profile && ProfileStore.avatar) await ProfileStore.get();
+});
 </script>
 
 <style scoped>
