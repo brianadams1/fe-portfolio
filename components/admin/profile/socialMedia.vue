@@ -27,10 +27,10 @@
       </Transition>
     </div>
   </div>
-  <div class="grid grid-cols-2">
+  <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
     <div class="flex flex-col gap-5">
       <!-- GITHUB -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideGithub />
           <div> Github </div>
@@ -38,12 +38,12 @@
         <input
           v-model="formData.github"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- GITLAB -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideGitlab />
           <div> Gitlab </div>
@@ -51,12 +51,12 @@
         <input
           v-model="formData.gitlab"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- INSTAGRAM -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end flex justify-start gap-2">
           <LucideInstagram />
           <div> Instagram </div>
@@ -64,12 +64,12 @@
         <input
           v-model="formData.instagram"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- FACEBOOK -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideFacebook />
           <div> Facebook </div>
@@ -77,14 +77,14 @@
         <input
           v-model="formData.facebook"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
     </div>
     <div class="flex flex-col gap-5">
       <!-- TWITTER -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideTwitter />
           <div> Twitter </div>
@@ -92,12 +92,12 @@
         <input
           v-model="formData.twitter"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- LINKEDIN -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideLinkedin />
           <div> Linkedin </div>
@@ -105,12 +105,12 @@
         <input
           v-model="formData.linkedin"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- DISCORD -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end justify-start gap-2">
           <LucideBot />
           <div> Discord </div>
@@ -118,7 +118,7 @@
         <input
           v-model="formData.discord"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>

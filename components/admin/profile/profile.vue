@@ -27,52 +27,52 @@
       </Transition>
     </div>
   </div>
-  <div class="grid grid-cols-2">
+  <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
     <!-- LEFT FORM -->
     <div class="flex flex-col gap-5">
       <!-- EMAIL -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Email </div>
         <input
           v-model="formData.email"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
           disabled
         />
       </label>
       <!-- FIRST NAME -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> First Name </div>
         <input
           v-model="formData.firstName"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- LAST NAME -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Last Name </div>
         <input
           v-model="formData.lastName"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- WEBSITE -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Website </div>
         <input
           v-model="formData.website"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- DOB -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Date of Birth </div>
         <DatePicker v-model="formData.dob" color="gray">
           <template #default="{ togglePopover }">
@@ -86,22 +86,22 @@
         </DatePicker>
       </label>
       <!-- JOB -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Job </div>
         <input
           v-model="formData.job"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- PHONE -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Phone </div>
         <input
           v-model="formData.phone"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
@@ -109,37 +109,38 @@
     <!-- RIGHT FORM -->
     <div class="flex flex-col gap-5">
       <!-- ADDRESS -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Address </div>
         <input
           v-model="formData.address"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- CITY -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> City </div>
         <input
           v-model="formData.city"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
       <!-- COUNTRY -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Country </div>
         <input
           v-model="formData.country"
           type="text"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered w-full md:max-w-xs max-w-full"
           autocomplete="off"
         />
       </label>
+      <!-- TODO input avatar file -->
       <!-- AVATAR -->
-      <label class="form-control w-full max-w-xs">
+      <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Avatar </div>
         <form class="flex items-center flex-col space-x-6 gap-3">
           <div class="shrink-0">
@@ -151,7 +152,7 @@
               v-else
               :src="apiUri + ProfileStore.profile.avatar"
               :alt="ProfileStore.profile.firstName"
-              class="w-20 h-20 rounded-full"
+              class="w-24 h-24 rounded-full"
             />
             <!-- src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
               alt="Current profile photo" -->

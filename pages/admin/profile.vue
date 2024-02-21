@@ -22,7 +22,7 @@
         type="radio"
         name="my_tabs_2"
         role="tab"
-        class="tab"
+        class="tab text-nowrap"
         aria-label="Social Media"
       />
       <div
