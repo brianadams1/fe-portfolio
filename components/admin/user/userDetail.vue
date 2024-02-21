@@ -1,55 +1,79 @@
 <template>
   <div class="flex flex-col gap-4">
-    <label class="form-control w-full max-w-xs">
-      <div class="label label-text pb-0"> Name </div>
-      <input
-        v-model="formData.name"
-        type="text"
-        class="input input-bordered w-full max-w-xs"
-        autocomplete="off"
-      />
-      <div class="text-error text-right text-sm pr-2 pt-2" v-if="errors.name">
-        {{ errors.name }}
+    <!-- ALERT -->
+    <div class="mx-auto w-[80%]">
+      <!-- SUCCESS ALERT -->
+
+      <Transition name="bounce">
+        <AdminSuccessAlert v-if="successAlert" />
+      </Transition>
+    </div>
+    <!-- ERROR ALERT -->
+    <div class="mx-auto w-[80%]">
+      <Transition name="bounce">
+        <!-- ERROR FROM NON-FETCH -->
+        <AdminErrorAlert v-if="Object.keys(errors).length">
+          <div class="flex flex-col">
+            <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
+          </div>
+        </AdminErrorAlert>
+      </Transition>
+      <Transition name="bounce">
+        <!-- ERROR FROM FETCH -->
+
+        <AdminErrorAlert v-if="fetchError">
+          {{ fetchError }}
+        </AdminErrorAlert>
+      </Transition>
+    </div>
+    <div class="flex flex-col gap-5">
+      <label class="form-control w-full max-w-xs">
+        <div class="label label-text pb-0"> Name </div>
+        <input
+          v-model="formData.name"
+          type="text"
+          class="input input-bordered w-full max-w-xs"
+          autocomplete="off"
+        />
+      </label>
+      <label class="form-control w-full max-w-xs">
+        <div class="label label-text pb-0"> Email </div>
+        <input
+          v-model="formData.email"
+          type="email"
+          class="input input-bordered w-full max-w-xs"
+          autocomplete="off"
+          disabled
+        />
+      </label>
+      <div class="flex items-center gap-5 w-full max-w-xs">
+        <div class="flex items-center gap-3">
+          <label class="btn btn-neutral w-" @click="confirm = true">
+            Save
+          </label>
+          <SvgCat v-show="isLoading" class="w-10" />
+        </div>
       </div>
-    </label>
-    <label class="form-control w-full max-w-xs">
-      <div class="label label-text pb-0"> Email </div>
-      <input
-        v-model="formData.email"
-        type="email"
-        class="input input-bordered w-full max-w-xs"
-        autocomplete="off"
-        disabled
-      />
-      <div class="text-error text-right text-sm pr-2 pt-2" v-if="errors.email">
-        {{ errors.email }}
-      </div>
-    </label>
-    <div class="flex items-center gap-5">
-      <label class="btn btn-neutral" @click="confirm = true"> Save </label>
-      <div class="text-error text-sm pt-5 text-center">{{ fetchError }}</div>
     </div>
     <!-- Put this part before </body> tag -->
     <AdminModalConfirm
       :show="confirm"
       @close="confirm = false"
+      text_confirm="Change name"
       @saved="handleUpdate"
     />
-
-    <!-- MODAL SUCCESS -->
-    <!-- Put this part before </body> tag -->
-    <AdminModalSuccess :show="success" @close="success = false" />
   </div>
 </template>
 
 <script setup>
-import Joi from "joi";
+import Joi, { object } from "joi";
 
 const AuthStore = useAuthStore();
 
 const errors = ref({});
 const fetchError = ref("");
-const success = ref(false);
+const successAlert = ref(false);
+const isLoading = ref(false);
 const confirm = ref(false);
 const formData = ref({
   name: AuthStore.user.name,
@@ -57,20 +81,26 @@ const formData = ref({
 });
 // auth state
 const handleUpdate = async () => {
+  confirm.value = false;
+  isLoading.value = true;
+  // reset errors
   errors.value = {};
   fetchError.value = "";
   try {
     // fetch login
     await AuthStore.update(formData.value);
-    success.value = true;
-    confirm.value = false;
+    successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 3000);
+    isLoading.value = false;
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
+      isLoading.value = false;
       errors.value = joierror(error);
-      confirm.value = false;
     } else {
+      isLoading.value = false;
       fetchError.value = error.data.message;
-      confirm.value = false;
     }
   }
 };

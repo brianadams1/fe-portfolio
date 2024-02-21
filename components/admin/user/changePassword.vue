@@ -1,6 +1,31 @@
-import type { AdminModalConfirm } from '#build/components';
 <template>
   <div class="flex flex-col gap-4">
+    <!-- ALERT -->
+    <div class="mx-auto w-[80%]">
+      <!-- SUCCESS ALERT -->
+
+      <Transition name="bounce">
+        <AdminSuccessAlert v-if="successAlert" />
+      </Transition>
+    </div>
+    <!-- ERROR ALERT -->
+    <div class="mx-auto w-[80%]">
+      <Transition name="bounce">
+        <!-- ERROR FROM NON-FETCH -->
+        <AdminErrorAlert v-if="Object.keys(errors).length">
+          <div class="flex flex-col">
+            <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
+          </div>
+        </AdminErrorAlert>
+      </Transition>
+      <Transition name="bounce">
+        <!-- ERROR FROM FETCH -->
+
+        <AdminErrorAlert v-if="fetchError">
+          {{ fetchError }}
+        </AdminErrorAlert>
+      </Transition>
+    </div>
     <label class="form-control w-full max-w-xs">
       <div class="label label-text pb-0">Old Password </div>
       <input
@@ -9,12 +34,6 @@ import type { AdminModalConfirm } from '#build/components';
         class="input input-bordered w-full max-w-xs"
         autocomplete="off"
       />
-      <div
-        class="text-error text-right text-sm pr-2 pt-2"
-        v-if="errors.old_password"
-      >
-        {{ errors.old_password }}
-      </div>
     </label>
     <label class="form-control w-full max-w-xs">
       <div class="label label-text pb-0"> New Password </div>
@@ -24,12 +43,6 @@ import type { AdminModalConfirm } from '#build/components';
         class="input input-bordered w-full max-w-xs"
         autocomplete="off"
       />
-      <div
-        class="text-error text-right text-sm pr-2 pt-2"
-        v-if="errors.password"
-      >
-        {{ errors.password }}
-      </div>
     </label>
     <label class="form-control w-full max-w-xs">
       <div class="label label-text pb-0"> Confirm New Password </div>
@@ -39,27 +52,18 @@ import type { AdminModalConfirm } from '#build/components';
         class="input input-bordered w-full max-w-xs"
         autocomplete="off"
       />
-      <div
-        class="text-error text-right text-sm pr-2 pt-2"
-        v-if="errors.password_confirm"
-      >
-        {{ errors.password_confirm }}
-      </div>
     </label>
     <div class="flex items-center gap-5">
       <label class="btn btn-neutral" @click="confirm = true"> Save </label>
-      <div class="text-error text-sm pt-5 text-center">{{ fetchError }}</div>
+      <SvgCat v-show="isLoading" class="w-10" />
     </div>
     <!-- MODAL CONFIRM -->
     <AdminModalConfirm
       :show="confirm"
       @close="confirm = false"
+      text_confirm="Change password"
       @saved="handleUpdate"
     />
-
-    <!-- MODAL SUCCESS -->
-    <!-- Put this part before </body> tag -->
-    <AdminModalSuccess :show="success" @close="success = false" />
   </div>
 </template>
 
@@ -70,7 +74,8 @@ const AuthStore = useAuthStore();
 
 const errors = ref({});
 const fetchError = ref("");
-const success = ref(false);
+const successAlert = ref(false);
+const isLoading = ref(false);
 const confirm = ref(false);
 const formData = ref({
   old_password: "",
@@ -79,18 +84,30 @@ const formData = ref({
 });
 // auth state
 const handleUpdate = async () => {
+  confirm.value = false;
+  isLoading.value = true;
+
+  // reset errors
   errors.value = {};
   fetchError.value = "";
   try {
     // fetch login
     await AuthStore.update(formData.value);
-    success.value = true;
-    confirm.value = false;
+    successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 3000);
+    isLoading.value = false;
+    formData.value = "";
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
+      isLoading.value = false;
+
       errors.value = joierror(error);
       confirm.value = false;
     } else {
+      isLoading.value = false;
+
       fetchError.value = error.data.message;
       confirm.value = false;
     }

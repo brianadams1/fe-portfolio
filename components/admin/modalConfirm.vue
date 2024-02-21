@@ -16,7 +16,7 @@
             <SvgCat :size="30" class="animate-pulse"
             /></div> -->
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>
-        <label class="btn btn-primary" @click="$emit('saved')">Save</label>
+        <label class="btn btn-primary" @click="$emit('saved')">{{text_confirm || "Update"}}</label>
       </div>
     </div>
     <form method="dialog" class="modal-backdrop">
@@ -29,6 +29,7 @@
 defineEmits(["close", "saved"]);
 const props = defineProps({
   show: Boolean,
+  text_confirm: String
 });
 const _show = ref(false);
 watchEffect(() => {

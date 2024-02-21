@@ -60,7 +60,7 @@ const menus = [
     path: "/",
     hash: "#project",
     title: "Project",
-    icon: resolveComponent("LucideLayoutPanelLeft"),
+    icon: resolveComponent("LucideFolderKanban"),
   },
   {
     path: "/",
