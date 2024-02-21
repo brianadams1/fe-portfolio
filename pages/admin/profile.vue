@@ -1,39 +1,37 @@
 <template>
-  <div> Halaman profile</div>
-  <div>Counter : {{ Counter.count }}</div>
-  <div class="flex flex-wrap gap-4">
-    <button class="btn btn-primary"> ini button dengan class primary </button>
-    <button class="btn btn-primary-content">
-      ini button dengan class primary-content
-    </button>
-    <button class="btn btn-secondary">
-      ini button dengan class secondary
-    </button>
-    <button class="btn btn-secondary-content">
-      ini button dengan class secondary-content
-    </button>
-    <button class="btn btn-accent"> ini button dengan class accent </button>
-    <button class="btn btn-accent-content">
-      ini button dengan class accent-content
-    </button>
-    <button class="btn btn-neutral"> ini button dengan class neutral </button>
-    <button class="btn btn-neutral-content">
-      ini button dengan class neutral-content
-    </button>
-    <button class="btn btn-base-100">ini button dengan class base-100</button>
-    <button class="btn btn-base-200">ini button dengan class base-200</button>
-    <button class="btn btn-base-300">ini button dengan class base-300</button>
-    <button class="btn btn-base-content"
-      >ini button dengan class base-content</button
-    >
-    <button class="btn btn-info">ini button dengan class info</button>
-    <button class="btn btn-info-content"
-      >ini button dengan class info-content</button
-    >
-    <button class="btn btn-success">ini button dengan class success</button>
-    <button class="btn btn-warning">ini button dengan class warning</button>
-    <button class="btn btn-error">ini button dengan class error</button>
-    <button class="btn btn-primary">ini button dengan class primary</button>
+  <div>
+    <div class="font-semibold mb-5 border-b-2 border-white/30">
+      Profile Setting
+    </div>
+    <div role="tablist" class="tabs tabs-lifted">
+      <input
+        type="radio"
+        name="my_tabs_2"
+        role="tab"
+        class="tab"
+        aria-label="Profile"
+        checked
+      />
+      <div
+        role="tabpanel"
+        class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+      >
+        <AdminProfile v-if="ProfileStore.profile != null" />
+      </div>
+      <input
+        type="radio"
+        name="my_tabs_2"
+        role="tab"
+        class="tab"
+        aria-label="Social Media"
+      />
+      <div
+        role="tabpanel"
+        class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+      >
+        <AdminProfileSocialMedia v-if="ProfileStore.profile != null" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,5 +42,8 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const Counter = useCounterStore();
+const ProfileStore = useProfileStore();
+onBeforeMount(async () => {
+  if (ProfileStore.profile == null) await ProfileStore.get();
+});
 </script>
