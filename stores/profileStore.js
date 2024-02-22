@@ -32,7 +32,6 @@ export const useProfileStore = defineStore("profile", {
         formData.append("avatar", avatar);
       }
       this.profile = await Api.put("/profile", formData);
-
       // CARA KEDUA
     },
   },
