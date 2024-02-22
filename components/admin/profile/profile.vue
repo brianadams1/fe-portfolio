@@ -220,25 +220,27 @@ const formData = ref({
   bio: ProfileStore.profile.bio,
 });
 const handleUpdate = async () => {
-  confirm.value = false;
-  isLoading.value = true;
-  // reset errors
-  errors.value = {};
-  fetchError.value = "";
-  try {
-    await ProfileStore.update(formData.value);
-    successAlert.value = true;
-    setTimeout(() => {
-      successAlert.value = false;
-    }, 3000);
-    isLoading.value = false;
-  } catch (error) {
-    if (error instanceof Joi.ValidationError) {
+  if (isLoading.value == false) {
+    confirm.value = false;
+    isLoading.value = true;
+    // reset errors
+    errors.value = {};
+    fetchError.value = "";
+    try {
+      await ProfileStore.update(formData.value);
+      successAlert.value = true;
+      setTimeout(() => {
+        successAlert.value = false;
+      }, 3000);
       isLoading.value = false;
-      errors.value = joierror(error);
-    } else {
-      isLoading.value = false;
-      fetchError.value = error.data.message;
+    } catch (error) {
+      if (error instanceof Joi.ValidationError) {
+        isLoading.value = false;
+        errors.value = joierror(error);
+      } else {
+        isLoading.value = false;
+        fetchError.value = error.data.message;
+      }
     }
   }
 };
