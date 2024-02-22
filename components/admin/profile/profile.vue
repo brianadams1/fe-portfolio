@@ -267,24 +267,5 @@ const handleUpdate = async () => {
     }
   }
 };
-// AVATAR
-let file_avatar = null;
-const avatar = ref(
-  ProfileStore.profile.avatar ? apiUri + ProfileStore.profile.avatar : null
-);
-const handleFile = (e) => {
-  // TAKE FILE
-  if (e.target.files.length) {
-    const file = e.target.files[0];
-    file_avatar = file;
-    // convert file to data url
-    // readable data in tag <img src>
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      avatar.value = e.target.result;
-    };
-  }
-};
+
 </script>
-<style></style>

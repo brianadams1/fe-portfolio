@@ -42,7 +42,7 @@ export const useApiStore = defineStore("api", {
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
-      if (!data instanceof FormData) {
+      if(!data instanceof FormData) {
         data = JSON.stringify(data);
       }
       try {

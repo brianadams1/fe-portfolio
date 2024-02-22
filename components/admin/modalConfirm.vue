@@ -12,11 +12,10 @@
       <h3 class="font-bold text-lg">Well...</h3>
       <p class="py-4">You sure to save these changes?</p>
       <div class="modal-action">
-        <!-- <div v-if="isLoading">
-            <SvgCat :size="30" class="animate-pulse"
-            /></div> -->
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>
-        <label class="btn btn-primary" @click="$emit('saved')">{{text_confirm || "Update"}}</label>
+        <label class="btn btn-primary" @click="$emit('saved')">{{
+          text_confirm || "Update"
+        }}</label>
       </div>
     </div>
     <form method="dialog" class="modal-backdrop">
@@ -29,7 +28,7 @@
 defineEmits(["close", "saved"]);
 const props = defineProps({
   show: Boolean,
-  text_confirm: String
+  text_confirm: String,
 });
 const _show = ref(false);
 watchEffect(() => {

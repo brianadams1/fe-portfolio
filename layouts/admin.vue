@@ -91,7 +91,7 @@
           class="lg:z-[1] z-0 drawer-content bg-neutral max-lg:rounded-2xl rounded-r-2xl lg:rounded-r-3xl"
         >
           <div
-            class="w-full min-h-[75vh] lg:min-h-[80vh] bg-base-200 rounded-2xl lg:rounded-3xl p-3 lg:p-8"
+            class="w-full min-h-[75vh] lg:min-h-[80vh] bg-base-100 rounded-2xl lg:rounded-3xl p-3 lg:p-8"
           >
             <slot></slot>
           </div>
