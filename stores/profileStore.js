@@ -5,19 +5,35 @@ import { isUpdateProfile } from "../utils/profileValidation.js";
 export const useProfileStore = defineStore("profile", {
   state: () => ({
     profile: null,
-    avatar: null,
   }),
-
+  getters: {
+    avatar: (state) => {
+      if (state.profile) return state.profile.avatar;
+      else return null;
+    },
+  },
   actions: {
     async get() {
       const Api = useApiStore();
       this.profile = await Api.get("/profile");
-      this.avatar = this.profile.avatar;
     },
-    async update(data) {
+    async update(data, avatar) {
       const Api = useApiStore();
       data = Validate(isUpdateProfile, data);
-      this.profile = await Api.put("/profile", data);
+
+      // CARA PERTAMA
+      const formData = new FormData();
+      for (let [key, value] of Object.entries(data)) {
+        // Append to formData
+        if (value == null) value = "";
+        formData.append(key, value);
+      }
+      if (avatar) {
+        formData.append("avatar", avatar);
+      }
+      this.profile = await Api.put("/profile", formData);
+
+      // CARA KEDUA
     },
   },
 });

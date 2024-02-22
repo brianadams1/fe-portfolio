@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div
-      v-if="BlogStore.blog.length"
+      v-if="BlogStore.blog"
       class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 mx-auto"
     >
       <div
@@ -9,7 +9,7 @@
         v-for="b in BlogStore.blog"
       >
         <figure>
-          <img :src="apiUri + b.photos[0].path" alt="Shoes" />
+          <img :src="apiUri + b.photos[0].path" alt="" />
         </figure>
         <div class="card-body">
           <h2 class="card-title">{{ b.title }}</h2>

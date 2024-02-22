@@ -1,7 +1,7 @@
 <template>
   <div
     data-theme="dim"
-    class="w-screen h-screen max-w-screen min-h-scren overflow-x-hidden"
+    class="w-screen h-screen max-w-screen min-h-screen overflow-x-hidden"
   >
     <!-- MOBILE HEADER -->
     <div class="lg:hidden h-[70px] relative border-b border-black/20 px-3">
@@ -47,13 +47,13 @@
               role="button"
               class="btn w-10 h-10 min-h-10 btn-circle overflow-hidden"
             >
-              <img
-                v-if="ProfileStore.avatar"
-                :src="apiUri + ProfileStore.avatar"
-                :alt="ProfileStore.profile.firstName"
-              />
-              <div v-else class="flex justify-center items-center">
-                <LucideUser :size="24" class="text-primary" />
+              <div class="flex justify-center items-center">
+                <img
+                  v-if="ProfileStore.avatar"
+                  :src="apiUri + ProfileStore.avatar"
+                  :alt="ProfileStore.profile.firstName"
+                />
+                <LucideUser v-else :size="24" class="text-primary" />
               </div>
             </div>
             <div
@@ -66,8 +66,8 @@
               <ul tabindex="0" class="mt-2">
                 <li>
                   <NuxtLink to="/admin/user">
-                    <LucideUser :size="16" /> User Setting</NuxtLink
-                  >
+                    <LucideUser :size="16" /> User Setting
+                  </NuxtLink>
                 </li>
                 <li>
                   <button @click="AuthStore.logout">
@@ -122,7 +122,7 @@ const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const ProfileStore = useProfileStore();
 onBeforeMount(async () => {
-  if (!ProfileStore.profile && ProfileStore.avatar) await ProfileStore.get();
+  if (!ProfileStore.profile) await ProfileStore.get();
 });
 </script>
 

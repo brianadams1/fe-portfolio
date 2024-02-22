@@ -42,13 +42,15 @@ export const useApiStore = defineStore("api", {
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
-
-      const jsonData = JSON.stringify(data);
+      if (!data instanceof FormData) {
+        data = JSON.stringify(data);
+      }
       try {
         const userData = await $fetch(apiUri + path, {
           method: "PUT",
-          body: jsonData,
-          headers: { "Content-Type": "application/json" },
+          body: data,
+          // below is deleted because it will automatically be mounted
+          // headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
         return userData;
