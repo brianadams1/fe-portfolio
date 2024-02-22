@@ -1,16 +1,16 @@
 <template>
   <div>
     <!-- ALERT -->
-    <div class="mx-auto w-[80%]">
+    <div class="mx-auto w-[80%] h-12 mb-2">
       <!-- SUCCESS ALERT -->
 
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
         <AdminSuccessAlert v-if="successAlert" />
       </Transition>
     </div>
     <!-- ERROR ALERT -->
     <div class="mx-auto w-[80%]">
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
         <!-- ERROR FROM NON-FETCH -->
         <AdminErrorAlert v-if="Object.keys(errors).length">
           <div class="flex flex-col">
@@ -18,7 +18,7 @@
           </div>
         </AdminErrorAlert>
       </Transition>
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
         <!-- ERROR FROM FETCH -->
 
         <AdminErrorAlert v-if="fetchError">

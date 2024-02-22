@@ -1,16 +1,14 @@
 <template>
   <div>
     <!-- ALERT -->
-    <div class="mx-auto w-[80%]">
+    <div class="mx-auto w-[80%] h-12 mb-2">
       <!-- SUCCESS ALERT -->
 
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
         <AdminSuccessAlert v-if="successAlert" />
       </Transition>
-    </div>
-    <!-- ERROR ALERT -->
-    <div class="mx-auto w-[80%]">
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
+        <!-- ERROR ALERT -->
         <!-- ERROR FROM NON-FETCH -->
         <AdminErrorAlert v-if="Object.keys(errors).length">
           <div class="flex flex-col">
@@ -18,7 +16,7 @@
           </div>
         </AdminErrorAlert>
       </Transition>
-      <Transition name="bounce">
+      <Transition name="slide-fade" :duration="550">
         <!-- ERROR FROM FETCH -->
 
         <AdminErrorAlert v-if="fetchError">
@@ -27,6 +25,7 @@
       </Transition>
     </div>
   </div>
+  <!-- FORM -->
   <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
     <!-- LEFT FORM -->
     <div class="flex flex-col gap-5">
@@ -145,14 +144,14 @@
         <form class="flex items-center flex-col space-x-6 gap-3">
           <div class="shrink-0">
             <div
-              v-if="!ProfileStore.profile.avatar"
+              v-if="!avatar"
               class="w-40 aspect-square bg-white lg:mx-auto rounded-lg"
             ></div>
             <img
               v-else
-              :src="apiUri + ProfileStore.profile.avatar"
+              :src="avatar"
               :alt="ProfileStore.profile.firstName"
-              class="w-24 h-24 rounded-full"
+              class="md:w-24 md:h-24 w-60 h-60 rounded-full"
             />
             <!-- src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
               alt="Current profile photo" -->
@@ -161,6 +160,8 @@
             <span class="sr-only">Choose profile photo</span>
             <input
               type="file"
+              accept="image/*"
+              @change="handleFile"
               class="cursor-pointer block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
             />
           </label>
@@ -227,21 +228,40 @@ const handleUpdate = async () => {
     errors.value = {};
     fetchError.value = "";
     try {
-      await ProfileStore.update(formData.value);
+      await ProfileStore.update(formData.value, file_avatar);
       successAlert.value = true;
       setTimeout(() => {
         successAlert.value = false;
       }, 3000);
       isLoading.value = false;
     } catch (error) {
+      isLoading.value = false;
       if (error instanceof Joi.ValidationError) {
-        isLoading.value = false;
         errors.value = joierror(error);
       } else {
-        isLoading.value = false;
         fetchError.value = error.data.message;
       }
     }
   }
 };
+// AVATAR
+let file_avatar = null;
+const avatar = ref(
+  ProfileStore.profile.avatar ? apiUri + ProfileStore.profile.avatar : null
+);
+const handleFile = (e) => {
+  // TAKE FILE
+  if (e.target.files.length) {
+    const file = e.target.files[0];
+    file_avatar = file;
+    // convert file to data url
+    // readable data in tag <img src>
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      avatar.value = e.target.result;
+    };
+  }
+};
 </script>
+<style></style>
