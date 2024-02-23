@@ -33,6 +33,5 @@ const apiUri = config.public.apiUri;
 const BlogStore = useBlogStore();
 onBeforeMount(async () => {
   if (BlogStore.blog == null) await BlogStore.get();
-  console.log(BlogStore.blog.length);
 });
 </script>

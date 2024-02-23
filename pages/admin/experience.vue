@@ -3,30 +3,7 @@
     <div class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30">
       Experience
     </div>
-    <!-- ALERT -->
-    <div class="mx-auto w-[80%] h-12 mb-2">
-      <!-- SUCCESS ALERT -->
 
-      <Transition name="slide-fade" :duration="550">
-        <AdminSuccessAlert v-if="successAlert" />
-      </Transition>
-      <Transition name="slide-fade" :duration="550">
-        <!-- ERROR ALERT -->
-        <!-- ERROR FROM NON-FETCH -->
-        <AdminErrorAlert v-if="Object.keys(errors).length">
-          <div class="flex flex-col">
-            <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
-          </div>
-        </AdminErrorAlert>
-      </Transition>
-      <Transition name="slide-fade" :duration="550">
-        <!-- ERROR FROM FETCH -->
-
-        <AdminErrorAlert v-if="fetchError">
-          {{ fetchError }}
-        </AdminErrorAlert>
-      </Transition>
-    </div>
     <!-- MODAL CONFIRM -->
     <AdminModalConfirm
       :show="showDeleteModal"
@@ -43,13 +20,40 @@
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
-    <!-- FILTER -->
-    <input
-      type="text"
-      v-model="filter"
-      placeholder="Search"
-      class="input input-bordered w-full max-w-xs"
-    />
+    <div class="flex justify-between gap-10 h-16 items-start">
+      <!-- FILTER -->
+      <input
+        type="text"
+        v-model="filter"
+        placeholder="Search"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <!-- ALERT -->
+      <div class="mx-auto w-[80%] h-12 mb-2">
+        <!-- SUCCESS ALERT -->
+
+        <Transition name="slide-fade" :duration="550">
+          <AdminSuccessAlert v-if="successAlert" />
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR ALERT -->
+          <!-- ERROR FROM NON-FETCH -->
+          <AdminErrorAlert v-if="Object.keys(errors).length">
+            <div class="flex flex-col">
+              <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
+            </div>
+          </AdminErrorAlert>
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR FROM FETCH -->
+
+          <AdminErrorAlert v-if="fetchError">
+            {{ fetchError }}
+          </AdminErrorAlert>
+        </Transition>
+      </div>
+    </div>
+
     <!-- TODO handle update -->
     <!-- TABLE -->
     <div class="overflow-x-visible">
