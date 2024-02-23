@@ -10,40 +10,19 @@ export const useEducationStore = defineStore("educations", {
       const Api = useApiStore();
       this.educations = await Api.get("/educations");
     },
+    async create(data) {
+      const Api = useApiStore();
+      data = Validate(isEducation, data);
+      await Api.post("/education", data);
+    },
     async remove(id) {
       const Api = useApiStore();
       await Api.delete("/education/" + id);
     },
-    async update(data) {
+    async update(id, data) {
       const Api = useApiStore();
-      data = Validate(isUpdateEdu, data);
-      this.educations = await Api.put("/education/", data);
+      data = Validate(isEducation, data);
+      await Api.put("/education/" + id, data);
     },
-    // async update(data, avatar) {
-    //   const Api = useApiStore();
-    //   data = Validate(isUpdateProfile, data);
-
-    //   // CARA PERTAMA
-    //   const formData = new FormData();
-    //   for (let [key, value] of Object.entries(data)) {
-    //     // Append to formData
-    //     if (value == null) value = "";
-    //     formData.append(key, value);
-    //   }
-    //   if (avatar) {
-    //     formData.append("avatar", avatar);
-    //   }
-    //   this.profile = await Api.put("/profile", formData);
-    // },
-    // async update2(data, avatar) {
-    //   const Api = useApiStore();
-    //   data = Validate(isUpdateProfile, data);
-    //   this.profile = await Api.put("/profile", data);
-    //   if (avatar) {
-    //     const formData = new FormData();
-    //     formData.append("avatar", avatar);
-    //     this.profile = await Api.put("/profile", formData);
-    //   }
-    // },
   },
 });

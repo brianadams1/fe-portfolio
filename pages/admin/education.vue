@@ -1,32 +1,27 @@
 <template>
   <div>
-    <div class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30">
-      Education
+    <div
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex justify-between"
+    >
+      <div class="flex gap-3">
+        <LucideGraduationCap :size="24" />
+        <p> Education </p>
+      </div>
+      <div
+        ><button class="btn btn-neutral btn-sm" @click="showForm = true">
+          <LucidePlus :size="16" />
+          Add Education</button
+        ></div
+      >
     </div>
-    <!-- ALERT -->
-    <div class="mx-auto w-[80%] h-12 mb-2">
-      <!-- SUCCESS ALERT -->
 
-      <Transition name="slide-fade" :duration="550">
-        <AdminSuccessAlert v-if="successAlert" />
-      </Transition>
-      <Transition name="slide-fade" :duration="550">
-        <!-- ERROR ALERT -->
-        <!-- ERROR FROM NON-FETCH -->
-        <AdminErrorAlert v-if="Object.keys(errors).length">
-          <div class="flex flex-col">
-            <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
-          </div>
-        </AdminErrorAlert>
-      </Transition>
-      <Transition name="slide-fade" :duration="550">
-        <!-- ERROR FROM FETCH -->
-
-        <AdminErrorAlert v-if="fetchError">
-          {{ fetchError }}
-        </AdminErrorAlert>
-      </Transition>
-    </div>
+    <!-- MODALS -->
+    <!-- MODAL UPDATE -->
+    <AdminEducationsUpdate
+      :show="showUpdateModal"
+      @close="showUpdateModal = false"
+      :data="updateData"
+    />
     <!-- MODAL CONFIRM -->
     <AdminModalConfirm
       :show="showDeleteModal"
@@ -36,20 +31,53 @@
     >
       <div>
         <p class="font-bold text-2xl mb-3 text-center">Delete</p>
-        <p class="mb-3">Are you sure you want to remove this Education?</p>
+        <p class="mb-3">Are you sure you want to delete this Education?</p>
         <p class="font-semibold mb-3 text-lg" v-if="deleteData">{{
           deleteData.institutionName
         }}</p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
-    <!-- FILTER -->
-    <input
-      type="text"
-      v-model="filter"
-      placeholder="Search"
-      class="input input-bordered w-full max-w-xs"
+    <!-- MODAL FORM -->
+    <AdminEducationsForm
+      :show="showForm"
+      text_confirm="Save"
+      @close="showForm = false"
+      @saved="createEdu"
     />
+    <div class="flex gap-10 justify-between">
+      <!-- FILTER -->
+      <input
+        type="text"
+        v-model="filter"
+        placeholder="Search"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <!-- ALERT -->
+      <div class="mx-auto w-[80%] h-12 mb-2">
+        <!-- SUCCESS ALERT -->
+
+        <Transition name="slide-fade" :duration="550">
+          <AdminSuccessAlert v-if="successAlert" />
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR ALERT -->
+          <!-- ERROR FROM NON-FETCH -->
+          <AdminErrorAlert v-if="Object.keys(errors).length">
+            <div class="flex flex-col">
+              <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
+            </div>
+          </AdminErrorAlert>
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR FROM FETCH -->
+
+          <AdminErrorAlert v-if="fetchError">
+            {{ fetchError }}
+          </AdminErrorAlert>
+        </Transition>
+      </div>
+    </div>
     <!-- TODO handle update -->
     <!-- TABLE -->
     <div class="overflow-x-visible">
@@ -74,10 +102,10 @@
             <td class="text-center">{{ e.major == null ? "-" : e.major }}</td>
             <td class="text-center">{{ e.degree == null ? "-" : e.degree }}</td>
             <td class="text-center">
-              <details class="dropdown">
-                <summary class="btn m-1 btn-sm">
+              <div class="dropdown">
+                <div tabindex="0" role="button" class="btn m-1 btn-sm">
                   <LucideMoreVertical />
-                </summary>
+                </div>
                 <ul
                   tabindex="0"
                   class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
@@ -109,7 +137,7 @@
                     </button>
                   </li>
                 </ul>
-              </details>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -125,11 +153,9 @@ definePageMeta({
 });
 const filter = ref("");
 const EduStore = useEducationStore();
-const showUpdateModal = ref(false);
 const successAlert = ref(false);
-const showDeleteModal = ref(false);
+const showUpdateModal = ref(false);
 const updateData = ref(null);
-const deleteData = ref(null);
 const errors = ref({});
 const fetchError = ref("");
 onBeforeMount(async () => {
@@ -146,6 +172,10 @@ const dataTable = computed(() => {
     return EduStore.educations;
   }
 });
+
+// DELETE
+const showDeleteModal = ref(false);
+const deleteData = ref(null);
 const deleteEdu = async () => {
   try {
     // TAKE ID
@@ -159,6 +189,9 @@ const deleteEdu = async () => {
 
     // SUCCESS MODAL
     successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 1500);
 
     // REFRESH DATA
     await EduStore.get();
@@ -167,4 +200,18 @@ const deleteEdu = async () => {
     console.log(error);
   }
 };
+
+// CREATE
+const showForm = ref(false);
+const createEdu = async () => {
+  showForm.value = false;
+
+  // SUCCESS MODAL
+  successAlert.value = true;
+  setTimeout(() => {
+    successAlert.value = false;
+  }, 1500);
+};
+
+// UPDATE
 </script>
