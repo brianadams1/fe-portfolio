@@ -13,7 +13,7 @@
       <p class="py-4">You sure to save these changes?</p>
       <p>{{ props.data.institutionName }}</p>
       <div class="modal-action">
-        <SvgCat :show="isLoading" :size="20" />
+        <SvgCat :show="isLoading" class="w-10" />
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>
         <label class="btn btn-primary" @click="deleteEdu">Delete</label>
       </div>
@@ -35,10 +35,9 @@ const isLoading = ref(false);
 watchEffect(() => {
   _show.value = props.show;
 });
+isLoading.value = true;
 const Edustore = useEducationStore();
 const deleteEdu = async () => {
-  isLoading.value = true;
-
   emit("close");
   try {
     await Edustore.remove(props.data.id);

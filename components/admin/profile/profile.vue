@@ -188,7 +188,10 @@
     @close="confirm = false"
     text_confirm="Change profile"
     @saved="handleUpdate"
-  />
+  >
+    <div class="font-bold text-lg"> Well... </div>
+    <p class="text-sm font-semibold">Save these changes?</p>
+  </AdminModalConfirm>
 </template>
 
 <script setup>
@@ -267,5 +270,4 @@ const handleUpdate = async () => {
     }
   }
 };
-
 </script>
