@@ -14,11 +14,11 @@ export const useEducationStore = defineStore("educations", {
       const Api = useApiStore();
       await Api.delete("/education/" + id);
     },
-    async update(data){
+    async update(data) {
       const Api = useApiStore();
       data = Validate(isUpdateEdu, data);
-      this.educations = await Api.put("/educations", data);
-    }
+      this.educations = await Api.put("/education/", data);
+    },
     // async update(data, avatar) {
     //   const Api = useApiStore();
     //   data = Validate(isUpdateProfile, data);

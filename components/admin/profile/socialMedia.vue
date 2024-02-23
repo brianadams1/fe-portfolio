@@ -133,7 +133,10 @@
     @close="confirm = false"
     text_confirm="Change Sosmed"
     @saved="handleUpdate"
-  />
+  >
+    <div class="font-bold text-lg"> Well... </div>
+    <p class="text-sm font-semibold">Save these changes?</p>
+  </AdminModalConfirm>
 </template>
 
 <script setup>

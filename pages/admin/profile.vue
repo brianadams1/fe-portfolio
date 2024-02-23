@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="font-semibold mb-5 border-b-2 border-white/30">
+    <div class="font-semibold mb-5 text-xl pb-2 border-b-2 border-white/30">
       Profile Setting
     </div>
-    
+
     <div role="tablist" class="tabs tabs-lifted">
       <input
         type="radio"
@@ -48,4 +48,3 @@ onBeforeMount(async () => {
   if (ProfileStore.profile == null) await ProfileStore.get();
 });
 </script>
-
