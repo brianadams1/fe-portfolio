@@ -73,6 +73,7 @@
         <label
           class="btn btn-primary"
           @click="
+            $emit('saved');
             updateEdu();
             isLoading = true;
           "
@@ -91,7 +92,7 @@
 
 <script setup>
 import Joi from "joi";
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "saved"]);
 const props = defineProps({
   show: Boolean,
   data: Object,
@@ -126,8 +127,6 @@ const updateEdu = async () => {
     // DELETE PROCESS
     await EduStore.update(id, formData.value);
     isLoading.value = false;
-    
-    _show.value = false;
 
     // // // HIDE MODAL
     // showDeleteModal.value = false;

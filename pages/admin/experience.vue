@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- TITLE -->
     <div class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30">
       Experience
     </div>
@@ -20,6 +21,8 @@
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
+
+    <!--  -->
     <div class="flex justify-between gap-10 h-16 items-start">
       <!-- FILTER -->
       <input
@@ -64,7 +67,7 @@
             <th>Company name</th>
             <th class="text-center">Location</th>
             <th class="text-center">Title</th>
-            <th class="text-center">Description</th>
+            <!-- <th class="text-center">Description</th> -->
             <th class="text-center">Period</th>
 
             <th class="text-center">Action</th>
@@ -77,9 +80,9 @@
             <th>{{ e.company }}</th>
             <td class="text-center">{{ e.location }}</td>
             <td class="text-center">{{ e.title }}</td>
-            <td class="text-center text-ellipsis overflow-hidden">{{
+            <!-- <td class="text-center text-ellipsis overflow-hidden">{{
               e.description
-            }}</td>
+            }}</td> -->
             <td class="text-center"
               >{{ e.readStartDateTime }} - {{ e.readEndDateTime }}</td
             >

@@ -29,7 +29,7 @@
             </template>
           </Carousel>
         </div>
-        <div v-else class="aspect-video bg-netural"></div>
+        <div v-else class="aspect-video bg-neutral"></div>
         <!-- DESCRIPTION -->
         <!-- SHOWN ABOVE MEDIUM BREAKPOINT -->
         <div class="my-4 text-justify max-md:hidden">{{

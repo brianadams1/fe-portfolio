@@ -26,7 +26,6 @@
               v-html="n.svg"
               class="aspect-square bg-neutral w-16 rounded-md flex items-center justify-center group-hover:scale-110 duration-300"
             >
-
             </div>
             <div
               class="text-center group-hover:text-accent text-sm text-nowrap"

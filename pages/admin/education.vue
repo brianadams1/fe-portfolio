@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex justify-between"
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
       <div class="flex gap-3">
         <LucideGraduationCap :size="24" />
@@ -21,6 +21,7 @@
       :show="showUpdateModal"
       @close="showUpdateModal = false"
       :data="updateData"
+      @saved="saveEdu"
     />
     <!-- MODAL CONFIRM -->
     <AdminModalConfirm
@@ -45,7 +46,7 @@
       @close="showForm = false"
       @saved="createEdu"
     />
-    <div class="flex gap-10 justify-between">
+    <div class="flex gap-10 justify-between flex-col md:flex-row">
       <!-- FILTER -->
       <input
         type="text"
@@ -172,6 +173,16 @@ const dataTable = computed(() => {
     return EduStore.educations;
   }
 });
+
+const saveEdu = async () => {
+  showUpdateModal.value = false;
+
+  // SUCCESS MODAL
+  successAlert.value = true;
+  setTimeout(() => {
+    successAlert.value = false;
+  }, 1500);
+};
 
 // DELETE
 const showDeleteModal = ref(false);

@@ -1,11 +1,11 @@
 <template>
-  <div class="flex justify-center">
+  <div class="">
     <div
       v-if="BlogStore.blog"
-      class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 mx-auto"
+      class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10"
     >
       <div
-        class="card card-compact bg-base-100 shadow-xl mb-5 w-full"
+        class="w-72 card card-compact bg-base-100 shadow-xl mb-5 max-sm:w-full"
         v-for="b in BlogStore.blog"
       >
         <figure>

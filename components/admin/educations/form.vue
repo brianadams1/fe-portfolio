@@ -76,22 +76,18 @@
       </div>
       <div class="modal-action flex items-start">
         <div class="mx-auto w-[80%]">
-          <!-- SUCCESS ALERT -->
 
-          <Transition name="slide-fade" :duration="550">
+          <!-- <Transition name="slide-fade" :duration="550">
             <AdminSuccessAlert v-if="successAlert" class="text-xs" />
           </Transition>
           <Transition name="slide-fade" :duration="550">
-            <!-- ERROR ALERT -->
-            <!-- ERROR FROM NON-FETCH -->
             <AdminErrorAlert v-if="Object.keys(errors).length" class="text-xs">
               <div class="flex flex-col">
                 <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
               </div>
             </AdminErrorAlert>
-          </Transition>
+          </Transition> -->
           <Transition name="slide-fade" :duration="550" class="text-xs">
-            <!-- ERROR FROM FETCH -->
 
             <AdminErrorAlert v-if="fetchError">
               {{ fetchError }}
