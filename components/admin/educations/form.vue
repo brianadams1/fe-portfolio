@@ -74,23 +74,20 @@
         </label>
         <p class="text-error text-sm my-3">Field with (*) cannot be empty</p>
       </div>
-      <div class="modal-action flex items-start">
+      <div class="modal-action flex items-start text-xs">
         <div class="mx-auto w-[80%]">
-
-          <!-- <Transition name="slide-fade" :duration="550">
-            <AdminSuccessAlert v-if="successAlert" class="text-xs" />
+          <Transition name="slide-fade" :duration="550" class="text-xs">
+            <AdminErrorAlert v-if="fetchError">
+              {{ fetchError }}
+            </AdminErrorAlert>
           </Transition>
           <Transition name="slide-fade" :duration="550">
-            <AdminErrorAlert v-if="Object.keys(errors).length" class="text-xs">
+            <!-- ERROR ALERT -->
+            <!-- ERROR FROM NON-FETCH -->
+            <AdminErrorAlert v-if="Object.keys(errors).length">
               <div class="flex flex-col">
                 <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
               </div>
-            </AdminErrorAlert>
-          </Transition> -->
-          <Transition name="slide-fade" :duration="550" class="text-xs">
-
-            <AdminErrorAlert v-if="fetchError">
-              {{ fetchError }}
             </AdminErrorAlert>
           </Transition>
         </div>
@@ -99,7 +96,6 @@
           class="btn btn-neutral"
           @click="
             save();
-            $emit('saved');
             isLoading = true;
           "
         >
@@ -116,7 +112,7 @@
 
 <script setup>
 import Joi from "joi";
-defineEmits(["close", "saved"]);
+const emit = defineEmits(["close", "saved"]);
 const props = defineProps({
   show: Boolean,
   text_confirm: String,
@@ -144,7 +140,6 @@ watchEffect(() => {
 const EduStore = useEducationStore();
 const errors = ref({});
 const fetchError = ref("");
-const successAlert = ref(false);
 // handle save
 const save = async () => {
   // reset error
@@ -154,15 +149,13 @@ const save = async () => {
     if (!formData.value.endYear) formData.value.endYear = null;
     await EduStore.create(formData.value);
     isLoading.value = false;
-    await EduStore.get()
+    await EduStore.get();
+    emit("saved");
   } catch (error) {
     isLoading.value = false;
-    if (error instanceof Joi.ValidationError) {
-      errors.value = joierror(error);
-    } else {
-      if (error.data) fetchError.value = error.data.message;
-      else console.log(error); //code error
-    }
+    if (error instanceof Joi.ValidationError) errors.value = joierror(error);
+    else if (error.data) fetchError.value = error.data.message;
+    else console.log(error); //code error
   }
 };
 </script>
