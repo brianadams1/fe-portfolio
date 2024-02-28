@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="relative">
     <!-- ALERT -->
-    <div class="mx-auto w-[80%] h-12 mb-2">
+    <div class="mx-auto w-full absolute h-12 top-0 mb-2">
       <!-- SUCCESS ALERT -->
 
       <Transition name="slide-fade" :duration="550">
@@ -153,8 +153,6 @@
               :alt="ProfileStore.profile.firstName"
               class="md:w-24 md:h-24 w-60 h-60 rounded-full"
             />
-            <!-- src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
-              alt="Current profile photo" -->
           </div>
           <label class="block">
             <span class="sr-only">Choose profile photo</span>
@@ -251,7 +249,6 @@ const handleUpdate = async () => {
     errors.value = {};
     fetchError.value = "";
     try {
-      await ProfileStore.update(formData.value, file_avatar);
       await ProfileStore.update(formData.value, file_avatar);
       successAlert.value = true;
       setTimeout(() => {

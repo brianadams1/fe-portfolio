@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="relative">
     <!-- ALERT -->
-    <div class="mx-auto w-[80%] h-12 mb-2">
+    <div class="mx-auto w-full absolute h-12 top-0 mb-2">
       <!-- SUCCESS ALERT -->
 
       <Transition name="slide-fade" :duration="550">

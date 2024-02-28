@@ -123,7 +123,8 @@ const updateEdu = async () => {
   try {
     // TAKE ID
     const id = props.data.id;
-
+    if (!formData.value.major) formData.value.major = "-";
+    if (!formData.value.degree) formData.value.degree = "-";
     // DELETE PROCESS
     await EduStore.update(id, formData.value);
     isLoading.value = false;

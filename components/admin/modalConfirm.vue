@@ -9,7 +9,7 @@
           >✕</label
         >
       </form>
-      <slot />
+      <slot ></slot>
       <div class="modal-action">
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>
         <label

@@ -19,10 +19,8 @@
           <div
             class="col-span-4 xl:col-span-3 rounded-lg group-hover:scale-110 duration-300 overflow-hidden aspect-video"
           >
-            <div
-              v-if="!blog.photos.length"
-              class="aspect-video bg-neutral"
-            ></div>
+            <div v-if="!blog.photos.length" class="aspect-video bg-neutral">
+            </div>
             <img
               v-else
               :src="api + blog.photos[0].path"
@@ -34,14 +32,15 @@
             <!-- title -->
             <div
               class="text-2xl font-semibold group-hover:text-accent flex-none"
-              >{{ blog.title }}</div
             >
-            <div class="grow line-clamp-1 lg:line-clamp-2 xl:line-clamp-3">{{
-              blog.content
-            }}</div>
-            <div class="text-xs flex-none text-white/50">{{
-              blog.shortenDateTime
-            }}</div>
+              {{ blog.title }}
+            </div>
+            <div class="grow line-clamp-1 lg:line-clamp-2 xl:line-clamp-3">
+              {{ blog.content }}
+            </div>
+            <div class="text-xs flex-none text-white/50">
+              {{ blog.shortenDateTime }}
+            </div>
           </div>
         </NuxtLink>
         <NuxtLink

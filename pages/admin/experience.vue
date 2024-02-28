@@ -22,7 +22,7 @@
       </div>
     </AdminModalConfirm>
 
-    <!--  -->
+    <!-- TOP CONTENT -->
     <div class="flex justify-between gap-10 h-16 items-start">
       <!-- FILTER -->
       <input
@@ -88,10 +88,10 @@
             >
 
             <td class="text-center">
-              <details class="dropdown">
-                <summary class="btn m-1 btn-sm">
+              <div class="dropdown">
+                <div tabindex="0" role="button" class="btn m-1 btn-sm">
                   <LucideMoreVertical />
-                </summary>
+                </div>
                 <ul
                   tabindex="0"
                   class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
@@ -123,7 +123,7 @@
                     </button>
                   </li>
                 </ul>
-              </details>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -172,6 +172,9 @@ const deleteExp = async () => {
 
     // SUCCESS MODAL
     successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 3000);
 
     // REFRESH DATA
     await ExpStore.get();

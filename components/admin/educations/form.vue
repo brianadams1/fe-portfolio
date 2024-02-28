@@ -143,10 +143,13 @@ const fetchError = ref("");
 // handle save
 const save = async () => {
   // reset error
+
   errors.value = {};
   fetchError.value = "";
   try {
     if (!formData.value.endYear) formData.value.endYear = null;
+    if (!formData.value.major) formData.value.major = "-";
+    if (!formData.value.degree) formData.value.degree = "-";
     await EduStore.create(formData.value);
     isLoading.value = false;
     await EduStore.get();
