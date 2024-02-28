@@ -41,6 +41,11 @@ const menus = [
     to: "/admin/project",
     icon: resolveComponent("LucideFolderKanban"),
   },
+  {
+    title: "Skill",
+    to: "/admin/skill",
+    icon: resolveComponent("LucideWrench"),
+  },
 
   //   {
   //     title: "Project",
