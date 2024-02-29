@@ -7,7 +7,7 @@ export const isExperience = Joi.object({
   location: isString100.required().label("Location"),
   title: isString100.required().label("Title"),
   description: isText.required().label("Description"),
-  startDate: Joi.date().max("now").required().label("Start Date"),
+  startDate: Joi.date().less("now").required().label("Start Date"),
   endDate: Joi.date()
     .min(Joi.ref("startDate"))
     .max("now")
