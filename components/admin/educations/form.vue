@@ -12,7 +12,7 @@
       <div class="h-10 flex mt-3 justify-between items-end">
         <h3 class="font-bold text-lg">
           {{
-            props.data
+            data
               ? "Update " + data.institutionName
               : "Create education"
           }}
@@ -117,7 +117,7 @@
             isLoading = true;
           "
         >
-          {{ text_confirm || "Save" }}
+          {{ data ? "Update" : "Create" }}
           <SvgCat class="w-10" v-show="isLoading" />
         </label>
       </div>
@@ -171,6 +171,7 @@ const save = async () => {
   errors.value = {};
   fetchError.value = "";
   try {
+    isLoading.value=true;
     if (!formData.value.endYear) formData.value.endYear = null;
     if (!formData.value.major) formData.value.major = "-";
     if (!formData.value.degree) formData.value.degree = "-";

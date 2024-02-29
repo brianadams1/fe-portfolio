@@ -137,7 +137,7 @@
           autocomplete="off"
         />
       </label>
-      <!-- TODO input avatar file -->
+
       <!-- AVATAR -->
       <label class="form-control w-full md:max-w-xs max-w-full">
         <div class="label label-text pb-3 items-end"> Avatar </div>

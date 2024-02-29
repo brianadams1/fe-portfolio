@@ -40,7 +40,7 @@
     </AdminModalConfirm>
     <AdminExperienceForm
       :show="showForm"
-      text_confirm="Save"
+     
       @close="showForm = false"
       @saved="saved"
       :data="editData"
@@ -101,9 +101,9 @@
         <tbody>
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
-            <th>{{ e.company }}</th>
-            <td class="text-center">{{ e.location }}</td>
-            <td class="text-center">{{ e.title }}</td>
+            <th class="capitalize">{{ e.company }}</th>
+            <td class="text-center capitalize">{{ e.location }}</td>
+            <td class="text-center capitalize">{{ e.title }}</td>
             <!-- <td class="text-center text-ellipsis overflow-hidden">{{
               e.description
             }}</td> -->
@@ -125,9 +125,9 @@
                       class="btn btn-warning btn-sm pb-7"
                       @click="
                         // when clicked, show the modal
-                        showUpdateModal = true;
+                        showForm = true;
                         // then send loop data to modal
-                        updateData = e;
+                        editData = e;
                       "
                     >
                       <LucideFilePenLine :size="20" />
@@ -140,7 +140,7 @@
                         // when clicked, show the modal
                         showDeleteModal = true;
                         // then send loop data to modal
-                        deleteData = e;
+                        editData = e;
                       "
                     >
                       <LucideTrash2 :size="20" />
@@ -186,7 +186,7 @@ const dataTable = computed(() => {
 const deleteExp = async () => {
   try {
     // TAKE ID
-    const id = deleteData.value.id;
+    const id = editData.value.id;
 
     // DELETE PROCESS
     await ExpStore.remove(id);
@@ -209,12 +209,15 @@ const deleteExp = async () => {
 };
 
 // handle save
-const showCreate = ref(false);
-const save = async () => {};
-
 const showForm = ref(false);
 const editData = ref(null);
 const saved = async () => {
-  console.log("saved");
+  showForm.value = false;
+
+  await ExpStore.get();
+  successAlert.value = true;
+  setTimeout(() => {
+    successAlert.value = false;
+  }, 1500);
 };
 </script>

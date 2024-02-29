@@ -80,7 +80,7 @@
         </Transition>
       </div>
     </div>
-    <!-- TODO handle update -->
+
     <!-- TABLE -->
     <div class="overflow-x-visible">
       <table class="table table-zebra">
@@ -91,7 +91,7 @@
             <th class="text-center">Period</th>
             <th class="text-center">Major</th>
             <th class="text-center">Degree</th>
-            <!-- FIXME -->
+
             <th class="text-center">Action</th>
           </tr>
         </thead>
