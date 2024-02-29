@@ -257,7 +257,6 @@ const handleUpdate = async () => {
       isLoading.value = false;
     } catch (error) {
       isLoading.value = false;
-      isLoading.value = false;
       if (error instanceof Joi.ValidationError) {
         errors.value = joierror(error);
       } else {

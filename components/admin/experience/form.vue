@@ -11,87 +11,10 @@
       </form>
       <div class="h-10 flex mt-3 justify-between items-end">
         <h3 class="font-bold text-lg">
-          {{
-            props.data
-              ? "Update " + data.institutionName
-              : "Create education"
-          }}
+          {{ props.data ? "Update " + data.company : "Create experience" }}
         </h3>
       </div>
-      <div>
-        <!-- INSTITUTION NAME -->
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text"
-              >Institution Name <span class="text-error">*</span></span
-            >
-          </div>
-          <input
-            type="text"
-            class="input input-bordered w-full max-w-xs"
-            v-model="formData.institutionName"
-          />
-        </label>
-        <!-- MAJOR -->
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Major</span>
-          </div>
-          <input
-            type="text"
-            class="input input-bordered w-full max-w-xs"
-            v-model="formData.major"
-          />
-        </label>
-        <!-- DEGREE -->
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Degree </span>
-          </div>
-          <input
-            type="text"
-            class="input input-bordered w-full max-w-xs"
-            v-model="formData.degree"
-          />
-        </label>
-        <!-- START YEAR -->
 
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text"
-              >Start Year <span class="text-error">*</span></span
-            >
-          </div>
-          <div class="flex items-center gap-5">
-            <input
-              type="text"
-              class="input input-bordered w-40"
-              v-model="formData.startYear"
-            />
-            <input
-              type="checkbox"
-              v-model="isChecked"
-              class="checkbox"
-              @change="handlePresent"
-            />
-            Present
-          </div>
-        </label>
-
-        <!-- END YEAR -->
-        <label class="form-control w-40">
-          <div class="label">
-            <span class="label-text">End Year </span>
-          </div>
-          <input
-            type="text"
-            class="input input-bordered w-full max-w-xs"
-            v-model="formData.endYear"
-            :disabled="isChecked"
-          />
-        </label>
-        <p class="text-error text-sm my-3">Field with (*) cannot be empty</p>
-      </div>
       <div class="modal-action flex items-start text-xs">
         <div class="mx-auto w-[80%]">
           <Transition name="slide-fade" :duration="550" class="text-xs">
@@ -171,17 +94,13 @@ const save = async () => {
   errors.value = {};
   fetchError.value = "";
   try {
-    if (!formData.value.endYear) formData.value.endYear = null;
-    if (!formData.value.major) formData.value.major = "-";
-    if (!formData.value.degree) formData.value.degree = "-";
+    // show loading indicator
+    // isLoading.value = true;
 
-    if (!props.data) {
-      await EduStore.create(formData.value);
-    } else {
-      await EduStore.update(props.data.id, formData.value);
-    }
-    isLoading.value = false;
-    // await EduStore.get();
+    // hide loading indicator
+    // isLoading.value = false;
+
+    // save by emit
     emit("saved");
   } catch (error) {
     isLoading.value = false;

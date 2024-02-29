@@ -100,9 +100,7 @@
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
             <th>{{ e.institutionName }}</th>
-            <td class="text-center"
-              >{{ e.startYear }} - {{ e.endYear || "Present" }}</td
-            >
+            <td class="text-center">{{ e.startYear }} - {{ e.endYear || "Present" }}</td>
             <td class="text-center">{{ e.major == null ? "-" : e.major }}</td>
             <td class="text-center">{{ e.degree == null ? "-" : e.degree }}</td>
             <td class="text-center">

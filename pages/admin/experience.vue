@@ -1,8 +1,25 @@
 <template>
   <div>
     <!-- TITLE -->
-    <div class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30">
-      Experience
+    <div
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
+    >
+      <div class="flex gap-3">
+        <LucideBriefcase :size="24" />
+        <p> Experience </p>
+      </div>
+      <div>
+        <button
+          class="btn btn-neutral btn-sm"
+          @click="
+            showForm = true;
+            editData = null;
+          "
+        >
+          <LucidePlus :size="16" />
+          Add Experience
+        </button>
+      </div>
     </div>
 
     <!-- MODAL CONFIRM -->
@@ -21,6 +38,13 @@
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
+    <AdminExperienceForm
+      :show="showForm"
+      text_confirm="Save"
+      @close="showForm = false"
+      @saved="saved"
+      :data="editData"
+    ></AdminExperienceForm>
 
     <!-- TOP CONTENT -->
     <div class="flex justify-between gap-10 h-16 items-start">
@@ -182,5 +206,15 @@ const deleteExp = async () => {
     // isLoading.value = false;
     console.log(error);
   }
+};
+
+// handle save
+const showCreate = ref(false);
+const save = async () => {};
+
+const showForm = ref(false);
+const editData = ref(null);
+const saved = async () => {
+  console.log("saved");
 };
 </script>

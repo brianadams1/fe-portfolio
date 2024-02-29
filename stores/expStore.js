@@ -12,12 +12,17 @@ export const useExperienceStore = defineStore("experiences", {
     },
     async remove(id) {
       const Api = useApiStore();
-      await Api.delete("/experience/" + id);
+      return await Api.delete("/experience/" + id);
     },
-    async update(data){
+    async update(id, data) {
+      const Api = useApiStore();
+      data = Validate(isExpression, data);
+      return await Api.put("/experience/"+id, data);
+    },
+    async create(data){
       const Api = useApiStore();
       data = Validate(isUpdateEdu, data);
-      this.experiences = await Api.put("/experience/", data);
+      return await Api.post("/experience", data);
     }
     // async update(data, avatar) {
     //   const Api = useApiStore();
