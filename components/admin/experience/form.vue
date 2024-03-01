@@ -62,31 +62,47 @@
           </textarea>
         </label>
 
-        <label class="form-control w-full md:max-w-xs max-w-full">
+        <label class="form-control max-w-full">
           <div class="label label-text pb-3 items-end"> Start Date </div>
-          <DatePicker v-model="formData.startDate" color="gray">
-            <template #default="{ togglePopover }">
-              <button
-                @click="togglePopover"
-                class="btn btn-outline border-neutral/25"
-              >
-                {{ dayjs(formData.startDate).format("DD MMMM YYYY") }}
-              </button>
-            </template>
-          </DatePicker>
+          <div class="flex">
+            <DatePicker v-model="formData.startDate" color="gray">
+              <template #default="{ togglePopover }">
+                <button
+                  @click="togglePopover"
+                  class="btn btn-outline border-white/30 min-w-48"
+                >
+                  {{ dayjs(formData.startDate).format("DD MMMM YYYY") }}
+                </button>
+              </template>
+            </DatePicker>
+          </div>
         </label>
-        <label class="form-control w-full md:max-w-xs max-w-full">
+        <label class="form-control w-full">
           <div class="label label-text pb-3 items-end"> End Date </div>
-          <DatePicker v-model="formData.endDate" color="gray">
-            <template #default="{ togglePopover }">
-              <button
-                @click="togglePopover"
-                class="btn btn-outline border-neutral/25"
-              >
-                {{ dayjs(formData.endDate).format("DD MMMM YYYY") }}
-              </button>
-            </template>
-          </DatePicker>
+          <div class="flex items-center gap-4">
+            <DatePicker v-model="formData.endDate" color="gray">
+              <template #default="{ togglePopover }">
+                <button
+                  @click="togglePopover"
+                  class="btn btn-outline border-white/30 min-w-48"
+                  :disabled="isPresent"
+                >
+                  {{
+                    isPresent
+                      ? " "
+                      : dayjs(formData.endDate).format("DD MMMM YYYY")
+                  }}
+                </button>
+              </template>
+            </DatePicker>
+            <input
+              type="checkbox"
+              v-model="isPresent"
+              class="checkbox"
+              @change="handlePresent"
+            />
+            Present
+          </div>
         </label>
       </div>
 
@@ -139,7 +155,7 @@ const props = defineProps({
 const isLoading = ref(false);
 const _show = ref(false);
 const formData = ref({});
-const isChecked = ref(false);
+const isPresent = ref(false);
 
 watchEffect(() => {
   _show.value = props.show;
@@ -149,9 +165,14 @@ watchEffect(() => {
     title: props.data ? props.data.title : "",
     location: props.data ? props.data.location : "",
     description: props.data ? props.data.description : "",
-    startDate: props.data ? props.data.startDate : new Date(),
-    endDate: props.data ? props.data.endDate : new Date(),
+    startDate: props.data ? new Date(props.data.startDate) : new Date(),
+    endDate: props.data
+      ? props.data.endDate != null
+        ? new Date(props.data.endDate)
+        : new Date()
+      : new Date(),
   };
+  isPresent.value = props.data ? props.data.endDate == null : false;
 });
 const errors = ref({});
 const fetchError = ref("");
@@ -179,5 +200,9 @@ const save = async () => {
     else if (error.data) fetchError.value = error.data.message;
     else console.log(error); //code error
   }
+};
+const handlePresent = (e) => {
+  isPresent.value = e.target.checked;
+  if (isPresent.value) formData.value.endDate = "";
 };
 </script>

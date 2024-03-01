@@ -82,7 +82,7 @@
     </div>
 
     <!-- TABLE -->
-    <div class="overflow-x-visible">
+    <div class="overflow-x-visible max-lg:hidden">
       <table class="table table-zebra">
         <!-- TABLE HEAD -->
         <thead>
@@ -100,7 +100,9 @@
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
             <th>{{ e.institutionName }}</th>
-            <td class="text-center">{{ e.startYear }} - {{ e.endYear || "Present" }}</td>
+            <td class="text-center"
+              >{{ e.startYear }} - {{ e.endYear || "Present" }}</td
+            >
             <td class="text-center">{{ e.major == null ? "-" : e.major }}</td>
             <td class="text-center">{{ e.degree == null ? "-" : e.degree }}</td>
             <td class="text-center">
@@ -144,6 +146,77 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- MOBILE VIEW -->
+    <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
+      <div
+        v-for="e in dataTable"
+        class="card w-full bg-base-100 shadow-xl shadow-neutral"
+      >
+        <div class="card-body max-sm:p-4">
+          <div class="flex justify-between mb-3">
+            <div class="flex flex-col gap-3">
+              <h2 class="card-title font-semibold">{{ e.institutionName }}</h2>
+              <p class="text-sm"
+                >{{ e.startYear }} - {{ e.endYear || "Present" }}</p
+              >
+            </div>
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn btn-outline border-none"
+              >
+                <LucideMoreVertical />
+              </div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+              >
+                <li>
+                  <button
+                    class="btn btn-warning btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showForm = true;
+                      // then send loop data to modal
+                      editData = e;
+                    "
+                  >
+                    Edit
+                    <!-- <LucideFilePenLine :size="20" /> -->
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="btn btn-error btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showDeleteModal = true;
+                      // then send loop data to modal
+                      deleteData = e;
+                    "
+                  >
+                    Remove
+                    <!-- <LucideTrash2 :size="20" /> -->
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid grid-cols-10 gap-4">
+            <button class="col-span-6 flex justify-between btn btn-neutral">
+              <div>Major :</div>
+              <div>{{ e.major == null ? "-" : e.major }}</div>
+            </button>
+            <button class="col-span-4 flex justify-between btn btn-neutral">
+              <div>Degree :</div>
+              <div>{{ e.degree == null ? "-" : e.degree }}</div>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

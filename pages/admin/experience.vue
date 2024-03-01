@@ -40,7 +40,6 @@
     </AdminModalConfirm>
     <AdminExperienceForm
       :show="showForm"
-     
       @close="showForm = false"
       @saved="saved"
       :data="editData"
@@ -89,7 +88,6 @@
         <thead>
           <tr>
             <th>Company name</th>
-            <th class="text-center">Location</th>
             <th class="text-center">Title</th>
             <!-- <th class="text-center">Description</th> -->
             <th class="text-center">Period</th>
@@ -101,8 +99,15 @@
         <tbody>
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
-            <th class="capitalize">{{ e.company }}</th>
-            <td class="text-center capitalize">{{ e.location }}</td>
+            <th class="capitalize">
+              <div>
+                {{ e.company }}
+              </div>
+              <div class="text-xs font-semibold">
+                {{ e.location }}
+              </div>
+            </th>
+
             <td class="text-center capitalize">{{ e.title }}</td>
             <!-- <td class="text-center text-ellipsis overflow-hidden">{{
               e.description
@@ -212,11 +217,14 @@ const deleteExp = async () => {
 const showForm = ref(false);
 const editData = ref(null);
 const saved = async () => {
+  // close form modal
   showForm.value = false;
-
+  // re-fetch data
   await ExpStore.get();
+  // show success alert
   successAlert.value = true;
   setTimeout(() => {
+    // hide success alert after 1.5 secs
     successAlert.value = false;
   }, 1500);
 };
