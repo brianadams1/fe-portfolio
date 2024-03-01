@@ -2,13 +2,24 @@
   <div>
     <!-- TITLE -->
     <div
-      class="font-semibold flex justify-between mb-5 pb-2 border-b-2 border-white/30"
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col max-sm:gap-5 sm:flex-row justify-between"
     >
-      <div class="text-xl font-bold"> Skill </div>
-      <button class="flex btn btn-sm btn-neutral" @click="showForm = true">
-        <LucidePlus class="w-4" />
-        Add Skill
-      </button>
+      <div class="flex gap-3">
+        <LucideWrench :size="24" />
+        <p> Skill </p>
+      </div>
+      <div class="flex justify-end">
+        <button
+          class="flex btn btn-sm btn-neutral"
+          @click="
+            showForm = true;
+            editData = null;
+          "
+        >
+          <LucidePlus class="w-4" />
+          Add Skill
+        </button>
+      </div>
     </div>
 
     <!-- MODAL CONFIRM -->
@@ -16,18 +27,23 @@
       :show="showDeleteModal"
       text_confirm="Remove"
       @close="showDeleteModal = false"
-      @saved="deleteExp"
+      @saved="deleteSkill"
     >
       <div>
         <p class="font-bold text-2xl mb-3 text-center">Delete</p>
         <p class="mb-3">Are you sure you want to remove this Skill?</p>
-        <p class="font-semibold mb-3 text-lg" v-if="deleteData">{{
-          deleteData.company
+        <p class="font-semibold mb-3 text-lg" v-if="editData">{{
+          editData.title
         }}</p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
-    <AdminSkillForm :show="showForm" @close="showForm = false" />
+    <AdminSkillForm
+      :show="showForm"
+      @close="showForm = false"
+      @saved="createSkill"
+      :data="editData"
+    />
     <!--  -->
     <div class="flex justify-between gap-10 h-16 items-start">
       <!-- FILTER -->
@@ -63,9 +79,8 @@
       </div>
     </div>
 
-    <!-- TODO handle update -->
     <!-- TABLE -->
-    <div class="overflow-x-visible">
+    <div class="overflow-x-visible max-lg:hidden">
       <table class="table table-zebra">
         <!-- TABLE HEAD -->
         <thead>
@@ -88,7 +103,7 @@
             </th>
             <td class="text-center">{{ s.title }}</td>
             <td class="text-center">{{ s.category.title }}</td>
-            <!-- TODO project count -->
+
             <td class="text-center">{{ s._count.projects }}</td>
             <td class="text-center">
               <details class="dropdown">
@@ -104,9 +119,9 @@
                       class="btn btn-warning btn-sm pb-7"
                       @click="
                         // when clicked, show the modal
-                        showUpdateModal = true;
+                        showForm = true;
                         // then send loop data to modal
-                        updateData = e;
+                        updateData = s;
                       "
                     >
                       <LucideFilePenLine :size="20" />
@@ -119,7 +134,7 @@
                         // when clicked, show the modal
                         showDeleteModal = true;
                         // then send loop data to modal
-                        deleteData = e;
+                        deleteData = s;
                       "
                     >
                       <LucideTrash2 :size="20" />
@@ -132,6 +147,83 @@
         </tbody>
       </table>
     </div>
+
+    <!-- MOBILE VIEW -->
+    <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
+      <div
+        v-for="s in dataTable"
+        class="card w-full bg-base-100 shadow-xl shadow-neutral"
+      >
+        <div class="card-body max-sm:p-4">
+          <div class="flex justify-between mb-2">
+            <div class="flex items-start gap-3">
+              <div
+                v-html="s.svg"
+                class="w-16 h-16 p-1 bg-white rounded-md"
+              ></div>
+              <div class="flex flex-col gap-2">
+                <h2 class="card-title font-semibold capitalize">{{
+                  s.title
+                }}</h2>
+                <p class="text-sm capitalize">{{ s.category.title }}</p>
+              </div>
+            </div>
+            <!-- DROPDOWN -->
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn btn-outline border-none p-0"
+              >
+                <LucideMoreVertical />
+              </div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+              >
+                <li>
+                  <button
+                    class="btn btn-warning btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showForm = true;
+                      // then send loop data to modal
+                      editData = s;
+                    "
+                  >
+                    <LucideFilePenLine :size="20" />
+                    Edit
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="btn btn-error btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showDeleteModal = true;
+                      // then send loop data to modal
+                      editData = s;
+                    "
+                  >
+                    <LucideTrash2 :size="20" />
+                    Remove
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <!-- END DROPDOWN -->
+          </div>
+
+          <div class="flex justify-between flex-wrap items-center">
+            <div>Amount projects : </div>
+            <div
+              class="w-10 h-10 rounded-full bg-slate-500 flex items-center justify-center"
+              >{{ s._count.projects }}</div
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -142,15 +234,16 @@ definePageMeta({
 });
 const filter = ref("");
 const SkillStore = useSkillStore();
-const showUpdateModal = ref();
+// console.log(SkillStore.category);
 const successAlert = ref();
 const showDeleteModal = ref(false);
-const updateData = ref(null);
 const deleteData = ref(null);
 const errors = ref({});
 const fetchError = ref("");
+const editData = ref(null);
 onBeforeMount(async () => {
-  if ((SkillStore.project = [])) await SkillStore.get();
+  if (SkillStore.skills == []) await SkillStore.get();
+  if (!SkillStore.category) await SkillStore.get_categories();
 });
 const dataTable = computed(() => {
   const search = filter.value.toLowerCase().trim();
@@ -163,24 +256,25 @@ const dataTable = computed(() => {
   }
 });
 
-// TODO count relation skillcategory & skill
-
-const deleteExp = async () => {
+const deleteSkill = async () => {
   try {
     // TAKE ID
-    const id = deleteData.value.id;
+    const id = editData.value.id;
 
     // DELETE PROCESS
-    await ExpStore.remove(id);
+    await SkillStore.remove(id);
 
     // HIDE MODAL
     showDeleteModal.value = false;
 
     // SUCCESS MODAL
     successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 1500);
 
     // REFRESH DATA
-    await ExpStore.get();
+    await SkillStore.get();
   } catch (error) {
     // isLoading.value = false;
     console.log(error);

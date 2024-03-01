@@ -11,7 +11,9 @@
         </label>
       </form>
       <div class="h-10 flex mt-3 justify-between items-end">
-        <h3 class="font-bold text-lg"> Add new skill </h3>
+        <h3 class="font-bold text-lg">
+          {{ data ? "Update " + data.title : "Create new Skill" }}
+        </h3>
       </div>
       <div>
         <!-- INSTITUTION NAME -->
@@ -21,41 +23,40 @@
           </div>
           <input
             type="text"
+            placeholder="Title"
             class="input input-bordered w-full bg-neutral"
             v-model="formData.title"
           />
         </label>
         <!-- MAJOR -->
         <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">
-              Skill Category : {{ checkedSkills }}
-            </span>
+          <div class="label flex flex-col items-start">
+            <span class="label-text"> Skill </span>
+            <input
+              type="text"
+              placeholder="Category"
+              class="input input-bordered w-full bg-neutral"
+              v-model="formData.category"
+            />
           </div>
           <div class="grid grid-cols-2">
-            <div v-for="c in categories" class="flex gap-2 w-fit">
-              <input
-                type="checkbox"
-                :id="c"
-                v-model="checkedSkills"
-                :value="c"
-              />
-              <label :for="c">{{ c }}</label>
-            </div>
+            <div v-for="cat in categories" class="text-white bg-dark">
+              {{ cat.title }}</div
+            >
           </div>
         </label>
+        <!-- v-if="svgShow" -->
         <div
-          v-if="svgShow"
           v-html="formData.svg"
           class="rounded-2xl p-2 h-20 w-20 max-h-20 max-w-20 bg-white mx-auto my-5 text-xs border-box"
         ></div>
-        <div
+        <!-- <div
           v-if="svgLoading"
           class="rounded-2xl p-2 h-20 w-20 max-h-20 max-w-20 bg-white mx-auto my-5 text-xs border-box flex flex-col justify-center items-center"
         >
           <SvgCat class="w-12" />
           <div class="text-black text-xs"> Load SVG... </div>
-        </div>
+        </div> -->
         <!-- DEGREE -->
         <label class="form-control w-full">
           <div class="label">
@@ -83,7 +84,7 @@
             isLoading = true;
           "
         >
-          {{ text_confirm || "Save" }}
+          {{ data ? "Update" : "Create" }}
           <SvgCat class="w-10" v-show="isLoading" />
         </label>
       </div>
@@ -98,11 +99,11 @@
 import Joi from "joi";
 const emit = defineEmits(["close", "saved"]);
 const props = defineProps({
+  data: Object,
   show: Boolean,
-  text_confirm: String,
 });
-const svgLoading = ref(false);
-const svgShow = ref(false);
+// const svgLoading = ref(false);
+// const svgShow = ref(false);
 const isLoading = ref(false);
 const _show = ref(false);
 const formData = ref({
@@ -112,27 +113,39 @@ const formData = ref({
 });
 watchEffect(() => {
   _show.value = props.show;
+  formData.value = {
+    svg: props.data ? props.data.svg : "",
+    title: props.data ? props.data.title : "",
+    category: props.data ? props.data.category.title : "",
+  };
   //reset form
-  if (formData.value.svg != "") {
-    svgShow.value = false;
-    svgLoading.value = true;
-    setTimeout(() => {
-      svgLoading.value = false;
-      svgShow.value = true;
-    }, 1500);
-  }
 });
+// if (formData.value.svg != "") {
+//   svgShow.value = false;
+//   svgLoading.value = true;
+//   setTimeout(() => {
+//     svgLoading.value = false;
+//     svgShow.value = true;
+//   }, 1500);
+// }
 const message = ref("");
 const checkedSkills = ref([]);
-const categories = [
-  "LANGUAGE",
-  "FRONT END DEVELOPMENT",
-  "BACK END DEVELOPMENT",
-  "DATABASE",
-  "LIBRARY",
-  "UI/UX",
-];
-const EduStore = useEducationStore();
+// const categories = [
+//   "LANGUAGE",
+//   "FRONT END DEVELOPMENT",
+//   "BACK END DEVELOPMENT",
+//   "DATABASE",
+//   "LIBRARY",
+//   "UI/UX",
+// ];
+const categories = ref([]);
+const SkillStore = useSkillStore();
+onBeforeMount(async () => {
+  if ((SkillStore.data = [])) await SkillStore.get();
+
+  if (!SkillStore.category) await SkillStore.get_categories();
+  categories.value = SkillStore.category;
+});
 const errors = ref({});
 const fetchError = ref("");
 // handle save
@@ -141,11 +154,16 @@ const save = async () => {
   errors.value = {};
   fetchError.value = "";
   try {
-    if (!formData.value.endYear) formData.value.endYear = null;
-    await EduStore.create(formData.value);
+    // if (!formData.value.endYear) formData.value.endYear = null;
+    await SkillStore.create(formData.value);
     emit("saved");
     isLoading.value = false;
-    await EduStore.get();
+    await SkillStore.get();
+    formData.value = {
+      svg: "",
+      title: "",
+      category: "",
+    };
   } catch (error) {
     isLoading.value = false;
     if (error instanceof Joi.ValidationError) {
