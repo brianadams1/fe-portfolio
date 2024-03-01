@@ -184,8 +184,8 @@
                       editData = e;
                     "
                   >
+                    <LucideFilePenLine :size="20" />
                     Edit
-                    <!-- <LucideFilePenLine :size="20" /> -->
                   </button>
                 </li>
                 <li>
@@ -198,19 +198,19 @@
                       deleteData = e;
                     "
                   >
+                    <LucideTrash2 :size="20" />
                     Remove
-                    <!-- <LucideTrash2 :size="20" /> -->
                   </button>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="grid grid-cols-10 gap-4">
-            <button class="col-span-6 flex justify-between btn btn-neutral">
+          <div class="grid sm:grid-cols-10 max-sm:grid-rows-2 gap-4">
+            <button class="sm:col-span-6 flex justify-between btn btn-neutral">
               <div>Major :</div>
               <div>{{ e.major == null ? "-" : e.major }}</div>
             </button>
-            <button class="col-span-4 flex justify-between btn btn-neutral">
+            <button class="sm:col-span-4 flex justify-between btn btn-neutral">
               <div>Degree :</div>
               <div>{{ e.degree == null ? "-" : e.degree }}</div>
             </button>

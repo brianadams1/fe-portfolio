@@ -2,13 +2,13 @@
   <div>
     <!-- TITLE -->
     <div
-      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col max-sm:gap-5 sm:flex-row justify-between"
     >
       <div class="flex gap-3">
         <LucideBriefcase :size="24" />
         <p> Experience </p>
       </div>
-      <div>
+      <div class="flex justify-end">
         <button
           class="btn btn-neutral btn-sm"
           @click="
@@ -32,8 +32,8 @@
       <div>
         <p class="font-bold text-2xl mb-3 text-center">Delete</p>
         <p class="mb-3">Are you sure you want to remove this Experience?</p>
-        <p class="font-semibold mb-3 text-lg" v-if="deleteData">{{
-          deleteData.company
+        <p class="font-semibold mb-3 text-lg" v-if="editData">{{
+          editData.company
         }}</p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
@@ -46,20 +46,20 @@
     ></AdminExperienceForm>
 
     <!-- TOP CONTENT -->
-    <div class="flex justify-between gap-10 h-16 items-start">
+    <div class="flex justify-between gap-10 h-16 items-start relative">
       <!-- FILTER -->
       <input
         type="text"
         v-model="filter"
         placeholder="Search"
-        class="input input-bordered w-full max-w-xs"
+        class="input input-bordered w-full"
       />
       <!-- ALERT -->
-      <div class="mx-auto w-[80%] h-12 mb-2">
+      <div class="mx-auto w-full absolute h-12 mb-2">
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">
-          <AdminSuccessAlert v-if="successAlert" />
+          <AdminSuccessAlert v-if="successAlert" class="z-20" />
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR ALERT -->
@@ -80,9 +80,8 @@
       </div>
     </div>
 
-    <!-- TODO handle update -->
     <!-- TABLE -->
-    <div class="overflow-x-visible">
+    <div class="overflow-x-visible max-lg:hidden">
       <table class="table table-zebra">
         <!-- TABLE HEAD -->
         <thead>
@@ -158,6 +157,80 @@
         </tbody>
       </table>
     </div>
+
+    <!-- MOBILE VIEW -->
+    <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
+      <div
+        v-for="e in dataTable"
+        class="card w-full bg-base-100 shadow-xl shadow-neutral"
+      >
+        <div class="card-body max-sm:p-4">
+          <div class="flex justify-between mb-2">
+            <div class="flex flex-col gap-2">
+              <h2 class="card-title font-semibold capitalize">{{
+                e.company
+              }}</h2>
+              <p class="text-sm capitalize">{{ e.location }}</p>
+            </div>
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <div
+                tabindex="0"
+                role="button"
+                class="btn btn-outline border-none p-0"
+              >
+                <LucideMoreVertical />
+              </div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+              >
+                <li>
+                  <button
+                    class="btn btn-warning btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showForm = true;
+                      // then send loop data to modal
+                      editData = e;
+                    "
+                  >
+                    <LucideFilePenLine :size="20" />
+                    Edit
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="btn btn-error btn-sm pb-7"
+                    @click="
+                      // when clicked, show the modal
+                      showDeleteModal = true;
+                      // then send loop data to modal
+                      editData = e;
+                    "
+                  >
+                    <LucideTrash2 :size="20" />
+                    Remove
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between flex-wrap">
+              <div>Period date :</div>
+              <div>
+                {{ e.readStartDateTime }} -
+                {{ e.readEndDateTime || "Present" }}
+              </div>
+            </div>
+            <div class="flex justify-between flex-wrap">
+              <div>Title :</div>
+              <div class="capitalize">{{ e.title }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -168,11 +241,10 @@ definePageMeta({
 });
 const filter = ref("");
 const ExpStore = useExperienceStore();
-const showUpdateModal = ref(false);
+
 const successAlert = ref(false);
 const showDeleteModal = ref(false);
-const updateData = ref(null);
-const deleteData = ref(null);
+
 const errors = ref({});
 const fetchError = ref("");
 onBeforeMount(async () => {
@@ -188,6 +260,24 @@ const dataTable = computed(() => {
     return ExpStore.experiences;
   }
 });
+
+// handle save
+const showForm = ref(false);
+const editData = ref(null);
+const saved = async () => {
+  // close form modal
+  showForm.value = false;
+  // re-fetch data
+  await ExpStore.get();
+  // show success alert
+  successAlert.value = true;
+  setTimeout(() => {
+    // hide success alert after 1.5 secs
+    successAlert.value = false;
+  }, 1500);
+};
+
+// handle delete
 const deleteExp = async () => {
   try {
     // TAKE ID
@@ -211,21 +301,5 @@ const deleteExp = async () => {
     // isLoading.value = false;
     console.log(error);
   }
-};
-
-// handle save
-const showForm = ref(false);
-const editData = ref(null);
-const saved = async () => {
-  // close form modal
-  showForm.value = false;
-  // re-fetch data
-  await ExpStore.get();
-  // show success alert
-  successAlert.value = true;
-  setTimeout(() => {
-    // hide success alert after 1.5 secs
-    successAlert.value = false;
-  }, 1500);
 };
 </script>

@@ -11,6 +11,6 @@ export const isExperience = Joi.object({
   endDate: Joi.date()
     .min(Joi.ref("startDate"))
     .max("now")
-    .label("Start Date")
+    .label("End Date")
     .allow(null),
 });
