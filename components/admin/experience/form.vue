@@ -149,8 +149,8 @@ watchEffect(() => {
     title: props.data ? props.data.title : "",
     location: props.data ? props.data.location : "",
     description: props.data ? props.data.description : "",
-    startDate: props.data ? props.data.startDate : "",
-    endDate: props.data ? props.data.endDate : "",
+    startDate: props.data ? props.data.startDate : new Date(),
+    endDate: props.data ? props.data.endDate : new Date(),
   };
 });
 const errors = ref({});
@@ -165,7 +165,6 @@ const save = async () => {
   try {
     // show loading indicator
     isLoading.value = true;
-    console.log(formData.value);
     // return;
     if (!props.data) await ExpStore.create(formData.value);
     else await ExpStore.update(props.data.id, formData.value);
