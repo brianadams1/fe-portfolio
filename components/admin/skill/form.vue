@@ -49,6 +49,7 @@
           <!-- CATEGORY SELECTOR -->
           <label class="mt-2 text-sm mb-2">Select Category</label>
           <div class="flex flex-wrap gap-3 mt-2">
+            <!-- USING BUTTON -->
             <button
               v-for="cat in SkillStore.categories"
               class="btn btn-xs w-min text-nowrap"
@@ -57,6 +58,7 @@
               {{ cat.title }}
             </button>
           </div>
+          <!-- USING SELECT-OPTION -->
           <!-- <select
             @change="(e) => (formData.category = e.target.value)"
             class="select select-bordered w-full"
@@ -74,7 +76,7 @@
           </div>
           <div
             v-html="formData.svg"
-            class="rounded-full p-0 h-32 w-32 max-h-32 max-w-32 bg-white mx-auto my-5 text-xs border-box"
+            class="rounded-full p-5 h-32 w-32 max-h-32 max-w-32 bg-white mx-auto my-5"
           ></div>
           <textarea
             rows="5"
@@ -119,7 +121,6 @@ const props = defineProps({
   show: Boolean,
 });
 
-const SkillStore = useSkillStore();
 const _show = ref(false);
 const isLoading = ref(false);
 const formData = ref({
@@ -129,18 +130,20 @@ const formData = ref({
 });
 watchEffect(() => {
   _show.value = props.show;
-  formData.value = { svg: "", title: "", category: "" };
+  formData.value = {
+    svg: props.data ? props.data.svg : "",
+    title: props.data ? props.data.title : "",
+    category: props.data ? props.data.category.title : "",
+  };
   //reset form
 });
-
-const message = ref("");
-const checkedSkills = ref([]);
 
 const categories = ref([]);
 
 const errors = ref({});
 const fetchError = ref("");
 // handle save
+const SkillStore = useSkillStore();
 const save = async () => {
   // reset error
   errors.value = {};
@@ -148,8 +151,8 @@ const save = async () => {
   try {
     // show loading indicator
     isLoading.value = true;
-    // if (!formData.value.endYear) formData.value.endYear = null;
-    await SkillStore.create(formData.value);
+    if (!props.data) await SkillStore.create(formData.value);
+    else await SkillStore.update(props.data.id, formData.value);
     // hide loading indicator
     isLoading.value = false;
     emit("saved");

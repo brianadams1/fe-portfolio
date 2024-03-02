@@ -6,10 +6,6 @@ export const useSkillStore = defineStore("skill", {
     skills: null,
     categories: [],
   }),
-  // getters: {
-  //   skills: (state) => (state.data ? state.data.skills : []),
-  //   category: (state) => (state.data ? state.data.category : []),
-  // },
   actions: {
     async get() {
       const Api = useApiStore();
