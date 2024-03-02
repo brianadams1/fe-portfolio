@@ -102,8 +102,7 @@ const props = defineProps({
   data: Object,
   show: Boolean,
 });
-// const svgLoading = ref(false);
-// const svgShow = ref(false);
+
 const isLoading = ref(false);
 const _show = ref(false);
 const formData = ref({
@@ -113,39 +112,16 @@ const formData = ref({
 });
 watchEffect(() => {
   _show.value = props.show;
-  formData.value = {
-    svg: props.data ? props.data.svg : "",
-    title: props.data ? props.data.title : "",
-    category: props.data ? props.data.category.title : "",
-  };
+  formData.value = {};
   //reset form
 });
-// if (formData.value.svg != "") {
-//   svgShow.value = false;
-//   svgLoading.value = true;
-//   setTimeout(() => {
-//     svgLoading.value = false;
-//     svgShow.value = true;
-//   }, 1500);
-// }
+
 const message = ref("");
 const checkedSkills = ref([]);
-// const categories = [
-//   "LANGUAGE",
-//   "FRONT END DEVELOPMENT",
-//   "BACK END DEVELOPMENT",
-//   "DATABASE",
-//   "LIBRARY",
-//   "UI/UX",
-// ];
+
 const categories = ref([]);
 const SkillStore = useSkillStore();
-onBeforeMount(async () => {
-  if ((SkillStore.data = [])) await SkillStore.get();
 
-  if (!SkillStore.category) await SkillStore.get_categories();
-  categories.value = SkillStore.category;
-});
 const errors = ref({});
 const fetchError = ref("");
 // handle save

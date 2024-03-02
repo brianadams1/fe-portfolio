@@ -52,10 +52,10 @@
         type="text"
         v-model="filter"
         placeholder="Search"
-        class="input input-bordered w-full"
+        class="input input-bordered w-[70%]"
       />
       <!-- ALERT -->
-      <div class="mx-auto w-full absolute h-12 mb-2">
+      <div class="mx-auto w-64 h-12 mb-2 absolute z-10 right-0">
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">

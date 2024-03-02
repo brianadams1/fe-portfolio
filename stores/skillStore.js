@@ -3,28 +3,27 @@ import { useApiStore } from "./apiStore";
 
 export const useSkillStore = defineStore("skill", {
   state: () => ({
-    data: null,
+    skills: null,
+    categories: [],
   }),
-  getters: {
-    skills: (state) => (state.data ? state.data.skills : []),
-    category: (state) => (state.data ? state.data.category : []),
-  },
+  // getters: {
+  //   skills: (state) => (state.data ? state.data.skills : []),
+  //   category: (state) => (state.data ? state.data.category : []),
+  // },
   actions: {
     async get() {
       const Api = useApiStore();
-
-      this.data.skills = await Api.get("/skills");
+      this.skills = await Api.get("/skills");
     },
     async get_categories() {
       const Api = useApiStore();
-      this.data.category = await Api.get("/skill_by_category");
+      this.categories = await Api.get("/skill_categories");
     },
     async create(data) {
       const Api = useApiStore();
       return await Api.post("/skill", data);
     },
     async remove(id) {
-      console.log("masuk remove");
       const Api = useApiStore();
       return await Api.delete("/skill/" + id);
     },

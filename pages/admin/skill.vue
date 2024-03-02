@@ -32,27 +32,39 @@
       <div>
         <p class="font-bold text-2xl mb-3 text-center">Delete</p>
         <p class="mb-3">Are you sure you want to remove this Skill?</p>
-        <p class="font-semibold mb-3 text-lg" v-if="editData">{{
-          editData.title
-        }}</p>
+        <p class="font-semibold mb-3 text-lg" v-if="editData">
+          {{ editData.title }}
+        </p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
     <AdminSkillForm
       :show="showForm"
+      :data="editData"
       @close="showForm = false"
       @saved="createSkill"
-      :data="editData"
     />
     <!--  -->
     <div class="flex justify-between gap-10 h-16 items-start">
       <!-- FILTER -->
-      <input
-        type="text"
-        v-model="filter"
-        placeholder="Search"
-        class="input input-bordered w-full max-w-xs"
-      />
+      <div class="flex gap-3 w-full items-end">
+        <input
+          type="text"
+          v-model="filter"
+          placeholder="Search"
+          class="input input-bordered w-full max-w-xs"
+        />
+        <select
+          v-model="selectedCategory"
+          @change="filter = ''"
+          class="select select-bordered w-full max-w-xs"
+        >
+          <option value="all">All Categories</option>
+          <option v-for="cat in SkillStore.categories" :value="cat.id">
+            {{ cat.title }}
+          </option>
+        </select>
+      </div>
       <!-- ALERT -->
       <div class="mx-auto w-[80%] h-12 mb-2">
         <!-- SUCCESS ALERT -->
@@ -121,7 +133,7 @@
                         // when clicked, show the modal
                         showForm = true;
                         // then send loop data to modal
-                        updateData = s;
+                        editData = s;
                       "
                     >
                       <LucideFilePenLine :size="20" />
@@ -134,7 +146,7 @@
                         // when clicked, show the modal
                         showDeleteModal = true;
                         // then send loop data to modal
-                        deleteData = s;
+                        editData = s;
                       "
                     >
                       <LucideTrash2 :size="20" />
@@ -234,27 +246,55 @@ definePageMeta({
 });
 const filter = ref("");
 const SkillStore = useSkillStore();
+onBeforeMount(async () => {
+  await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
+});
+
+// FORM
+const showForm = ref(false);
+const editData = ref({});
+
+// SELECTOR
+const selectedCategory = ref("all");
+const dataTable = computed(() => {
+  const search = filter.value.toLowerCase().trim();
+  const selectedCatID = selectedCategory.value;
+  if (search != "") {
+    return SkillStore.skills.filter((s) => {
+      const title = s.title.toLowerCase();
+      // if category is all / not choosed
+      if (selectedCatID == "all") return title.includes(search);
+      //else if a category is selected
+      else return title.includes(search) && s.skillCategoryId == selectedCatID;
+    });
+  } else {
+    if (selectedCatID == "all") {
+      // return all data
+      return SkillStore.skills;
+    } else {
+      // return category by id
+      return SkillStore.skills.filter(
+        (s) => s.skillCategoryId == selectedCatID
+      );
+    }
+  }
+});
+// Down below is changed code
 // console.log(SkillStore.category);
 const successAlert = ref();
 const showDeleteModal = ref(false);
-const deleteData = ref(null);
 const errors = ref({});
 const fetchError = ref("");
-const editData = ref(null);
-onBeforeMount(async () => {
-  if (SkillStore.skills == []) await SkillStore.get();
-  if (!SkillStore.category) await SkillStore.get_categories();
-});
-const dataTable = computed(() => {
-  const search = filter.value.toLowerCase().trim();
-  if (search != "") {
-    return SkillStore.data.filter((s) =>
-      s.title.toLowerCase().includes(search)
-    );
-  } else {
-    return SkillStore.data;
-  }
-});
+// const dataTable = computed(() => {
+//   const search = filter.value.toLowerCase().trim();
+//   if (search != "") {
+//     return SkillStore.skills.filter((s) =>
+//       s.title.toLowerCase().includes(search)
+//     );
+//   } else {
+//     return SkillStore.skills;
+//   }
+// });
 
 const deleteSkill = async () => {
   try {
@@ -277,15 +317,14 @@ const deleteSkill = async () => {
     await SkillStore.get();
   } catch (error) {
     // isLoading.value = false;
-    console.log(error);
+    // console.log(error);
   }
 };
-const showForm = ref(false);
-const createSkill = () => {
-  showForm.value = false;
-  successAlert.value = true;
-  setTimeout(() => {
-    successAlert.value = false;
-  }, 1500);
-};
+const createSkill = () => {};
+//   showForm.value = false;
+//   successAlert.value = true;
+//   setTimeout(() => {
+//     successAlert.value = false;
+//   }, 1500);
+// };
 </script>
