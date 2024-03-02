@@ -54,6 +54,7 @@
           placeholder="Search"
           class="input input-bordered w-full max-w-xs"
         />
+        <!-- CATERGORY SELECTOR -->
         <select
           v-model="selectedCategory"
           @change="filter = ''"

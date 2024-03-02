@@ -10,7 +10,9 @@
           ✕
         </label>
       </form>
-      <div class="h-10 flex mt-3 justify-between items-end">
+      <div
+        class="h-10 flex mt-3 justify-between items-end border-b border-white/30"
+      >
         <h3 class="font-bold text-lg">
           {{ data ? "Update " + data.title : "Create new Skill" }}
         </h3>
@@ -31,11 +33,11 @@
         <!-- MAJOR -->
         <label class="form-control w-full">
           <div class="label flex flex-col items-start">
-            <span class="label-text"> Skill </span>
+            <span class="label-text mb-2"> Skill Category</span>
             <input
               type="text"
               placeholder="Category"
-              class="input input-bordered w-full bg-neutral"
+              class="input input-bordered w-full bg-neutral uppercase"
               v-model="formData.category"
             />
           </div>
@@ -44,27 +46,41 @@
               {{ cat.title }}</div
             >
           </div>
+          <!-- CATEGORY SELECTOR -->
+          <label class="mt-2 text-sm mb-2">Select Category</label>
+          <div class="flex flex-wrap gap-3 mt-2">
+            <button
+              v-for="cat in SkillStore.categories"
+              class="btn btn-xs w-min text-nowrap"
+              @click="formData.category = cat.title"
+            >
+              {{ cat.title }}
+            </button>
+          </div>
+          <!-- <select
+            @change="(e) => (formData.category = e.target.value)"
+            class="select select-bordered w-full"
+          >
+            <option v-for="cat in SkillStore.categories" :value="cat.title">
+              {{ cat.title }}
+            </option>
+          </select> -->
         </label>
-        <!-- v-if="svgShow" -->
-        <div
-          v-html="formData.svg"
-          class="rounded-2xl p-2 h-20 w-20 max-h-20 max-w-20 bg-white mx-auto my-5 text-xs border-box"
-        ></div>
-        <!-- <div
-          v-if="svgLoading"
-          class="rounded-2xl p-2 h-20 w-20 max-h-20 max-w-20 bg-white mx-auto my-5 text-xs border-box flex flex-col justify-center items-center"
-        >
-          <SvgCat class="w-12" />
-          <div class="text-black text-xs"> Load SVG... </div>
-        </div> -->
-        <!-- DEGREE -->
+
+        <!-- SVG -->
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text">
-              Skill SVG (Base height and width = 64, or just remove it.)
-            </span>
+            <span class="label-text"> SVG </span>
           </div>
-          <textarea rows="10" class="w-full bg-neutral" v-model="formData.svg">
+          <div
+            v-html="formData.svg"
+            class="rounded-full p-0 h-32 w-32 max-h-32 max-w-32 bg-white mx-auto my-5 text-xs border-box"
+          ></div>
+          <textarea
+            rows="5"
+            class="textarea textarea-bordered w-full bg-neutral"
+            v-model="formData.svg"
+          >
           </textarea>
         </label>
       </div>
@@ -103,8 +119,9 @@ const props = defineProps({
   show: Boolean,
 });
 
-const isLoading = ref(false);
+const SkillStore = useSkillStore();
 const _show = ref(false);
+const isLoading = ref(false);
 const formData = ref({
   svg: "",
   title: "",
@@ -112,7 +129,7 @@ const formData = ref({
 });
 watchEffect(() => {
   _show.value = props.show;
-  formData.value = {};
+  formData.value = { svg: "", title: "", category: "" };
   //reset form
 });
 
@@ -120,7 +137,6 @@ const message = ref("");
 const checkedSkills = ref([]);
 
 const categories = ref([]);
-const SkillStore = useSkillStore();
 
 const errors = ref({});
 const fetchError = ref("");
