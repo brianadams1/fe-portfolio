@@ -42,7 +42,7 @@
       :show="showForm"
       :data="editData"
       @close="showForm = false"
-      @saved="createSkill"
+      @saved="saved"
     />
     <!--  -->
     <div class="flex justify-between gap-10 h-16 items-start">
@@ -112,7 +112,7 @@
           <!-- DATA LOOP -->
           <tr v-for="s in dataTable">
             <th>
-              <div v-html="s.svg" class="w-8 p-1 bg-white rounded-md"></div>
+              <div v-html="s.svg" class="w-8 h-8 p-1 bg-white rounded-md"></div>
             </th>
             <td class="text-center">{{ s.title }}</td>
             <td class="text-center">{{ s.category.title }}</td>
@@ -247,9 +247,10 @@ definePageMeta({
 });
 const filter = ref("");
 const SkillStore = useSkillStore();
-onBeforeMount(async () => {
+const getData = async () => {
   await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
-});
+};
+onBeforeMount(async () => await getData());
 
 // FORM
 const showForm = ref(false);
@@ -321,11 +322,12 @@ const deleteSkill = async () => {
     // console.log(error);
   }
 };
-const createSkill = () => {};
-//   showForm.value = false;
-//   successAlert.value = true;
-//   setTimeout(() => {
-//     successAlert.value = false;
-//   }, 1500);
-// };
+const saved = async () => {
+  showForm.value = false;
+  await getData();
+  successAlert.value = true;
+  setTimeout(() => {
+    successAlert.value = false;
+  }, 1500);
+};
 </script>

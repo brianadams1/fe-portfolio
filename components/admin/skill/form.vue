@@ -146,10 +146,13 @@ const save = async () => {
   errors.value = {};
   fetchError.value = "";
   try {
+    // show loading indicator
+    isLoading.value = true;
     // if (!formData.value.endYear) formData.value.endYear = null;
     await SkillStore.create(formData.value);
-    emit("saved");
+    // hide loading indicator
     isLoading.value = false;
+    emit("saved");
     await SkillStore.get();
     formData.value = {
       svg: "",
