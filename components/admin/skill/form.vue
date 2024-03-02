@@ -119,7 +119,6 @@ const props = defineProps({
   show: Boolean,
 });
 
-const SkillStore = useSkillStore();
 const _show = ref(false);
 const isLoading = ref(false);
 const formData = ref({
@@ -129,18 +128,20 @@ const formData = ref({
 });
 watchEffect(() => {
   _show.value = props.show;
-  formData.value = { svg: "", title: "", category: "" };
+  formData.value = {
+    svg: props.data ? props.data.svg : "",
+    title: props.data ? props.data.title : "",
+    category: props.data ? props.data.category.title : "",
+  };
   //reset form
 });
-
-const message = ref("");
-const checkedSkills = ref([]);
 
 const categories = ref([]);
 
 const errors = ref({});
 const fetchError = ref("");
 // handle save
+const SkillStore = useSkillStore();
 const save = async () => {
   // reset error
   errors.value = {};
@@ -148,8 +149,8 @@ const save = async () => {
   try {
     // show loading indicator
     isLoading.value = true;
-    // if (!formData.value.endYear) formData.value.endYear = null;
-    await SkillStore.create(formData.value);
+    if (!props.data) await SkillStore.create(formData.value);
+    else await SkillStore.update(props.data.id, formData.value);
     // hide loading indicator
     isLoading.value = false;
     emit("saved");

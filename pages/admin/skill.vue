@@ -110,19 +110,22 @@
         <!-- TABLE BODY -->
         <tbody>
           <!-- DATA LOOP -->
-          <tr v-for="s in dataTable">
+          <tr v-for="skill in dataTable">
             <th>
-              <div v-html="s.svg" class="w-8 h-8 p-1 bg-white rounded-md"></div>
+              <div
+                v-html="skill.svg"
+                class="w-8 h-8 p-1 bg-white rounded-md"
+              ></div>
             </th>
-            <td class="text-center">{{ s.title }}</td>
-            <td class="text-center">{{ s.category.title }}</td>
+            <td class="text-center">{{ skill.title }}</td>
+            <td class="text-center">{{ skill.category.title }}</td>
 
-            <td class="text-center">{{ s._count.projects }}</td>
+            <td class="text-center">{{ skill._count.projects }}</td>
             <td class="text-center">
-              <details class="dropdown">
-                <summary class="btn m-1 btn-sm">
+              <div class="dropdown">
+                <div class="btn m-1 btn-sm" tabindex="0" role="button">
                   <LucideMoreVertical />
-                </summary>
+                </div>
                 <ul
                   tabindex="0"
                   class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
@@ -134,27 +137,27 @@
                         // when clicked, show the modal
                         showForm = true;
                         // then send loop data to modal
-                        editData = s;
+                        editData = skill;
                       "
                     >
                       <LucideFilePenLine :size="20" />
                     </button>
                   </li>
-                  <li v-if="s._count.projects == 0">
+                  <li v-if="skill._count.projects == 0">
                     <button
                       class="btn btn-error btn-sm pb-7 focus:bg-error"
                       @click="
                         // when clicked, show the modal
                         showDeleteModal = true;
                         // then send loop data to modal
-                        editData = s;
+                        editData = skill;
                       "
                     >
                       <LucideTrash2 :size="20" />
                     </button>
                   </li>
                 </ul>
-              </details>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -254,7 +257,7 @@ onBeforeMount(async () => await getData());
 
 // FORM
 const showForm = ref(false);
-const editData = ref({});
+const editData = ref(null);
 
 // SELECTOR
 const selectedCategory = ref("all");
@@ -281,27 +284,19 @@ const dataTable = computed(() => {
     }
   }
 });
+
 // Down below is changed code
 // console.log(SkillStore.category);
 const successAlert = ref();
 const showDeleteModal = ref(false);
 const errors = ref({});
 const fetchError = ref("");
-// const dataTable = computed(() => {
-//   const search = filter.value.toLowerCase().trim();
-//   if (search != "") {
-//     return SkillStore.skills.filter((s) =>
-//       s.title.toLowerCase().includes(search)
-//     );
-//   } else {
-//     return SkillStore.skills;
-//   }
-// });
 
 const deleteSkill = async () => {
   try {
     // TAKE ID
     const id = editData.value.id;
+    console.log(id);
 
     // DELETE PROCESS
     await SkillStore.remove(id);
