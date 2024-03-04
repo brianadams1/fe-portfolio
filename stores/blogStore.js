@@ -14,9 +14,9 @@ export const useBlogStore = defineStore("blog", {
     total: (state) => (state.data ? state.data.total : 0),
   },
   actions: {
-    async get() {
+    async get(page) {
       const Api = useApiStore();
-      this.data = await Api.get(`/blogs`);
+      this.data = await Api.get(`/blogs?limit=12&page=${page}`);
     },
     async update(id, data, keptPhoto, newPhoto) {
       const Api = useApiStore();
