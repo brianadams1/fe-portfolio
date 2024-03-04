@@ -44,7 +44,7 @@
       @close="showForm = false"
       @saved="saved"
     />
-    <!--  -->
+    <!-- FILTER PART -->
     <div class="flex justify-between gap-10 h-16 items-start">
       <!-- FILTER -->
       <div class="flex gap-3 w-full items-end">
@@ -287,7 +287,7 @@ const dataTable = computed(() => {
 
 // Down below is changed code
 // console.log(SkillStore.category);
-const successAlert = ref();
+const successAlert = ref(false);
 const showDeleteModal = ref(false);
 const errors = ref({});
 const fetchError = ref("");

@@ -1,17 +1,45 @@
 <template>
-  <div>
+  <div class="">
+    <!-- TITLE -->
     <div
-      class="font-semibold border-b-2 pb-3 border-white/30 flex justify-between mb-3"
+      class="font-semibold text-xl border-b-2 pb-3 border-white/30 flex justify-between mb-3"
     >
-      <div class="text-xl font-bold"> Blog </div>
-      <button
-        class="flex btn btn-sm btn-neutral"
-        @click="navigateTo('/admin/blogs/create')"
-      >
-        <LucidePlus class="w-4" />
-        Add Blog
-      </button>
+      <div class="flex gap-3">
+        <LucideNewspaper />
+        <div> Blog </div>
+      </div>
+      <div class="flex justify-end">
+        <button
+          class="flex btn btn-sm btn-neutral"
+          @click="
+            showForm = true;
+            editData = null;
+          "
+        >
+          <LucidePlus class="w-4" />
+          Add Blog
+        </button>
+      </div>
     </div>
+
+    <!-- MODAL CONFIRM -->
+    <AdminModalConfirm>
+      <div>
+        <p class="font-bold text-2xl mb-3 text-center">Delete</p>
+        <p class="mb-3">Are you sure you want to remove this Skill?</p>
+        <p class="font-semibold mb-3 text-lg" v-if="editData">
+          {{ editData.title }}
+        </p>
+        <p class="text-sm">This action cannot be undone.</p>
+      </div>
+    </AdminModalConfirm>
+    <AdminBlogsForm
+      :show="showForm"
+      :data="editData"
+      @close="showForm = false"
+      @saved="saved"
+    />
+
     <div class="grid grid-cols-10 gap-4">
       <input
         type="text"
@@ -58,13 +86,13 @@
                 class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box gap-2"
               >
                 <li>
-                  <button class="btn btn-sm btn-error py-[3px]">
-                    <LucideTrash2 class="w-5" />
+                  <button class="btn btn-sm btn-warning py-[3px]">
+                    <LucidePencil class="w-5" />
                   </button>
                 </li>
                 <li>
-                  <button class="btn btn-sm btn-warning py-[3px]">
-                    <LucidePencil class="w-5" />
+                  <button class="btn btn-sm btn-error py-[3px]">
+                    <LucideTrash2 class="w-5" />
                   </button>
                 </li>
               </ul>
@@ -130,24 +158,40 @@ definePageMeta({
   layout: "admin",
   middleware: ["auth"],
 });
+const filter = ref("");
+const BlogStore = useBlogStore();
+const limit = ref(7);
+const page = ref(1);
+const getData = async () => {
+  await Promise.all([BlogStore.getAll(), BlogStore.getByPage(limit, page)]);
+};
+
+onBeforeMount(async () => await getData());
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-const BlogStore = useBlogStore();
-const page = ref(1);
-const limit = ref(5);
-const filter = ref("");
-onBeforeMount(async () => {
-  await BlogStore.get(limit.value, page.value);
-});
+
+// FORM
+const showForm = ref(false);
+const editData = ref(null);
+
+// DRAW DATA
 const dataTable = computed(() => {
   const search = filter.value.toLowerCase().trim();
   if (search != "") {
     return BlogStore.blogs.filter((b) =>
       b.title.toLowerCase().includes(search)
     );
-  } else return BlogStore.blogs;
+  } else return BlogStore.blog_by_page;
 });
-watchEffect(async () => {
+
+const successAlert = ref(false);
+
+const saved = async () => {
+  showForm.value = false;
   await BlogStore.get(limit.value, page.value);
-});
+  successAlert.value = true;
+  setTimeout(() => {
+    successAlert.value = false;
+  }, 1500);
+};
 </script>

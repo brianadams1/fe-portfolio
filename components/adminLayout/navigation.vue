@@ -23,7 +23,7 @@ const menus = [
   },
   {
     title: "Blog",
-    to: "/admin/blogs",
+    to: "/admin/blogs2",
     icon: resolveComponent("LucideNewspaper"),
   },
   {

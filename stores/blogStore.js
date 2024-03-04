@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useApiStore } from "./apiStore";
+import dayjs from "dayjs";
 
 export const useBlogStore = defineStore("blog", {
   state: () => ({
@@ -13,13 +14,36 @@ export const useBlogStore = defineStore("blog", {
     total: (state) => (state.data ? state.data.total : 0),
   },
   actions: {
-    async get(limit, page) {
+    async get() {
       const Api = useApiStore();
-      this.data = await Api.get(`/blogs?limit=${limit}&page=${page}`);
+      this.data = await Api.get(`/blogs`);
     },
-    async getId(id) {
+    async update(id, data, keptPhoto, newPhoto) {
       const Api = useApiStore();
-      return await Api.get(`/blog/${id}`);
+      data = Validate(isBlog, data);
+
+      const formData = new FormData();
+      for (let [key, value] of Object.entries(data)) {
+        // Append to formData
+        if (value == null) value = "";
+        formData.append(key, value);
+      }
+      // put new photo
+      if (newPhoto) {
+        formData.append("new_photos", newPhoto);
+      }
+      for (let i = 0; i < keptPhoto.length; i++) {
+        formData.append(`photos[${i}]`, keptPhoto[i]);
+      }
+
+      await Api.put("/blog/" + id, formData);
+      // photos = [photo.id]
+      // {photos: [photo.id]}
+      // {photos: [4,5,6,7]}
+    },
+    async remove(id) {
+      const Api = useApiStore();
+      await Api.delete("/blog/" + id);
     },
   },
 });
