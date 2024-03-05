@@ -70,15 +70,7 @@
             class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
           >
             <li>
-              <button
-                class="btn btn-warning btn-sm pb-7"
-                @click="
-                  // when clicked, show the modal
-                  showForm = true
-                  // then send loop data to modal
-                  // editData = e;
-                "
-              >
+              <button class="btn btn-warning btn-sm pb-7" @click="">
                 <LucideFilePenLine :size="20" />
               </button>
             </li>
@@ -86,10 +78,8 @@
               <button
                 class="btn btn-error btn-sm pb-7"
                 @click="
-                  // when clicked, show the modal
-                  showDeleteModal = true
-                  // then send loop data to modal
-                  // deleteData = e;
+                  showDeleteModal = true;
+                  removeData = b;
                 "
               >
                 <LucideTrash2 :size="20" />
@@ -110,24 +100,14 @@
             >{{ b.content }}</p
           >
           <div class="max-lg:hidden flex gap-3 justify-end">
-            <button
-              class="btn btn-warning btn-sm xl:btn-md text-xs"
-              @click="
-                // when clicked, show the modal
-                showForm = true
-                // then send loop data to modal
-                // editData = e;
-              "
-            >
+            <button class="btn btn-warning btn-sm 2xl:btn-md text-xs" @click="">
               <LucideFilePenLine :size="20" /> Edit
             </button>
             <button
-              class="btn btn-error btn-sm xl:btn-md text-xs"
+              class="btn btn-error btn-sm 2xl:btn-md text-xs"
               @click="
-                // when clicked, show the modal
-                showDeleteModal = true
-                // then send loop data to modal
-                // deleteData = e;
+                showDeleteModal = true;
+                removeData = b;
               "
             >
               <LucideTrash2 :size="20" /> Remove
@@ -165,6 +145,23 @@
         >
       </div>
     </div>
+
+    <!-- MODALS -->
+    <AdminModalConfirm
+      :show="showDeleteModal"
+      text_confirm="Delete"
+      @close="showDeleteModal = false"
+      @saved="handleRemove"
+    >
+      <div>
+        <p class="font-bold text-2xl mb-3 text-center">Delete</p>
+        <p class="mb-3">Are you sure you want to delete this Education?</p>
+        <p class="font-semibold mb-3 text-lg" v-if="removeData">
+          {{ removeData.title }}
+        </p>
+        <p class="text-sm">This action cannot be undone.</p>
+      </div>
+    </AdminModalConfirm>
   </div>
 </template>
 
@@ -178,11 +175,27 @@ const filter = ref("");
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const BlogStore = useBlogStore();
+const successAlert = ref(false);
 onBeforeMount(async () => {
   await getData();
 });
 const page = ref(1);
 const getData = async () => {
   await BlogStore.get(page.value, filter.value);
+};
+const showDeleteModal = ref(false);
+const removeData = ref(null);
+const handleRemove = async (id) => {
+  if (!removeData.value) return;
+
+  try {
+    await BlogStore.remove(removeData.value.id);
+    console.log("masuk sini");
+    showDeleteModal.value = false;
+    successAlert.value = true;
+    await getData();
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>

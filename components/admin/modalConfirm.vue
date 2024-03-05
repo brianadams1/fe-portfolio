@@ -9,7 +9,7 @@
           >✕</label
         >
       </form>
-      <slot ></slot>
+      <slot></slot>
       <div class="modal-action">
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>
         <label
@@ -18,8 +18,9 @@
             isLoading = true;
             $emit('saved');
           "
-          >{{ text_confirm || "Update" }}</label
         >
+          {{ text_confirm || "Update" }}
+        </label>
         <div class="w-8">
           <SvgCat class="w-10" v-show="isLoading" />
         </div>

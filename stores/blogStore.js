@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useApiStore } from "./apiStore";
-import dayjs from "dayjs";
 
 export const useBlogStore = defineStore("blog", {
   state: () => ({
@@ -16,7 +15,9 @@ export const useBlogStore = defineStore("blog", {
   actions: {
     async get(page = 1, search = "") {
       const Api = useApiStore();
-      this.data = await Api.get(`/blogs?limit=12&page=${page}&search=${search}`);
+      this.data = await Api.get(
+        `/blogs?limit=12&page=${page}&search=${search}`
+      );
     },
     async update(id, data, keptPhoto, newPhoto) {
       const Api = useApiStore();
