@@ -46,5 +46,18 @@ export const useBlogStore = defineStore("blog", {
       const Api = useApiStore();
       await Api.delete("/blog/" + id);
     },
+    async create(data, photos) {
+      const Api = useApiStore();
+      data = Validate(isCreateBlog, data);
+
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+
+      for (const p of photos) {
+        formData.append("photos", p);
+      }
+      await Api.post("/blog", formData);
+    },
   },
 });

@@ -23,12 +23,15 @@ export const useApiStore = defineStore("api", {
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
 
-      const jsonData = JSON.stringify(data);
+      // const jsonData = JSON.stringify(data);
+
+      if (!data instanceof FormData) {
+        data = JSON.stringify(data);
+      }
       try {
         const userData = await $fetch(apiUri + path, {
           method: "POST",
-          body: jsonData,
-          headers: { "Content-Type": "application/json" },
+          body: data,
           credentials: "include",
         });
         return userData;
@@ -41,7 +44,7 @@ export const useApiStore = defineStore("api", {
       // get api uri
       const config = useRuntimeConfig();
       const apiUri = config.public.apiUri;
-      if(!data instanceof FormData) {
+      if (!data instanceof FormData) {
         data = JSON.stringify(data);
       }
       try {

@@ -1,197 +1,202 @@
 <template>
-  <div class="">
-    <!-- TITLE -->
+  <div class="w-full">
     <div
-      class="font-semibold text-xl border-b-2 pb-3 border-white/30 flex justify-between mb-3"
+      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
       <div class="flex gap-3">
-        <LucideNewspaper />
-        <div> Blog </div>
+        <LucideNewspaper :size="24" />
+        <p> Blogs </p>
       </div>
       <div class="flex justify-end">
+        <NuxtLink class="btn btn-neutral btn-sm" to="/admin/blogs/new">
+          <LucidePlus :size="16" />
+          Add blogs
+        </NuxtLink>
+      </div>
+    </div>
+    <div
+      class="flex max-sm:flex-col max-sm:items-end sm:justify-between flex-wrap"
+    >
+      <input
+        @keyup.enter="
+          page = 1;
+          getData();
+        "
+        v-model="filter"
+        type="text"
+        placeholder="Search"
+        class="input input-bordered input-sm mb-3 sm:max-w-xs w-full"
+      />
+
+      <div class="join mb-2">
         <button
-          class="flex btn btn-sm btn-neutral"
+          class="join-item btn btn-sm"
           @click="
-            showForm = true;
-            editData = null;
+            page--;
+            getData();
           "
+          :disabled="page == 1"
+          ><</button
         >
-          <LucidePlus class="w-4" />
-          Add Blog
-        </button>
+        <button class="join-item btn btn-sm"
+          >Page {{ page }} of {{ BlogStore.maxPage }}</button
+        >
+        <button
+          class="join-item btn btn-sm"
+          @click="
+            page++;
+            getData();
+          "
+          :disabled="page == BlogStore.maxPage"
+          >></button
+        >
+      </div>
+    </div>
+    <!-- TODO SUCCESS ALERT -->
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div
+        v-for="b in BlogStore.blogs"
+        class="card card-compact bg-base-100 shadow-xl relative"
+      >
+        <div class="lg:hidden dropdown dropdown-end absolute top-0 right-0">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-sm px-1 rounded-md bg-black/30 m-1 border-0"
+          >
+            <LucideMoreVertical />
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+          >
+            <li>
+              <button class="btn btn-warning btn-sm pb-7" @click="">
+                <LucideFilePenLine :size="20" />
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-error btn-sm pb-7"
+                @click="
+                  showDeleteModal = true;
+                  removeData = b;
+                "
+              >
+                <LucideTrash2 :size="20" />
+              </button>
+            </li>
+          </ul>
+        </div>
+        <figure>
+          <img v-if="b.photos.length" :src="apiUri + b.photos[0].path" />
+          <div v-else class="aspect-video w-full bg-neutral/20"></div>
+        </figure>
+        <div class="card-body">
+          <div class="card-title line-clamp-2 capitalize text-lg">{{
+            b.title
+          }}</div>
+          <p
+            class="card-title xl:line-clamp-3 line-clamp-2 text-sm font-medium"
+            >{{ b.content }}</p
+          >
+          <div class="max-lg:hidden flex gap-3 justify-end">
+            <button class="btn btn-warning btn-sm 2xl:btn-md text-xs" @click="">
+              <LucideFilePenLine :size="20" /> Edit
+            </button>
+            <button
+              class="btn btn-error btn-sm 2xl:btn-md text-xs"
+              @click="
+                showDeleteModal = true;
+                removeData = b;
+              "
+            >
+              <LucideTrash2 :size="20" /> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="BlogStore.blogs.length == 0">
+      <SvgNodata class="w-52 md:w-96 mx-auto" />
+      <div class="text-xl font-bold text-center mt-5"> Data is not found </div>
+    </div>
+    <div class="flex justify-end mt-5">
+      <div class="join mb-2">
+        <button
+          class="join-item btn btn-sm"
+          @click="
+            page--;
+            getData();
+          "
+          :disabled="page == 1"
+          ><</button
+        >
+        <button class="join-item btn btn-sm"
+          >Page {{ page }} of {{ BlogStore.maxPage }}</button
+        >
+        <button
+          class="join-item btn btn-sm"
+          @click="
+            page++;
+            getData();
+          "
+          :disabled="page == BlogStore.maxPage"
+          >></button
+        >
       </div>
     </div>
 
-    <!-- MODAL CONFIRM -->
-    <AdminModalConfirm>
+    <!-- MODALS -->
+    <AdminModalConfirm
+      :show="showDeleteModal"
+      text_confirm="Delete"
+      @close="showDeleteModal = false"
+      @saved="handleRemove"
+    >
       <div>
         <p class="font-bold text-2xl mb-3 text-center">Delete</p>
-        <p class="mb-3">Are you sure you want to remove this Skill?</p>
-        <p class="font-semibold mb-3 text-lg" v-if="editData">
-          {{ editData.title }}
+        <p class="mb-3">Are you sure you want to delete this Education?</p>
+        <p class="font-semibold mb-3 text-lg" v-if="removeData">
+          {{ removeData.title }}
         </p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
     </AdminModalConfirm>
-    <AdminBlogsForm
-      :show="showForm"
-      :data="editData"
-      @close="showForm = false"
-      @saved="saved"
-    />
-
-    <div class="grid grid-cols-10 gap-4">
-      <input
-        type="text"
-        placeholder="Type here"
-        class="input input-bordered col-span-8 bg-white/30"
-        v-model="filter"
-      />
-
-      <!-- TODO create alert -->
-    </div>
-    <div class="mt-3 text-sm col-span-2 flex justify-center items-center">
-      <div> Page {{ page }} of {{ BlogStore.maxPage }} </div>
-    </div>
-    <!-- CONTENT -->
-    <div
-      class="mt-5 flex flex-col items-center sm:grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
-    >
-      <!-- PAGINATION -->
-      <div class="w-72 max-sm:w-full h-full flex justify-center items-center">
-        <button
-          class="join-item btn"
-          :class="{ 'btn-disabled': page == 1 }"
-          @click="page--"
-          >{{ page == 1 ? "This is first page" : "See previous page" }}</button
-        >
-      </div>
-      <!-- DATA DRAW -->
-
-      <template v-for="b in dataTable">
-        <div class="bg-base-300 p-3 rounded-md w-72 max-sm:w-full">
-          <div class="w-full items-center h-full flex justify-between pb-2">
-            <NuxtLink
-              :to="'/admin/blogs/' + b.id"
-              class="font-semibold text-xl hover:text-accent truncate capitalize"
-            >
-              {{ b.title }}
-            </NuxtLink>
-            <div class="dropdown dropdown-bottom dropdown-end">
-              <div tabindex="0" role="button" class="">
-                <LucideMoreHorizontal class="w-10 hover:text-accent" />
-              </div>
-              <ul
-                tabindex="0"
-                class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box gap-2"
-              >
-                <li>
-                  <button class="btn btn-sm btn-warning py-[3px]">
-                    <LucidePencil class="w-5" />
-                  </button>
-                </li>
-                <li>
-                  <button class="btn btn-sm btn-error py-[3px]">
-                    <LucideTrash2 class="w-5" />
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            class="flex justify-between w-full items-end pb-1 border-b-2 border-white/30 mb-1"
-          >
-            <div class="text-xs mb-1">
-              {{ dayjs(b.createdAt).format("DD MMM YYYY") }}
-            </div>
-            <div class="capitalize text-xs"> </div>
-          </div>
-
-          <!-- IMAGE -->
-          <div
-            class="rounded-xl aspect-video overflow-hidden hover:scale-105 duration-300 mt-3"
-          >
-            <!-- SHOW FIRST PIC -->
-            <img
-              v-if="b.photos.length"
-              :src="apiUri + b.photos[0].path"
-              :alt="b.title"
-              class="object-contain"
-            />
-            <!-- SHOW DUMMY PIC -->
-            <div v-else class="aspect-video bg-neutral"></div>
-          </div>
-
-          <!-- DESCRIPTION -->
-          <div class="mt-3 h-10">
-            <div class="text-sm line-clamp-2">
-              {{ b.content }}
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <div
-        class="card w-72 max-sm:w-full bg-base-100 flex justify-center items-center"
-      >
-        <div class="join">
-          <button
-            class="join-item btn"
-            :class="{ 'btn-disabled': page == BlogStore.maxPage }"
-            @click="page++"
-            >{{
-              page == BlogStore.maxPage ? "This is last page" : "See next page"
-            }}</button
-          >
-        </div>
-      </div>
-    </div>
-    <div class="mt-3 text-sm col-span-2 flex justify-center items-center">
-      <div> Page {{ page }} of {{ BlogStore.maxPage }} </div>
-    </div>
   </div>
 </template>
 
 <script setup>
-import dayjs from "dayjs";
 definePageMeta({
   layout: "admin",
   middleware: ["auth"],
 });
 const filter = ref("");
-const BlogStore = useBlogStore();
-const limit = ref(7);
-const page = ref(1);
-const getData = async () => {
-  await Promise.all([BlogStore.getAll(), BlogStore.getByPage(limit, page)]);
-};
 
-onBeforeMount(async () => await getData());
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
-
-// FORM
-const showForm = ref(false);
-const editData = ref(null);
-
-// DRAW DATA
-const dataTable = computed(() => {
-  const search = filter.value.toLowerCase().trim();
-  if (search != "") {
-    return BlogStore.blogs.filter((b) =>
-      b.title.toLowerCase().includes(search)
-    );
-  } else return BlogStore.blog_by_page;
-});
-
+const BlogStore = useBlogStore();
 const successAlert = ref(false);
+onBeforeMount(async () => {
+  await getData();
+});
+const page = ref(1);
+const getData = async () => {
+  await BlogStore.get(page.value, filter.value);
+};
+const showDeleteModal = ref(false);
+const removeData = ref(null);
+const handleRemove = async (id) => {
+  if (!removeData.value) return;
 
-const saved = async () => {
-  showForm.value = false;
-  await BlogStore.get(limit.value, page.value);
-  successAlert.value = true;
-  setTimeout(() => {
-    successAlert.value = false;
-  }, 1500);
+  try {
+    await BlogStore.remove(removeData.value.id);
+    console.log("masuk sini");
+    showDeleteModal.value = false;
+    successAlert.value = true;
+    await getData();
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>
