@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <div
       class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
@@ -7,19 +7,25 @@
         <LucideNewspaper :size="24" />
         <p> Blogs </p>
       </div>
-      <div>
+      <div class="flex justify-end">
         <button class="btn btn-neutral btn-sm" @click="">
           <LucidePlus :size="16" />
           Add blogs
         </button>
       </div>
     </div>
-    <div class="flex justify-betwween gap-5">
+    <div
+      class="flex max-sm:flex-col max-sm:items-end sm:justify-between gap-3 flex-wrap"
+    >
       <input
-        @keyup.enter="search"
+        @keyup.enter="
+          page = 1;
+          getData();
+        "
+        v-model="filter"
         type="text"
         placeholder="Search"
-        class="input input-bordered input-sm w-full mb-3"
+        class="input input-bordered input-sm mb-3 sm:max-w-xs w-full"
       />
 
       <div class="join mb-2">
@@ -32,7 +38,9 @@
           :disabled="page == 1"
           ><</button
         >
-        <button class="join-item btn btn-sm">Page {{ page }}</button>
+        <button class="join-item btn btn-sm"
+          >Page {{ page }} of {{ BlogStore.maxPage }}</button
+        >
         <button
           class="join-item btn btn-sm"
           @click="
@@ -64,6 +72,10 @@
         </div>
       </div>
     </div>
+    <div v-if="BlogStore.blogs.length == 0">
+      <SvgNodata class="w-52 md:w-96 mx-auto" />
+      <div class="text-xl font-bold text-center mt-5"> Data is not found </div>
+    </div>
     <div class="flex justify-end mt-5">
       <div class="join mb-2">
         <button
@@ -75,7 +87,9 @@
           :disabled="page == 1"
           ><</button
         >
-        <button class="join-item btn btn-sm">Page {{ page }}</button>
+        <button class="join-item btn btn-sm"
+          >Page {{ page }} of {{ BlogStore.maxPage }}</button
+        >
         <button
           class="join-item btn btn-sm"
           @click="
@@ -95,6 +109,8 @@ definePageMeta({
   layout: "admin",
   middleware: ["auth"],
 });
+const filter = ref("");
+
 const config = useRuntimeConfig();
 const apiUri = config.public.apiUri;
 const BlogStore = useBlogStore();
@@ -103,7 +119,6 @@ onBeforeMount(async () => {
 });
 const page = ref(1);
 const getData = async () => {
-  await BlogStore.get(page.value);
+  await BlogStore.get(page.value, filter.value);
 };
-const search = () => {};
 </script>

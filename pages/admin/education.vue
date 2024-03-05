@@ -7,7 +7,7 @@
         <LucideGraduationCap :size="24" />
         <p> Education </p>
       </div>
-      <div>
+      <div class="flex justify-end">
         <button
           class="btn btn-neutral btn-sm"
           @click="
