@@ -15,7 +15,7 @@
       </div>
     </div>
     <div
-      class="flex max-sm:flex-col max-sm:items-end sm:justify-between gap-3 flex-wrap"
+      class="flex max-sm:flex-col max-sm:items-end sm:justify-between flex-wrap"
     >
       <input
         @keyup.enter="
@@ -52,11 +52,51 @@
         >
       </div>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       <div
         v-for="b in BlogStore.blogs"
-        class="card card-compact bg-base-100 shadow-xl"
+        class="card card-compact bg-base-100 shadow-xl relative"
       >
+        <div class="lg:hidden dropdown dropdown-end absolute top-0 right-0">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-sm px-1 rounded-md bg-black/30 m-1 border-0"
+          >
+            <LucideMoreVertical />
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+          >
+            <li>
+              <button
+                class="btn btn-warning btn-sm pb-7"
+                @click="
+                  // when clicked, show the modal
+                  showForm = true
+                  // then send loop data to modal
+                  // editData = e;
+                "
+              >
+                <LucideFilePenLine :size="20" />
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-error btn-sm pb-7"
+                @click="
+                  // when clicked, show the modal
+                  showDeleteModal = true
+                  // then send loop data to modal
+                  // deleteData = e;
+                "
+              >
+                <LucideTrash2 :size="20" />
+              </button>
+            </li>
+          </ul>
+        </div>
         <figure>
           <img v-if="b.photos.length" :src="apiUri + b.photos[0].path" />
           <div v-else class="aspect-video w-full bg-neutral/20"></div>
@@ -69,6 +109,30 @@
             class="card-title xl:line-clamp-3 line-clamp-2 text-sm font-medium"
             >{{ b.content }}</p
           >
+          <div class="max-lg:hidden flex gap-3 justify-end">
+            <button
+              class="btn btn-warning btn-sm xl:btn-md text-xs"
+              @click="
+                // when clicked, show the modal
+                showForm = true
+                // then send loop data to modal
+                // editData = e;
+              "
+            >
+              <LucideFilePenLine :size="20" /> Edit
+            </button>
+            <button
+              class="btn btn-error btn-sm xl:btn-md text-xs"
+              @click="
+                // when clicked, show the modal
+                showDeleteModal = true
+                // then send loop data to modal
+                // deleteData = e;
+              "
+            >
+              <LucideTrash2 :size="20" /> Remove
+            </button>
+          </div>
         </div>
       </div>
     </div>
