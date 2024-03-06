@@ -26,28 +26,26 @@ export const useBlogStore = defineStore("blog", {
       return Api.get("/blog/" + id);
     },
     // Update
-    async update(id, data, keptPhoto, newPhoto) {
+    async update(id, data, new_photos) {
       const Api = useApiStore();
-      data = Validate(isBlog, data);
+      data = Validate(isUpdateBlog, data);
 
+      // create FORM DATA
       const formData = new FormData();
-      for (let [key, value] of Object.entries(data)) {
-        // Append to formData
-        if (value == null) value = "";
-        formData.append(key, value);
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+
+      // loop old photos
+      for (let i = 0; i < data.photos.length; i++) {
+        formData.append(`photos[${i}]`, data.photos[i]);
       }
+
       // put new photo
-      if (newPhoto) {
-        formData.append("new_photos", newPhoto);
-      }
-      for (let i = 0; i < keptPhoto.length; i++) {
-        formData.append(`photos[${i}]`, keptPhoto[i]);
+      for (const p of new_photos) {
+        formData.append("photos", p);
       }
 
       await Api.put("/blog/" + id, formData);
-      // photos = [photo.id]
-      // {photos: [photo.id]}
-      // {photos: [4,5,6,7]}
     },
     // Delete
     async remove(id) {

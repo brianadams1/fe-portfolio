@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" v-if="data">
     <div
       class="relative font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
       <div class="flex gap-3">
         <LucideNewspaper :size="24" />
-        <p> Update Blog </p>
+        <p> Update Blog : {{ data.title }} </p>
       </div>
       <!-- ALERT -->
       <div class="mx-auto w-full h-12 mb-2 absolute">
@@ -63,7 +63,7 @@
             v-for="(p, i) in photoPreviews"
             class="min-w-60 max-w-60 aspect-video rounded-lg bg-neutral/10 flex justify-center items-center relative"
           >
-            <img :src="p" class="max-h-full max-w-full" />
+            <img :src="p.path" class="max-h-full max-w-full" />
             <!-- DROPDOWN -->
             <div
               class="dropdown dropdown-bottom dropdown-end absolute top-0 right-0"
@@ -146,18 +146,33 @@ definePageMeta({
   layout: "admin",
   middleware: ["auth"],
 });
-const BlogStore = useBlogStore();
 
+const config = useRuntimeConfig();
+const apiUri = config.public.apiUri;
 // check query
+const BlogStore = useBlogStore();
 const route = useRoute();
 const { id } = route.query;
+const response = await BlogStore.getById(id);
+const data = ref(response);
 
 const errors = ref({});
 const formData = ref({
-  title: "",
-  content: "",
+  title: data.value ? data.value.title : "",
+  content: data.value ? data.value.content : "",
 });
-const photoPreviews = ref([]);
+
+// map photos
+const currentPhotos = data.value.photos.map((p) => {
+  return { path: apiUri + p.path, id: p.id };
+});
+
+// PHOTO PREVIEW
+// [{path: "https://localhost/upload/photos/xxxxxxxx.ext", id: xxx  ====> old pic},
+// {path: "data:image/png;base64xxxxxxxxxxxxxx"},====> new pic]
+
+// check photos
+const photoPreviews = ref(currentPhotos);
 const photoFiles = [];
 const handleFile = (e) => {
   if (e.target.files.length) {
@@ -169,7 +184,7 @@ const handleFile = (e) => {
       reader.onload = (e) => {
         if (photoPreviews.value.length < 10) {
           photoFiles.push(file);
-          photoPreviews.value.push(reader.result);
+          photoPreviews.value.push({ path: reader.result });
         }
       };
     }
@@ -182,13 +197,21 @@ const showCreateConfirm = ref(false);
 const fetchError = ref("");
 const isLoading = ref(false);
 const successAlert = ref(false);
+
 const handleSave = async () => {
   errors.value = {};
   fetchError.value = "";
   showCreateConfirm.value = false;
-  isLoading.value = true;
   try {
-    await BlogStore.create(formData.value, photoFiles);
+    isLoading.value = true;
+
+    const dataUpdate = { ...formData.value };
+    dataUpdate.photos = [];
+    for (const p of photoPreviews.value) {
+      if (p.id != undefined) dataUpdate.photos.push(p.id);
+    }
+
+    await BlogStore.update(data.value.id, dataUpdate, photoFiles);
     successAlert.value = true;
     setTimeout(() => {
       successAlert.value = false;

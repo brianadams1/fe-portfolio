@@ -87,7 +87,6 @@
               <NuxtLink
                 class="btn btn-warning btn-sm pb-7"
                 :to="`/admin/blogs/update?id=${b.id}`"
-                
               >
                 <LucideFilePenLine :size="20" />
               </NuxtLink>
@@ -120,7 +119,7 @@
           <div class="max-lg:hidden flex gap-3 justify-end">
             <NuxtLink
               class="btn btn-warning btn-sm 2xl:btn-md text-xs"
-              to="/admin/blogs/update"
+              :to="`/admin/blogs/update?id=${b.id}`"
             >
               <LucideFilePenLine :size="20" /> Edit
             </NuxtLink>
