@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div
-      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
+      class="relative font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
       <div class="flex gap-3">
         <LucideNewspaper :size="24" />
@@ -13,7 +13,19 @@
           Add blogs
         </NuxtLink>
       </div>
+      <!-- ALERT -->
+      <div
+        class="mx-auto w-full h-12 mb-2"
+        :class="successAlert == true ? 'absolute' : 'hidden'"
+      >
+        <!-- SUCCESS ALERT -->
+
+        <Transition name="slide-fade" :duration="550">
+          <AdminSuccessAlert v-if="successAlert" />
+        </Transition>
+      </div>
     </div>
+    <!-- SEARCH & PAGINATION -->
     <div
       class="flex max-sm:flex-col max-sm:items-end sm:justify-between flex-wrap"
     >
@@ -52,11 +64,12 @@
         >
       </div>
     </div>
+
     <!-- TODO SUCCESS ALERT -->
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       <div
         v-for="b in BlogStore.blogs"
-        class="card card-compact bg-base-100 shadow-xl relative"
+        class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
       >
         <div class="lg:hidden dropdown dropdown-end absolute top-0 right-0">
           <div
@@ -71,9 +84,13 @@
             class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
           >
             <li>
-              <button class="btn btn-warning btn-sm pb-7" @click="">
+              <NuxtLink
+                class="btn btn-warning btn-sm pb-7"
+                :to="`/admin/blogs/update?id=${b.id}`"
+                
+              >
                 <LucideFilePenLine :size="20" />
-              </button>
+              </NuxtLink>
             </li>
             <li>
               <button
@@ -101,9 +118,12 @@
             >{{ b.content }}</p
           >
           <div class="max-lg:hidden flex gap-3 justify-end">
-            <button class="btn btn-warning btn-sm 2xl:btn-md text-xs" @click="">
+            <NuxtLink
+              class="btn btn-warning btn-sm 2xl:btn-md text-xs"
+              to="/admin/blogs/update"
+            >
               <LucideFilePenLine :size="20" /> Edit
-            </button>
+            </NuxtLink>
             <button
               class="btn btn-error btn-sm 2xl:btn-md text-xs"
               @click="
@@ -191,10 +211,13 @@ const handleRemove = async (id) => {
 
   try {
     await BlogStore.remove(removeData.value.id);
-    console.log("masuk sini");
     showDeleteModal.value = false;
-    successAlert.value = true;
+
     await getData();
+    successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+    }, 2500);
   } catch (error) {
     console.log(error);
   }

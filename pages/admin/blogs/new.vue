@@ -1,11 +1,35 @@
 <template>
   <div class="w-full">
     <div
-      class="font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
+      class="relative font-semibold text-xl mb-5 pb-2 border-b-2 border-white/30 flex flex-col sm:flex-row justify-between"
     >
       <div class="flex gap-3">
         <LucideNewspaper :size="24" />
         <p> Create Blog </p>
+      </div>
+      <!-- ALERT -->
+      <div class="mx-auto w-full h-12 mb-2 absolute">
+        <!-- SUCCESS ALERT -->
+
+        <Transition name="slide-fade" :duration="550">
+          <AdminSuccessAlert v-if="successAlert" />
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR ALERT -->
+          <!-- ERROR FROM NON-FETCH -->
+          <AdminErrorAlert v-if="Object.keys(errors).length">
+            <div class="flex flex-col">
+              <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
+            </div>
+          </AdminErrorAlert>
+        </Transition>
+        <Transition name="slide-fade" :duration="550">
+          <!-- ERROR FROM FETCH -->
+
+          <AdminErrorAlert v-if="fetchError">
+            {{ fetchError }}
+          </AdminErrorAlert>
+        </Transition>
       </div>
     </div>
 
@@ -152,7 +176,7 @@ const BlogStore = useBlogStore();
 const showCreateConfirm = ref(false);
 const fetchError = ref("");
 const isLoading = ref(false);
-
+const successAlert = ref(false);
 const handleSave = async () => {
   errors.value = {};
   fetchError.value = "";
@@ -160,13 +184,12 @@ const handleSave = async () => {
   isLoading.value = true;
   try {
     await BlogStore.create(formData.value, photoFiles);
-    // TODO SUCCESS ALERT!!!
-    // successAlert.value = true;
-    //   setTimeout(() => {
-    //     successAlert.value = false;
-    //   }, 3000);
+    successAlert.value = true;
+    setTimeout(() => {
+      successAlert.value = false;
+      navigateTo("/admin/blogs");
+    }, 3000);
     isLoading.value = false;
-    navigateTo("/admin/blogs");
   } catch (error) {
     isLoading.value = false;
     if (error instanceof Joi.ValidationError) {
