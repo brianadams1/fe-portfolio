@@ -13,12 +13,19 @@ export const useBlogStore = defineStore("blog", {
     total: (state) => (state.data ? state.data.total : 0),
   },
   actions: {
+    // CRUD
+    // Read
     async get(page = 1, search = "") {
       const Api = useApiStore();
       this.data = await Api.get(
         `/blogs?limit=12&page=${page}&search=${search}`
       );
     },
+    async getById(id) {
+      const Api = useApiStore();
+      return Api.get("/blog/" + id);
+    },
+    // Update
     async update(id, data, keptPhoto, newPhoto) {
       const Api = useApiStore();
       data = Validate(isBlog, data);
@@ -42,10 +49,12 @@ export const useBlogStore = defineStore("blog", {
       // {photos: [photo.id]}
       // {photos: [4,5,6,7]}
     },
+    // Delete
     async remove(id) {
       const Api = useApiStore();
       await Api.delete("/blog/" + id);
     },
+    // Create
     async create(data, photos) {
       const Api = useApiStore();
       data = Validate(isCreateBlog, data);
