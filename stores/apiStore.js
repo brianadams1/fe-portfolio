@@ -52,7 +52,7 @@ export const useApiStore = defineStore("api", {
           method: "PUT",
           body: data,
           // below is deleted because it will automatically be mounted
-          // head ers: { "Content-Type": "application/json" },
+          // headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
         return userData;
