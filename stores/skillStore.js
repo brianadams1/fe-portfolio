@@ -5,6 +5,7 @@ export const useSkillStore = defineStore("skill", {
   state: () => ({
     skills: null,
     categories: [],
+    skillsByCategory: [],
   }),
   actions: {
     async get() {
@@ -14,6 +15,10 @@ export const useSkillStore = defineStore("skill", {
     async get_categories() {
       const Api = useApiStore();
       this.categories = await Api.get("/skill_categories");
+    },
+    async get_skill_categories() {
+      const Api = useApiStore();
+      this.skillsByCategory = await Api.get("/skill_by_category");
     },
     async create(data) {
       const Api = useApiStore();

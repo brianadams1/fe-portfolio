@@ -49,16 +49,31 @@ export const useProjectStore = defineStore("project", {
       await Api.delete("/project/" + id);
     },
     // Create
-    async create(data, photos) {
-      //   const Api = useApiStore();
-      //   data = Validate(isCreateBlog, data);
-      //   const formData = new FormData();
-      //   formData.append("title", data.title);
-      //   formData.append("content", data.content);
-      //   for (const p of photos) {
-      //     formData.append("photos", p);
-      //   }
-      //   await Api.post("/blog", formData);
+    async create(data, skills, photos) {
+      const Api = useApiStore();
+      data = Validate(isCreateProject, data);
+
+      // CREATE FORM DATA
+      const formData = new FormData();
+
+      const arrayKeys = Object.keys(data);
+
+      for (const key of arrayKeys) {
+        formData.append(key, data[key]);
+      }
+
+      // INSERT SKILLS TO PROJECT.SKILLS
+      for (let i = 0; i < skills.length; i++) {
+        const id = skills[i];
+
+        formData.append(`skills[${i}]`, id);
+      }
+
+      // APPEND PHOTOS WITH LOOP
+      for (const p of photos) {
+        formData.append("photos", p);
+      }
+      await Api.post("/project", formData);
     },
   },
 });
