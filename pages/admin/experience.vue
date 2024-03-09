@@ -97,7 +97,7 @@
           </tr>
         </thead>
         <!-- TABLE BODY -->
-        <tbody>
+        <tbody v-if="ExpStore.experiences">
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
             <th class="capitalize">
@@ -157,12 +157,14 @@
             </td>
           </tr>
         </tbody>
+        <AdminExperienceSkeletonTable v-else />
       </table>
     </div>
 
     <!-- MOBILE VIEW -->
     <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
       <div
+        v-if="ExpStore.experiences"
         v-for="e in dataTable"
         class="card w-full bg-base-100 shadow-xl shadow-neutral"
       >
@@ -232,6 +234,7 @@
           </div>
         </div>
       </div>
+      <AdminExperienceSkeletonMobile v-else />
     </div>
   </div>
 </template>
