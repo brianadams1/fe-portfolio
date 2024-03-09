@@ -23,7 +23,8 @@
     </div>
 
     <!-- MODAL CONFIRM -->
-    <AdminModalConfirm
+    <LazyAdminModalConfirm
+      v-if="showDeleteModal"
       :show="showDeleteModal"
       text_confirm="Remove"
       @close="showDeleteModal = false"
@@ -37,13 +38,14 @@
         }}</p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
-    </AdminModalConfirm>
-    <AdminExperienceForm
+    </LazyAdminModalConfirm>
+    <LazyAdminExperienceForm
+      v-if="showForm"
       :show="showForm"
       @close="showForm = false"
       @saved="saved"
       :data="editData"
-    ></AdminExperienceForm>
+    ></LazyAdminExperienceForm>
 
     <!-- TOP CONTENT -->
     <div class="flex justify-between gap-10 h-16 items-start relative">
@@ -59,23 +61,23 @@
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">
-          <AdminSuccessAlert v-if="successAlert" class="z-20" />
+          <LazyAdminSuccessAlert v-if="successAlert" class="z-20" />
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR ALERT -->
           <!-- ERROR FROM NON-FETCH -->
-          <AdminErrorAlert v-if="Object.keys(errors).length">
+          <LazyAdminErrorAlert v-if="Object.keys(errors).length">
             <div class="flex flex-col">
               <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
             </div>
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR FROM FETCH -->
 
-          <AdminErrorAlert v-if="fetchError">
+          <LazyAdminErrorAlert v-if="fetchError">
             {{ fetchError }}
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
       </div>
     </div>

@@ -13,23 +13,23 @@
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">
-          <AdminSuccessAlert v-if="successAlert" />
+          <LazyAdminSuccessAlert v-if="successAlert" />
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR ALERT -->
           <!-- ERROR FROM NON-FETCH -->
-          <AdminErrorAlert v-if="Object.keys(errors).length">
+          <LazyAdminErrorAlert v-if="Object.keys(errors).length">
             <div class="flex flex-col">
               <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
             </div>
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR FROM FETCH -->
 
-          <AdminErrorAlert v-if="fetchError">
+          <LazyAdminErrorAlert v-if="fetchError">
             {{ fetchError }}
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
       </div>
     </div>
@@ -199,6 +199,7 @@
         />
       </label>
     </div>
+    <!-- DOB & SKILLS -->
     <div class="flex justify-between gap-5 max-lg:flex-col mt-3">
       <!-- DOB -->
       <div class="flex flex-col gap-1">
@@ -303,13 +304,15 @@
       </button>
     </div>
 
-    <AdminProjectsSkillSelector
+    <LazyAdminProjectsSkillSelector
+      v-if="showSkillSelector"
       :show="showSkillSelector"
       @close="showSkillSelector = false"
       @addSkill="addSkill"
       :selected="selectedSkills"
     />
-    <AdminModalConfirm
+    <LazyAdminModalConfirm
+      v-if="showCreateConfirm"
       :show="showCreateConfirm"
       text_confirm="Create"
       @close="showCreateConfirm = false"
@@ -318,7 +321,7 @@
         <p class="text-2xl font-semibold mb-3">Create new project</p>
         <p>Are you sure to save these changes?</p>
       </div>
-    </AdminModalConfirm>
+    </LazyAdminModalConfirm>
   </div>
 </template>
 

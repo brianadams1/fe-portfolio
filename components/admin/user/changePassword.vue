@@ -5,25 +5,25 @@
       <!-- SUCCESS ALERT -->
 
       <Transition name="bounce">
-        <AdminSuccessAlert v-if="successAlert" />
+        <LazyAdminSuccessAlert v-if="successAlert" />
       </Transition>
     </div>
     <!-- ERROR ALERT -->
     <div class="mx-auto w-[80%]">
       <Transition name="bounce">
         <!-- ERROR FROM NON-FETCH -->
-        <AdminErrorAlert v-if="Object.keys(errors).length">
+        <LazyAdminErrorAlert v-if="Object.keys(errors).length">
           <div class="flex flex-col">
             <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
           </div>
-        </AdminErrorAlert>
+        </LazyAdminErrorAlert>
       </Transition>
       <Transition name="bounce">
         <!-- ERROR FROM FETCH -->
 
-        <AdminErrorAlert v-if="fetchError">
+        <LazyAdminErrorAlert v-if="fetchError">
           {{ fetchError }}
-        </AdminErrorAlert>
+        </LazyAdminErrorAlert>
       </Transition>
     </div>
     <label class="form-control w-full max-w-xs">
@@ -58,7 +58,8 @@
       <SvgCat v-show="isLoading" class="w-10" />
     </div>
     <!-- MODAL CONFIRM -->
-    <AdminModalConfirm
+    <LazyAdminModalConfirm
+    v-if="confirm"
       :show="confirm"
       @close="confirm = false"
       text_confirm="Change password"

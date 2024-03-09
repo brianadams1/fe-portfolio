@@ -24,7 +24,8 @@
     <!-- MODALS -->
 
     <!-- MODAL CONFIRM -->
-    <AdminModalConfirm
+    <LazyAdminModalConfirm
+      v-if="showDeleteModal"
       :show="showDeleteModal"
       text_confirm="Remove"
       @close="showDeleteModal = false"
@@ -38,9 +39,10 @@
         </p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
-    </AdminModalConfirm>
+    </LazyAdminModalConfirm>
     <!-- MODAL FORM -->
-    <AdminEducationsForm
+    <LazyAdminEducationsForm
+      v-if="showForm"
       :show="showForm"
       text_confirm="Save"
       @close="showForm = false"
@@ -60,23 +62,23 @@
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">
-          <AdminSuccessAlert v-if="successAlert" />
+          <LazyAdminSuccessAlert v-if="successAlert" />
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR ALERT -->
           <!-- ERROR FROM NON-FETCH -->
-          <AdminErrorAlert v-if="Object.keys(errors).length">
+          <LazyAdminErrorAlert v-if="Object.keys(errors).length">
             <div class="flex flex-col">
               <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
             </div>
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
         <Transition name="slide-fade" :duration="550">
           <!-- ERROR FROM FETCH -->
 
-          <AdminErrorAlert v-if="fetchError">
+          <LazyAdminErrorAlert v-if="fetchError">
             {{ fetchError }}
-          </AdminErrorAlert>
+          </LazyAdminErrorAlert>
         </Transition>
       </div>
     </div>
@@ -96,7 +98,7 @@
           </tr>
         </thead>
         <!-- TABLE BODY -->
-        <tbody>
+        <tbody v-if="EduStore.educations">
           <!-- DATA LOOP -->
           <tr v-for="e in dataTable">
             <th>{{ e.institutionName }}</th>
@@ -141,6 +143,31 @@
                     </button>
                   </li>
                 </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr v-for="n in 10">
+            <th>
+              <div class="skeleton w-40 h-6"></div>
+            </th>
+            <td>
+              <div class="flex gap-3 justify-center">
+                <div class="skeleton w-20 h-6"></div>
+                <div class="skeleton w-20 h-6"></div>
+              </div>
+            </td>
+            <td>
+              <div class="skeleton w-20 h-6"></div>
+            </td>
+            <td>
+              <div class="skeleton w-20 h-6"></div>
+            </td>
+            <td>
+              <div class="flex gap-3 justify-center">
+                <div class="skeleton w-6 h-6"></div>
+                <div class="skeleton w-6 h-6"></div>
               </div>
             </td>
           </tr>

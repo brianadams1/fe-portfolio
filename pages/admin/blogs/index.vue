@@ -21,7 +21,7 @@
         <!-- SUCCESS ALERT -->
 
         <Transition name="slide-fade" :duration="550">
-          <AdminSuccessAlert v-if="successAlert" />
+          <LazyAdminSuccessAlert v-if="successAlert" />
         </Transition>
       </div>
     </div>
@@ -167,7 +167,8 @@
     </div>
 
     <!-- MODALS -->
-    <AdminModalConfirm
+    <LazyAdminModalConfirm
+      v-if="showDeleteModal"
       :show="showDeleteModal"
       text_confirm="Delete"
       @close="showDeleteModal = false"
@@ -181,7 +182,7 @@
         </p>
         <p class="text-sm">This action cannot be undone.</p>
       </div>
-    </AdminModalConfirm>
+    </LazyAdminModalConfirm>
   </div>
 </template>
 

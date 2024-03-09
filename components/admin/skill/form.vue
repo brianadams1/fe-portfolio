@@ -89,9 +89,9 @@
       <div class="modal-action flex items-start">
         <div class="mx-auto w-[80%]">
           <Transition name="slide-fade" :duration="550" class="text-xs">
-            <AdminErrorAlert v-if="fetchError">
+            <LazyAdminErrorAlert v-if="fetchError">
               {{ fetchError }}
-            </AdminErrorAlert>
+            </LazyAdminErrorAlert>
           </Transition>
         </div>
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>

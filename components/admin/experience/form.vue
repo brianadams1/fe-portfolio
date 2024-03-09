@@ -109,18 +109,18 @@
       <div class="modal-action flex items-start text-xs">
         <div class="mx-auto w-[80%]">
           <Transition name="slide-fade" :duration="550" class="text-xs">
-            <AdminErrorAlert v-if="fetchError">
+            <LazyrrorAlert v-if="fetchError">
               {{ fetchError }}
-            </AdminErrorAlert>
+            </LazyrrorAlert>
           </Transition>
           <Transition name="slide-fade" :duration="550">
             <!-- ERROR ALERT -->
             <!-- ERROR FROM NON-FETCH -->
-            <AdminErrorAlert v-if="Object.keys(errors).length">
+            <LazyAdminErrorAlert v-if="Object.keys(errors).length">
               <div class="flex flex-col">
                 <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
               </div>
-            </AdminErrorAlert>
+            </LazyAdminErrorAlert>
           </Transition>
         </div>
         <label class="btn btn-error" @click="$emit('close')">Cancel</label>

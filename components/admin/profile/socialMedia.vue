@@ -5,25 +5,25 @@
       <!-- SUCCESS ALERT -->
 
       <Transition name="slide-fade" :duration="550">
-        <AdminSuccessAlert v-if="successAlert" />
+        <LazyAdminSuccessAlert v-if="successAlert" />
       </Transition>
     </div>
     <!-- ERROR ALERT -->
     <div class="mx-auto w-[80%]">
       <Transition name="slide-fade" :duration="550">
         <!-- ERROR FROM NON-FETCH -->
-        <AdminErrorAlert v-if="Object.keys(errors).length">
+        <LazyAdminErrorAlert v-if="Object.keys(errors).length">
           <div class="flex flex-col">
             <div v-for="e in Object.keys(errors)">{{ errors[e] }}</div>
           </div>
-        </AdminErrorAlert>
+        </LazyAdminErrorAlert>
       </Transition>
       <Transition name="slide-fade" :duration="550">
         <!-- ERROR FROM FETCH -->
 
-        <AdminErrorAlert v-if="fetchError">
+        <LazyAdminErrorAlert v-if="fetchError">
           {{ fetchError }}
-        </AdminErrorAlert>
+        </LazyAdminErrorAlert>
       </Transition>
     </div>
   </div>
@@ -128,7 +128,8 @@
     <button class="btn btn-neutral" @click="confirm = true">Update</button>
     <SvgCat v-show="isLoading" class="w-10" />
   </div>
-  <AdminModalConfirm
+  <LazyAdminModalConfirm
+  v-if="confirm"
     :show="confirm"
     @close="confirm = false"
     text_confirm="Change Sosmed"
@@ -136,7 +137,7 @@
   >
     <div class="font-bold text-lg"> Well... </div>
     <p class="text-sm font-semibold">Save these changes?</p>
-  </AdminModalConfirm>
+  </LazyAdminModalConfirm>
 </template>
 
 <script setup>
