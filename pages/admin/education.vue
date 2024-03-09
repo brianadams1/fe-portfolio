@@ -147,37 +147,14 @@
             </td>
           </tr>
         </tbody>
-        <tbody v-else>
-          <tr v-for="n in 10">
-            <th>
-              <div class="skeleton w-40 h-6"></div>
-            </th>
-            <td>
-              <div class="flex gap-3 justify-center">
-                <div class="skeleton w-20 h-6"></div>
-                <div class="skeleton w-20 h-6"></div>
-              </div>
-            </td>
-            <td>
-              <div class="skeleton w-20 h-6"></div>
-            </td>
-            <td>
-              <div class="skeleton w-20 h-6"></div>
-            </td>
-            <td>
-              <div class="flex gap-3 justify-center">
-                <div class="skeleton w-6 h-6"></div>
-                <div class="skeleton w-6 h-6"></div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
+        <AdminEducationsSkeletonTable v-else />
       </table>
     </div>
 
     <!-- MOBILE VIEW -->
     <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
       <div
+        v-if="EduStore.educations"
         v-for="e in dataTable"
         class="card w-full bg-base-100 shadow-xl shadow-neutral"
       >
@@ -193,7 +170,7 @@
               <div
                 tabindex="0"
                 role="button"
-                class="btn btn-outline border-none"
+                class="btn btn-outline btn-sm border-none"
               >
                 <LucideMoreVertical />
               </div>
@@ -244,6 +221,7 @@
           </div>
         </div>
       </div>
+      <AdminEducationsSkeletonMobile v-else />
     </div>
   </div>
 </template>
