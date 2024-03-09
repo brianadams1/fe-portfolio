@@ -110,7 +110,7 @@
           </tr>
         </thead>
         <!-- TABLE BODY -->
-        <tbody>
+        <tbody v-if="SkillStore.skills">
           <!-- DATA LOOP -->
           <tr v-for="skill in dataTable">
             <th>
@@ -163,6 +163,7 @@
             </td>
           </tr>
         </tbody>
+        <AdminSkillSkeletonTable v-else />
       </table>
     </div>
 
@@ -253,7 +254,8 @@ definePageMeta({
 const filter = ref("");
 const SkillStore = useSkillStore();
 const getData = async () => {
-  await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
+  // await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
+  await SkillStore.getAllSkills();
 };
 onBeforeMount(async () => await getData());
 

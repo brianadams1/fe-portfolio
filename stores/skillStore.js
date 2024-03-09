@@ -8,16 +8,28 @@ export const useSkillStore = defineStore("skill", {
     skillsByCategory: [],
   }),
   actions: {
-    async get() {
+    // async get() {
+    //   const Api = useApiStore();
+    //   this.skills = await Api.get("/skills");
+    // },
+    // async get_categories() {
+    //   const Api = useApiStore();
+    //   this.categories = await Api.get("/skill_categories");
+    // },
+    // async get_skill_categories() {
+    //   const Api = useApiStore();
+    //   this.skillsByCategory = await Api.get("/skill_by_category");
+    // },
+    async getAllSkills() {
       const Api = useApiStore();
+
+      // Fetch skills
       this.skills = await Api.get("/skills");
-    },
-    async get_categories() {
-      const Api = useApiStore();
+
+      // Fetch categories
       this.categories = await Api.get("/skill_categories");
-    },
-    async get_skill_categories() {
-      const Api = useApiStore();
+
+      // Fetch skills by category
       this.skillsByCategory = await Api.get("/skill_by_category");
     },
     async create(data) {
