@@ -324,7 +324,7 @@
   <LazyAdminModalConfirm
     v-if="showCreateConfirm"
     :show="showCreateConfirm"
-    text_confirm="save"
+    text_confirm="Save"
     @close="showCreateConfirm = false"
     @saved="handleSave"
   >
@@ -451,7 +451,7 @@ const handleSave = async () => {
     setTimeout(() => {
       successAlert.value = false;
     }, 1500);
-    navigateTo("/admin/projects");
+    // navigateTo("/admin/projects");
   } catch (error) {
     console.log(error);
     isLoading.value = false;

@@ -66,7 +66,7 @@
     </div>
 
     <!-- TODO SUCCESS ALERT -->
-    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       <div
         v-for="b in BlogStore.blogs"
         class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"

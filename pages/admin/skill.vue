@@ -170,6 +170,7 @@
     <!-- MOBILE VIEW -->
     <div class="lg:hidden flex flex-col gap-2 sm:gap-4">
       <div
+        v-if="SkillStore.skills"
         v-for="s in dataTable"
         class="card w-full bg-base-100 shadow-xl shadow-neutral"
       >
@@ -242,6 +243,7 @@
           </div>
         </div>
       </div>
+      <AdminSkillSkeletonMobile v-else />
     </div>
   </div>
 </template>
@@ -254,8 +256,8 @@ definePageMeta({
 const filter = ref("");
 const SkillStore = useSkillStore();
 const getData = async () => {
-  // await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
-  await SkillStore.getAllSkills();
+  await Promise.all([SkillStore.get_categories(), SkillStore.get()]);
+  // await SkillStore.getAllSkills();
 };
 onBeforeMount(async () => await getData());
 

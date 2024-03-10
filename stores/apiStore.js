@@ -51,8 +51,6 @@ export const useApiStore = defineStore("api", {
         const userData = await $fetch(apiUri + path, {
           method: "PUT",
           body: data,
-          // below is deleted because it will automatically be mounted
-          // headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
         return userData;

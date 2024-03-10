@@ -182,7 +182,7 @@ const handleFile = (e) => {
       // readable data in tag <img src>
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = (e) => {
+      reader.onload = () => {
         if (photoPreviews.value.length < 10) {
           photoFiles.push(file);
           photoPreviews.value.push({ path: reader.result });

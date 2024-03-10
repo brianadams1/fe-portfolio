@@ -66,7 +66,6 @@
       </div>
     </div>
 
-    <!-- TODO SUCCESS ALERT -->
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       <div
         v-for="p in ProjectStore.projects"
@@ -126,11 +125,16 @@
             {{ p.skills.length }} Skills
           </div>
         </figure>
-        <div class="card-body">
-          <p v-if="p.company">PT Al-Bashiroh</p>
-          <p class="xl:line-clamp-3 line-clamp-2 text-sm">
-            {{ p.description }}
-          </p>
+        <div class="card-body grow flex justify-end">
+          <div class="flex flex-col gap-0">
+            <p v-if="p.company" class="font-semibold text-lg capitalize">{{
+              p.company
+            }}</p>
+            <p class="xl:line-clamp-3 line-clamp-2 text-sm">
+              {{ p.description }}
+            </p>
+          </div>
+
           <div class="max-lg:hidden flex gap-3 justify-end">
             <NuxtLink
               class="btn btn-warning btn-sm 2xl:btn-md text-xs"
@@ -183,7 +187,7 @@
 
     <!-- MODALS -->
     <LazyAdminModalConfirm
-    v-if="showDeleteModal"
+      v-if="showDeleteModal"
       :show="showDeleteModal"
       text_confirm="Delete"
       @close="showDeleteModal = false"
