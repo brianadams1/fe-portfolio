@@ -25,179 +25,189 @@
         </Transition>
       </div>
     </div>
-
-    <!-- SEARCH & PAGINATION -->
-    <div
-      class="flex max-sm:flex-col max-sm:items-end sm:justify-between flex-wrap"
-    >
-      <input
-        @keyup.enter="
-          page = 1;
-          getData();
-        "
-        v-model="filter"
-        type="text"
-        placeholder="Masih nyari? Yakin gamau sama aku aja?"
-        class="input input-bordered input-sm mb-3 sm:max-w-xs w-full"
-      />
-
-      <div class="join mb-2">
-        <button
-          class="join-item btn btn-sm"
-          @click="
-            page--;
-            getData();
-          "
-          :disabled="page == 1"
-          ><</button
-        >
-        <button class="join-item btn btn-sm"
-          >Page {{ page }} of {{ ProjectStore.maxPage }}</button
-        >
-        <button
-          class="join-item btn btn-sm"
-          @click="
-            page++;
-            getData();
-          "
-          :disabled="page == ProjectStore.maxPage"
-          >></button
-        >
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-      <AdminProjectsSkeletonTable v-if="ProjectStore.data == null" />
+    <!-- CONTENT -->
+    <div v-if="ProjectStore.data != null">
+      <!-- SEARCH & PAGINATION -->
       <div
-        v-for="p in ProjectStore.projects"
-        class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
+        class="flex max-sm:flex-col max-sm:items-end sm:justify-between flex-wrap"
       >
-        <div class="lg:hidden dropdown dropdown-end absolute top-0 right-0">
-          <div
-            tabindex="0"
-            role="button"
-            class="btn btn-sm px-1 rounded-md bg-black/30 m-1 border-0"
+        <input
+          @keyup.enter="
+            page = 1;
+            getData();
+          "
+          v-model="filter"
+          type="text"
+          placeholder="Masih nyari? Yakin gamau sama aku aja?"
+          class="input input-bordered input-sm mb-3 sm:max-w-xs w-full"
+        />
+
+        <div class="join mb-2">
+          <button
+            class="join-item btn btn-sm"
+            @click="
+              page--;
+              getData();
+            "
+            :disabled="page == 1"
+            ><</button
           >
-            <LucideMoreVertical />
+          <button class="join-item btn btn-sm"
+            >Page {{ page }} of {{ ProjectStore.maxPage }}</button
+          >
+          <button
+            class="join-item btn btn-sm"
+            @click="
+              page++;
+              getData();
+            "
+            :disabled="page == ProjectStore.maxPage"
+            >></button
+          >
+        </div>
+      </div>
+      <!-- PROJECTS DRAW -->
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div
+          v-for="p in ProjectStore.projects"
+          class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
+        >
+          <!-- DROPDOWN -->
+          <div class="lg:hidden dropdown dropdown-end absolute top-1 right-1">
+            <div
+              tabindex="0"
+              role="button"
+              class="btn btn-sm px-1 rounded-md bg-black/30 m-1 border-0"
+            >
+              <LucideMoreVertical />
+            </div>
+            <ul
+              tabindex="0"
+              class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
+            >
+              <li>
+                <NuxtLink
+                  class="btn btn-warning btn-sm pb-7"
+                  :to="`/admin/projects/update?id=${p.id}`"
+                >
+                  <LucideFilePenLine :size="20" />
+                </NuxtLink>
+              </li>
+              <li>
+                <button
+                  class="btn btn-error btn-sm pb-7"
+                  @click="
+                    showDeleteModal = true;
+                    removeData = p;
+                  "
+                >
+                  <LucideTrash2 :size="20" />
+                </button>
+              </li>
+            </ul>
           </div>
-          <ul
-            tabindex="0"
-            class="dropdown-content z-[1] menu shadow bg-neutral-300 rounded-box gap-3"
-          >
-            <li>
+          <div class="card-body flex-none">
+            <!-- TITLE -->
+            <h2 class="card-title capitalize max-md:text-base line-clamp-1">
+              {{ p.title }}
+            </h2>
+            <!-- PERIOD & STATUS -->
+            <div class="flex max-sm:flex-col justify-between max-sm:gap-1">
+              <div class="text-xs">
+                {{ p.readDateTime }} - {{ p.readEndDateTime }}
+              </div>
+              <div class="text-xs font-semibold lowercase">{{ p.status }}</div>
+            </div>
+          </div>
+          <figure class="relative">
+            <div
+              v-if="p.photos.length"
+              class="aspect-video flex justify-center items-center bg-neutral/10"
+            >
+              <img
+                :src="apiUri + p.photos[0].path"
+                class="max-h-full max-w-full"
+              />
+            </div>
+            <div
+              v-else
+              class="aspect-video w-full bg-neutral/20 flex justify-center items-center"
+            >
+              <SvgDummyImage class="w-28 max-h-full max-w-full" />
+            </div>
+            <div
+              class="absolute badge left-1 bottom-1 badge-sm"
+              v-if="p.skills.length"
+            >
+              {{ p.skills.length }} Skills
+            </div>
+          </figure>
+          <div class="card-body grow flex justify-end">
+            <div class="flex flex-col gap-0">
+              <p v-if="p.company" class="font-semibold text-lg capitalize">{{
+                p.company
+              }}</p>
+              <p class="xl:line-clamp-3 line-clamp-2 text-sm">
+                {{ p.description }}
+              </p>
+            </div>
+
+            <div class="max-lg:hidden flex gap-3 justify-end">
               <NuxtLink
-                class="btn btn-warning btn-sm pb-7"
+                class="btn btn-warning btn-sm 2xl:btn-md text-xs"
                 :to="`/admin/projects/update?id=${p.id}`"
               >
-                <LucideFilePenLine :size="20" />
+                <LucideFilePenLine :size="20" /> Edit
               </NuxtLink>
-            </li>
-            <li>
               <button
-                class="btn btn-error btn-sm pb-7"
+                class="btn btn-error btn-sm 2xl:btn-md text-xs"
                 @click="
                   showDeleteModal = true;
                   removeData = p;
                 "
               >
-                <LucideTrash2 :size="20" />
+                <LucideTrash2 :size="20" /> Remove
               </button>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body flex-none">
-          <h2 class="card-title capitalize max-md:text-base line-clamp-1">
-            {{ p.title }}
-          </h2>
-          <div class="flex max-sm:flex-col justify-between max-sm:gap-1">
-            <div class="text-xs">
-              {{ p.readDateTime }} - {{ p.readEndDateTime }}
             </div>
-            <div class="text-xs font-semibold">{{ p.status }}</div>
-          </div>
-        </div>
-        <figure class="relative">
-          <div
-            v-if="p.photos.length"
-            class="aspect-video flex justify-center items-center bg-neutral/10"
-          >
-            <img
-              :src="apiUri + p.photos[0].path"
-              class="max-h-full max-w-full"
-            />
-          </div>
-          <div
-            v-else
-            class="aspect-video w-full bg-neutral/20 flex justify-center items-center"
-          >
-            <SvgDummyImage class="w-28 max-h-full max-w-full" />
-          </div>
-          <div
-            class="absolute badge left-1 bottom-1 badge-sm"
-            v-if="p.skills.length"
-          >
-            {{ p.skills.length }} Skills
-          </div>
-        </figure>
-        <div class="card-body grow flex justify-end">
-          <div class="flex flex-col gap-0">
-            <p v-if="p.company" class="font-semibold text-lg capitalize">{{
-              p.company
-            }}</p>
-            <p class="xl:line-clamp-3 line-clamp-2 text-sm">
-              {{ p.description }}
-            </p>
-          </div>
-
-          <div class="max-lg:hidden flex gap-3 justify-end">
-            <NuxtLink
-              class="btn btn-warning btn-sm 2xl:btn-md text-xs"
-              :to="`/admin/projects/update?id=${p.id}`"
-            >
-              <LucideFilePenLine :size="20" /> Edit
-            </NuxtLink>
-            <button
-              class="btn btn-error btn-sm 2xl:btn-md text-xs"
-              @click="
-                showDeleteModal = true;
-                removeData = p;
-              "
-            >
-              <LucideTrash2 :size="20" /> Remove
-            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="ProjectStore.projects.length == 0">
-      <SvgNodata class="w-52 md:w-96 mx-auto" />
-      <div class="text-xl font-bold text-center mt-5"> Data is not found </div>
-    </div>
-    <div class="flex justify-end mt-5">
-      <div class="join mb-2">
-        <button
-          class="join-item btn btn-sm"
-          @click="
-            page--;
-            getData();
-          "
-          :disabled="page == 1"
-          ><</button
-        >
-        <button class="join-item btn btn-sm"
-          >Page {{ page }} of {{ ProjectStore.maxPage }}</button
-        >
-        <button
-          class="join-item btn btn-sm"
-          @click="
-            page++;
-            getData();
-          "
-          :disabled="page == ProjectStore.maxPage"
-          >></button
-        >
+      <!-- NO PROJECT -->
+      <div v-if="ProjectStore.projects.length == 0">
+        <SvgNodata class="w-52 md:w-96 mx-auto" />
+        <div class="text-xl font-bold text-center mt-5">
+          Data is not found
+        </div>
+      </div>
+      <!-- LOWER PAGINATION -->
+      <div class="flex justify-end mt-5">
+        <div class="join mb-2">
+          <button
+            class="join-item btn btn-sm"
+            @click="
+              page--;
+              getData();
+            "
+            :disabled="page == 1"
+            ><</button
+          >
+          <button class="join-item btn btn-sm"
+            >Page {{ page }} of {{ ProjectStore.maxPage }}</button
+          >
+          <button
+            class="join-item btn btn-sm"
+            @click="
+              page++;
+              getData();
+            "
+            :disabled="page == ProjectStore.maxPage"
+            >></button
+          >
+        </div>
       </div>
     </div>
+    <!-- CONTENT SKELETON -->
+    <AdminProjectsSkeleton v-else />
 
     <!-- MODALS -->
     <LazyAdminModalConfirm
