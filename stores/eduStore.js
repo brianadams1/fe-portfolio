@@ -8,15 +8,8 @@ export const useEducationStore = defineStore("educations", {
   actions: {
     async get() {
       const Api = useApiStore();
-      const minimumDelay = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
-      });
-      const response = await Promise.all([
-        Api.get("/educations"),
-        minimumDelay,
-      ]);
+
+      const response = await Promise.all([Api.get("/educations"), delay]);
       this.educations = response[0];
     },
     async create(data) {

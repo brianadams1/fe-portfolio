@@ -8,15 +8,8 @@ export const useExperienceStore = defineStore("experiences", {
   actions: {
     async get() {
       const Api = useApiStore();
-      const minimumDelay = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
-      });
-      const response = await Promise.all([
-        Api.get("/experiences"),
-        minimumDelay,
-      ]);
+
+      const response = await Promise.all([Api.get("/experiences"), delay]);
       this.experiences = response[0];
     },
     async remove(id) {

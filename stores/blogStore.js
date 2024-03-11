@@ -17,14 +17,10 @@ export const useBlogStore = defineStore("blog", {
     // Read
     async get(page = 1, search = "") {
       const Api = useApiStore();
-      const minimumDelay = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
-      });
+
       const response = await Promise.all([
         Api.get(`/blogs?limit=12&page=${page}&search=${search}`),
-        minimumDelay,
+        delay,
       ]);
       this.data = response[0];
     },

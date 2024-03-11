@@ -37,7 +37,6 @@
 </template>
 
 <script setup>
-// import {useCounterStore} from '../../stores/counterStore'
 definePageMeta({
   layout: "admin",
   middleware: ["auth"],

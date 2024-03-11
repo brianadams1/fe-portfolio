@@ -10,12 +10,7 @@ export const useSkillStore = defineStore("skill", {
   actions: {
     async get() {
       const Api = useApiStore();
-      const minimumDelay = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
-      });
-      const response = await Promise.all([Api.get("/skills"), minimumDelay]);
+      const response = await Promise.all([Api.get("/skills"), delay]);
       this.skills = response[0];
     },
     async get_categories() {
