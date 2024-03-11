@@ -67,6 +67,7 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <AdminProjectsSkeletonTable v-if="ProjectStore.data == null" />
       <div
         v-for="p in ProjectStore.projects"
         class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
