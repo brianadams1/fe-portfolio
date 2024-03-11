@@ -67,6 +67,7 @@
 
     <!-- TODO SUCCESS ALERT -->
     <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+      <AdminBlogsSkeletonTable v-if="BlogStore.data == null" />
       <div
         v-for="b in BlogStore.blogs"
         class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
@@ -108,14 +109,16 @@
           <img v-if="b.photos.length" :src="apiUri + b.photos[0].path" />
           <div v-else class="aspect-video w-full bg-neutral/20"></div>
         </figure>
-        <div class="card-body">
-          <div class="card-title line-clamp-2 capitalize text-lg">{{
-            b.title
-          }}</div>
-          <p
-            class="card-title xl:line-clamp-3 line-clamp-2 text-sm font-medium"
-            >{{ b.content }}</p
-          >
+        <div class="card-body flex justify-end">
+          <div>
+            <div class="card-title line-clamp-2 capitalize text-lg">{{
+              b.title
+            }}</div>
+            <p
+              class="card-title xl:line-clamp-3 line-clamp-2 text-sm font-medium"
+              >{{ b.content }}</p
+            >
+          </div>
           <div class="max-lg:hidden flex gap-3 justify-end">
             <NuxtLink
               class="btn btn-warning btn-sm 2xl:btn-md text-xs"
