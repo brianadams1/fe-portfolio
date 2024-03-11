@@ -67,7 +67,7 @@
 
     <!-- TODO SUCCESS ALERT -->
     <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-      <AdminBlogsSkeletonTable v-if="BlogStore.data == null" />
+      <AdminBlogsSkeletonTable v-if="true" />
       <div
         v-for="b in BlogStore.blogs"
         class="card card-compact bg-base-100 shadow-xl relative rounded-md overflow-hidden"
@@ -106,8 +106,21 @@
           </ul>
         </div>
         <figure>
-          <img v-if="b.photos.length" :src="apiUri + b.photos[0].path" />
-          <div v-else class="aspect-video w-full bg-neutral/20"></div>
+          <div
+            v-if="b.photos.length"
+            class="aspect-video flex justify-center items-center bg-neutral/10"
+          >
+            <img
+              :src="apiUri + b.photos[0].path"
+              class="max-h-full max-w-full"
+            />
+          </div>
+          <div
+            v-else
+            class="aspect-video w-full bg-neutral/20 flex justify-center items-center"
+          >
+            <SvgDummyImage class="w-28 max-h-full max-w-full" />
+          </div>
         </figure>
         <div class="card-body flex justify-end">
           <div>
