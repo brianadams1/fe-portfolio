@@ -117,8 +117,21 @@
           </div>
         </div>
         <figure class="relative">
-          <img v-if="p.photos.length" :src="apiUri + p.photos[0].path" />
-          <div v-else class="aspect-video w-full bg-neutral/20"></div>
+          <div
+            v-if="p.photos.length"
+            class="aspect-video flex justify-center items-center bg-neutral/10"
+          >
+            <img
+              :src="apiUri + p.photos[0].path"
+              class="max-h-full max-w-full"
+            />
+          </div>
+          <div
+            v-else
+            class="aspect-video w-full bg-neutral/20 flex justify-center items-center"
+          >
+            <SvgDummyImage class="w-28 max-h-full max-w-full" />
+          </div>
           <div
             class="absolute badge left-1 bottom-1 badge-sm"
             v-if="p.skills.length"
