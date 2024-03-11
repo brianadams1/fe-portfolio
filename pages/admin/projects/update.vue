@@ -306,9 +306,6 @@
       Save
       <SvgCat v-show="isLoading" class="w-10" />
     </button>
-    <div class="text-error text-right text-sm" v-if="fetchError">{{
-      fetchError
-    }}</div>
   </div>
 
   <!-- skill selector -->
@@ -407,7 +404,9 @@ const handleFile = (e) => {
     reader.readAsDataURL(file);
     reader.onload = () => {
       if (photoPreviews.value.length < 10) {
+        // New photos
         photoFiles.push(file);
+        // Old photos
         photoPreviews.value.push({ path: reader.result });
       }
     };
@@ -427,7 +426,7 @@ const addSkill = (s) => {
 const handleSave = async () => {
   // reset error
   errors.value = {};
-  fetchError.value = {};
+  fetchError.value = "";
 
   // hide modal
   showCreateConfirm.value = false;
@@ -451,7 +450,7 @@ const handleSave = async () => {
     setTimeout(() => {
       successAlert.value = false;
     }, 1500);
-    // navigateTo("/admin/projects");
+    navigateTo("/admin/projects");
   } catch (error) {
     console.log(error);
     isLoading.value = false;
