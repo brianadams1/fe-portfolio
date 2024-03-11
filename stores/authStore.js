@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { useApiStore } from "./apiStore";
+import { createUserValidation } from "../utils/authValidation";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({ user: null }),
@@ -34,6 +36,16 @@ export const useAuthStore = defineStore("auth", {
       data = Validate(updateUserValidation, data);
       // data.name = data.name.replace("/[W_]+/g", " ");
       this.user = await Api.put("/user", data);
+    },
+    async isUserExist() {
+      const Api = useApiStore();
+      const { isExist } = await Api.get("/is-user-exist");
+      return isExist;
+    },
+    async createUser(data) {
+      data = Validate(createUserValidation, data);
+      const Api = useApiStore();
+      await Api.post("/first-user", data);
     },
   },
 });

@@ -23,4 +23,15 @@ const updateUserValidation = Joi.object({
     .options({ messages: { "any.only": "{{#label}} not match" } }),
 });
 
-export { loginValidation, updateUserValidation };
+const createUserValidation = Joi.object({
+  name: isString100.required().label("Name").replace(/\W+/g, " "),
+  email: isEmail.required().label("Email"),
+  password: isPassword.required().label("New Password"),
+  password_confirm: isPassword
+    .valid(Joi.ref("password"))
+    .required()
+    .label("Confirm New Password")
+    .options({ messages: { "any.only": "{{#label}} not match" } }),
+});
+
+export { loginValidation, updateUserValidation, createUserValidation };
